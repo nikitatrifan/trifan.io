@@ -1,21 +1,18 @@
 import React from 'react'
 import windowSize from 'react-window-size'
 import classNames from 'classnames'
-import Container from '../components/Container'
-import Heading from '../components/Heading'
-import Paragraph from '../components/Paragraph'
-import ButtonShadow from '../components/ButtonShadow'
-import ButtonText from '../components/ButtonText'
-import Box from '../components/Box'
+import Container from '../Container'
 import injectStyles from 'react-jss'
+import SlideAbout from '../SlideAbout'
 import {Power0, TimelineMax, TweenMax} from "gsap";
-import getNodeRelativeViewportPercentPosition from "../helpers/getNodeRelativeViewportPercentPosition";
+import getNodeRelativeViewportPercentPosition from "../../helpers/getNodeRelativeViewportPercentPosition";
 
-class Work extends React.Component {
+class BGASlide extends React.Component {
     images = [];
     componentDidMount() {
         setTimeout(() => {
             this.tl = this.tween();
+            this.scrollHandler();
             window.addEventListener('scroll', this.scrollHandler);
         }, 300);
     }
@@ -47,56 +44,62 @@ class Work extends React.Component {
             ease: Power0.easeNone
         }, 1);
 
-        tl.staggerFromTo(this.images, dur, {
-            y: windowHeight / 5
-        }, {
-            y: - windowHeight / 5,
-            ease: Power0.easeNone
-        }, 1, '0');
+        const y = windowHeight / 5;
 
-        tl.fromTo(this.content, dur, {
+        tl.staggerFromTo(this.images, dur,
+            {y},
+            {
+                y: -y, ease: Power0.easeNone
+            },
+            1,
+            '0'
+        );
+
+        tl.fromTo(this.content, dur / 2, {
             opacity: 0,
+            y: 100,
         }, {
+            y: - 100,
             opacity: 1,
             ease: Power0.easeNone
         }, '0');
 
+        tl.fromTo([...this.images].reverse(), dur / 2, {
+            opacity: 1,
+        }, {
+            opacity: 0,
+            ease: Power0.easeNone
+        }, dur * 1.1);
+
+        tl.to(this.content, dur / 2, {
+            opacity: 0,
+            ease: Power0.easeNone
+        }, dur);
+
         return tl;
     };
+
+    buttonClickHandler = () =>
+        TweenMax.to(window, .7, {scrollTo: (this.props.index * 2) * window.innerHeight});
 
     render() {
         const { classes } = this.props;
         return (
             <div ref={b => this.wrapper = b} className={classes.wrapper}>
                 <Container>
-                    <div ref={b => this.content = b} className={classes.content}>
-                        <Box justify="start" align="start">
-                            <Paragraph className={classes.label} size={6}>
-                                design
-                            </Paragraph>
-                            <Paragraph className={classes.label} size={6}>
-                                front-end
-                            </Paragraph>
-                            <Paragraph className={classes.label} size={6}>
-                                back-end
-                            </Paragraph>
-                        </Box>
-                        <Heading className={classes.title}>
-                            Boosted Gym Assistant <br/>
-                            iOS Application
-                        </Heading>
-                        <Paragraph className={classes.paragraph}>
-                            The app is designed to make user’s trainings at a gym
-                            easier and help to improve his body by the right way.
-                        </Paragraph>
-                        <Box justify="start" align="center">
-                            <ButtonShadow>
-                                Explore more
-                            </ButtonShadow>
-                            <ButtonText className={classes.textButton}>
-                                Show demo
-                            </ButtonText>
-                        </Box>
+                    <div ref={b => this.content = b}>
+                        <SlideAbout
+                            onButtonClick={this.buttonClickHandler}
+                            labels={['design', 'front-end', 'back-end']}
+                            title={(
+                                'Boosted Gym Assistant \n' +
+                                'iOS Application'
+                            )}
+                            description={(
+                                'The app is designed to make user’s trainings at a gym\n' +
+                                'easier and help to improve his body by the right way.'
+                            )}
+                        />
                     </div>
                 </Container>
                 <div className={classes.images}>
@@ -145,24 +148,8 @@ const styles = {
         justifyContent: 'center',
         backgroundColor: '#FAFAFA',
         position: 'relative',
-        overflow: 'hidden',
-        marginBottom: '100vh'
-    },
-    content: {
-        maxWidth: '450px'
-    },
-    label: {
-        marginRight: '12px',
-    },
-    title: {
-        margin: '20px 0 30px'
-    },
-    paragraph: {
-        marginBottom: '50px',
-        opacity: .5
-    },
-    textButton: {
-        marginLeft: 50
+        zIndex: 1
+        //overflow: 'hidden',
     },
     images: {
         display: 'flex',
@@ -196,4 +183,4 @@ const styles = {
     }
 };
 
-export default windowSize(injectStyles(styles)(Work));
+export default windowSize(injectStyles(styles)(BGASlide));

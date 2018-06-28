@@ -5,13 +5,19 @@ import injectStyles from 'react-jss'
 
 class ButtonShadow extends React.Component {
   render() {
-      const { classes, className, children, ...props } = this.props;
+      const { classes, className, gradient, children, ...props } = this.props;
+      const buttonStyle = gradient && {
+          background: `linear-gradient(to right, ${gradient.join(', ')})`
+      };
+      const shadowStyle = gradient && {
+          backgroundColor: gradient[gradient.length - 1]
+      };
       return (
           <div className={classNames(classes.wrapper, className)}>
-              <button {...props} className={classes.button}>
+              <button style={buttonStyle} {...props} className={classes.button}>
                   {children}
               </button>
-              <span className={classes.shadow}/>
+              <span style={shadowStyle} className={classes.shadow}/>
           </div>
       )
   }

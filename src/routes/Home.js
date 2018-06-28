@@ -1,7 +1,9 @@
 import React from 'react'
 import Navigation from '../components/Navigation'
-import Work from '../routes/Work'
 import IntroSlide from '../components/slides/IntroSlide'
+import YoapSlide from '../components/slides/YoapSlide'
+import USSlide from '../components/slides/USSlide'
+import BGASlide from '../components/slides/BGASlide'
 import { TweenMax, Power0 } from 'gsap'
 import 'gsap/ScrollToPlugin'
 import injectStyles from 'react-jss'
@@ -32,24 +34,23 @@ class Home extends React.Component{
         this.logoFlashingAnimation();
     }
 
-    scrollTo = () => {
-        TweenMax.to(window, .7, {scrollTo: window.innerHeight});
-    };
-
     render() {
         const { classes } = this.props;
         const { isLogoFlashing } = this.state;
         return (
-            <div onClick={this.scrollTo} className={classes.wrapper}>
+            <div className={classes.wrapper}>
                 <Navigation className={classes.nav} logo={isLogoFlashing && (
                     <span className={classes.loading} ref={b => this.logo = b}>
                         reading image...
                     </span>
                 )}  />
                 <IntroSlide
+                    noAnimation
                     onMatrixRainingCodeComplete={this.completeRainingCodeHandler}
                 />
-                <Work />
+                <BGASlide />
+                <YoapSlide />
+                <USSlide />
             </div>
         )
     }

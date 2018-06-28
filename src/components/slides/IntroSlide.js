@@ -16,6 +16,7 @@ class IntroSlide extends React.Component{
 
         setTimeout(() => {
             this.tl = this.tween();
+            this.scrollHandler();
             window.addEventListener('scroll', this.scrollHandler, false);
         }, 300);
     }
@@ -88,7 +89,7 @@ class IntroSlide extends React.Component{
                 <div className={classes.background}>
                     <div ref={b => this.bg = b} className={classes.backgroundContent}>
                         <MatrixRainingCode
-                            //noAnimation
+                            noAnimation={this.props.noAnimation}
                             onComplete={onMatrixRainingCodeComplete}
                         />
                     </div>
@@ -102,6 +103,8 @@ class IntroSlide extends React.Component{
 const styles = {
     wrapper: {
         width: '100%', height: '100vh',
+        position: 'relative',
+        zIndex: 2
     },
     content: {
         width: '100%',
