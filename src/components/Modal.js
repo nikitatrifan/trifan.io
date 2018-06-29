@@ -18,19 +18,7 @@ class Modal extends React.Component {
         modalRoot.style.opacity = 0;
     }
 
-    get dur() {
-        const maxDur = 1.5;
-        const minDur = .7;
-        let val = this.props.windowWidth / 2000;
-
-        if (val < minDur) {
-            val = minDur;
-        } else if (val > maxDur) {
-            val = maxDur;
-        }
-
-        return val;
-    }
+    dur = .5;
 
     componentDidMount() {
         modalRoot.appendChild(this.el);

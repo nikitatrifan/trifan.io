@@ -25,5 +25,5 @@ export default node => {
         );
     }
 
-    return parseFloat(Math.min(val, 1).toFixed(2));
+    return parseFloat(Math.min(val, 1));
 }

@@ -28,7 +28,8 @@ class BGASlide extends React.Component {
             return false;
 
         TweenMax.to(this.tl, 0, {
-            progress: percent
+            progress: percent,
+            ease: Power0.easeNone
         })
     };
 

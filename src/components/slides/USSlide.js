@@ -27,7 +27,8 @@ class USSLide extends React.Component {
             return false;
 
         TweenMax.to(this.tl, 0, {
-            progress: percent
+            progress: percent,
+            ease: Power0.easeNone
         })
     };
 
@@ -68,8 +69,6 @@ class USSLide extends React.Component {
             ease: Power0.easeNone,
             opacity: 0
         }, dur * 1.2);
-
-
 
         return tl;
     };

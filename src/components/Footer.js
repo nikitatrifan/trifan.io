@@ -2,7 +2,7 @@ import React from 'react'
 import Waypoint from 'react-waypoint'
 import injectStyles from 'react-jss'
 import classNames from 'classnames'
-import { TweenMax } from 'gsap'
+import {Power0, TimelineMax, TweenMax} from 'gsap'
 import Container from './Container'
 import Link from './Link'
 import Paragraph from './Paragraph'
@@ -20,25 +20,80 @@ class Footer extends React.Component{
     }];
 
     enterHandler = () => {
+        if (this.isFaded)
+            return;
+
+        this.isFaded = true;
         TweenMax.staggerFromTo(this.links.children, .7, {
             opacity: 0, x: -10
         }, {
             opacity: 1, x: 0,
         }, .04)
     };
+
+    componentDidMount() {
+        setTimeout(() => {
+            this.tl = this.tween();
+            this.scrollHandler();
+        }, 300);
+        window.addEventListener('scroll', this.scrollHandler);
+    }
+    componentDidUpdate(prevProps) {
+        if (prevProps.windowWidth !== this.props.windowWidth) {
+            return this.resizeHandler()
+        }
+    }
+    componentWillUnmount() {
+        window.removeEventListener('scroll', this.scrollHandler);
+    }
+
+    scrollHandler = () => {
+        const rect = this.wrapper.getBoundingClientRect();
+        const { height, top } = rect;
+        const scrollY = (top - parseInt(window.innerHeight, 10)) + height;
+        const percent = 1 - (scrollY / height);
+        if (scrollY > height || percent < 0 || percent > 1) {
+            return false;
+        }
+
+        if (percent > 0.5) {
+            this.enterHandler();
+        }
+
+        TweenMax.to(this.tl, 0, {
+            progress: percent,
+            ease: Power0.easeNone
+        })
+    };
+    tween = () => {
+        const tl = new TimelineMax({ paused: true });
+        const height = parseInt(this.scroller.clientHeight, 10);
+        const dur = 1;
+
+        tl.fromTo(this.scroller, dur, {
+            y: -height, opacity: 0
+        }, {
+            y: 0, opacity: 1,
+            ease: Power0.easeNone
+        });
+
+        return tl;
+    };
+
     render() {
         const { classes, logo, theme, className } = this.props;
 
         return (
-            <Waypoint onEnter={this.enterHandler}>
-                <footer id="footer" className={classNames(classes.wrapper, classes[theme], className)}>
+            <footer ref={b => this.wrapper = b} id="footer"
+                    className={classNames(classes.wrapper, classes[theme], className)}>
+                <div ref={b => this.scroller = b} className={classes.scroller}>
                     <Container className={classes.container}>
                         <Box wrap justify="between" align="center">
                             <Box align="center" className={classes.col}>
                                 <div ref={b => this.links = b} className={classes.links}>
                                     {Footer.links.map(it => (
                                         <Link className={classes.link} target="__blank"
-                                           key={it.href} to={it.href}>
+                                              key={it.href} to={it.href}>
                                             {it.title}
                                         </Link>
                                     ))}
@@ -56,8 +111,8 @@ class Footer extends React.Component{
                             </Box>
                         </Box>
                     </Container>
-                </footer>
-            </Waypoint>
+                </div>
+            </footer>
         )
     }
 }
@@ -67,7 +122,12 @@ const styles = {
         display: 'block',
         width: '100%',
         color: '#fff',
-        transition: 'color .35s ease-in-out'
+        transition: 'color .35s ease-in-out',
+        backgroundColor: theme.lightGrayColor,
+        overflowY: 'hidden'
+    },
+    scroller: {
+
     },
     col: {
         width: '33%',

@@ -5,6 +5,7 @@ import Link from '../../components/Link'
 import Box from '../../components/Box'
 import Heading from '../../components/Heading'
 import Paragraph from '../../components/Paragraph'
+import ComponentFadeIn from '../../components/ComponentFadeIn'
 import theme from "../../theme";
 
 class YoapTechnologies extends React.Component {
@@ -35,27 +36,33 @@ class YoapTechnologies extends React.Component {
         return (
             <div className={classes.wrapper}>
                 <Container type="content">
-                    <Heading color={theme.whiteColor} size="2">
-                        Technologies
-                    </Heading>
-                    <Paragraph opacity size="3" color={theme.whiteColor} margin="small">
-                        The client-side is single-page web app developed on React and MobX.
-                        Transition between pages is instant because of no page reloading.
-                        The server-side is written on Node.js and as database we are using MongoDB.
-                    </Paragraph>
+                    <ComponentFadeIn>
+                        <Heading color={theme.whiteColor} size="2">
+                            Technologies
+                        </Heading>
+                    </ComponentFadeIn>
+                    <ComponentFadeIn delay={.04}>
+                        <Paragraph opacity size="3" color={theme.whiteColor} margin="small">
+                            The client-side is single-page web app developed on React and MobX.
+                            Transition between pages is instant because of no page reloading.
+                            The server-side is written on Node.js and as database we are using MongoDB.
+                        </Paragraph>
+                    </ComponentFadeIn>
 
                     <Box wrap className={classes.tech} align="start" justify="start">
-                        {YoapTechnologies.data.map(item => (
-                            <div key={item.title} className={classes.item}>
-                                <Link to={item.link} target="__blank" color={theme.whiteColor} icon>
-                                    <Paragraph size={3} color={theme.whiteColor}  margin="small">
-                                        {item.title}
-                                    </Paragraph>
-                                </Link>
-                                <div className={classes.image_wrapper}>
-                                    <img className={classes.image} src={item.image} alt={item.title}/>
+                        {YoapTechnologies.data.map((item, idx) => (
+                            <ComponentFadeIn key={item.title} delay={idx * .04}>
+                                <div className={classes.item}>
+                                    <Link to={item.link} target="__blank" color={theme.whiteColor} icon>
+                                        <Paragraph size={3} color={theme.whiteColor}  margin="small">
+                                            {item.title}
+                                        </Paragraph>
+                                    </Link>
+                                    <div className={classes.image_wrapper}>
+                                        <img className={classes.image} src={item.image} alt={item.title}/>
+                                    </div>
                                 </div>
-                            </div>
+                            </ComponentFadeIn>
                         ))}
                     </Box>
                 </Container>

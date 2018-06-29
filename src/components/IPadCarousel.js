@@ -115,7 +115,7 @@ class IPadCarousel extends React.Component {
                                      left: `${(idx*100) + 6}%`,
                                      opacity: idx === slide ? 1 : this.inactiveOpacity
                                  }}>
-                                <img className={classes.image} src={it} />
+                                <img className={classes.image} src={it} alt="YOAP Website Screen" />
                             </div>
                         ))}
                     </div>

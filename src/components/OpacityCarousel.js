@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Waypoint from 'react-waypoint'
+import Waypoint from './Waypoint'
 import { TweenMax } from 'gsap'
 
 export default class OpacityCarousel extends React.Component {

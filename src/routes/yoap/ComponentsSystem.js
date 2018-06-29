@@ -1,13 +1,16 @@
 import React from 'react'
-import { TweenMax } from 'gsap'
+import {TimelineMax, TweenMax} from 'gsap'
 import injectStyle from 'react-jss'
 import Container from '../../components/Container'
 import Heading from '../../components/Heading'
 import Paragraph from '../../components/Paragraph'
 import Title from '../../components/Title'
 import ButtonText from '../../components/ButtonText'
+import ComponentFadeIn from '../../components/ComponentFadeIn'
 import Modal from "../../components/Modal";
 import theme from "../../theme"
+import getNodeRelativeViewportPercentPosition from "../../helpers/getNodeRelativeViewportPercentPosition";
+import IScroll from "iscroll/build/iscroll-probe";
 
 class YoapComponentsSystem extends React.Component {
     static data = [
@@ -64,26 +67,33 @@ class YoapComponentsSystem extends React.Component {
         const { imagePath, hiddenMaxIdx } = this;
         const content = isModal => (
             <div>
-                <Heading size="2">
-                    Components System
-                </Heading>
-                <Paragraph opacity size="3" margin="small">
-                    Each component is reusable. Each smart component has one data flow at everywhere with saved
-                    user settings\actions. The result of the approach: unique framework for all client needs.
-                </Paragraph>
+                <ComponentFadeIn noAnimation={isModal}>
+                    <Heading size="2">
+                        Components System
+                    </Heading>
+                </ComponentFadeIn>
+                <ComponentFadeIn delay={.04} noAnimation={isModal}>
+                    <Paragraph opacity size="3" margin="small">
+                        Each component is reusable. Each smart component has one data flow at everywhere with saved
+                        user settings\actions. The result of the approach: unique framework for all client needs.
+                    </Paragraph>
+                </ComponentFadeIn>
+
                 <div className={classes.components}>
                     {YoapComponentsSystem.data.map((component, idx) => {
                         if (!isModal && idx > hiddenMaxIdx)
                             return null;
 
                         return (
-                            <div key={component.title}>
-                                <Title size={2}>{component.title}</Title>
-                                <img
-                                    className={classes.component_image}
-                                    src={`${imagePath}${component.image}`} alt={component.title}
-                                />
-                            </div>
+                            <ComponentFadeIn delay={idx * 0.04} noAnimation={isModal}>
+                                <div key={component.title}>
+                                    <Title size={2}>{component.title}</Title>
+                                    <img
+                                        className={classes.component_image}
+                                        src={`${imagePath}${component.image}`} alt={component.title}
+                                    />
+                                </div>
+                            </ComponentFadeIn>
                         )
                     })}
                 </div>
@@ -111,10 +121,11 @@ class YoapComponentsSystem extends React.Component {
 }
 
 const styles = {
-    wrapper: {
+    wrapper: props => ({
         backgroundColor: theme.lightGrayColor,
-        paddingTop: '57px'
-    },
+        paddingTop: '57px', position: 'relative',
+        zIndex: props.index
+    }),
     content: {
         paddingBottom: '53px'
     },
