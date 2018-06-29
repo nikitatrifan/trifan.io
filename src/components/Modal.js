@@ -106,14 +106,14 @@ class Modal extends React.Component {
                         {this.props.children}
                     </div>
                 </div>,
-                !backButton && <div key={1} className={classes.close} onClick={this.closeHandler}>
+                !backButton ? <div key={1} className={classes.close} onClick={this.closeHandler}>
                     <span className={classes.close_left} />
                     <span className={classes.close_right} />
-                </div> || undefined,
-                backButton && <div key={2} className={classes.back} onClick={this.closeHandler}>
+                </div> : undefined,
+                backButton ? <div key={2} className={classes.back} onClick={this.closeHandler}>
                     <span className={classes.arrow} />
                     <Title size={1} className={classes.back_title}>{backButtonText}</Title>
-                </div> || undefined,
+                </div> : undefined,
             ],
             this.el,
         );

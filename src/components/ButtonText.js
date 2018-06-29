@@ -1,9 +1,17 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import theme from '../theme'
 import injectStyles from 'react-jss'
 
 class ButtonText extends React.Component {
+    static propTypes = {
+        color: PropTypes.string,
+        className: PropTypes.string,
+        icon: PropTypes.bool,
+        children: PropTypes.any
+    };
+
     render() {
         const { classes, color = "#121212", className, icon, children, ...props } = this.props;
         const __className = classNames(

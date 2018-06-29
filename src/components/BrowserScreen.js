@@ -5,6 +5,11 @@ import injectStyles from 'react-jss'
 import Box from './Box'
 
 class BrowserScreen extends React.Component {
+    static propTypes = {
+        children: PropTypes.any.isRequired,
+        className: PropTypes.string,
+        title: PropTypes.any
+    };
     state = {
         contentWidth: 0,
     };

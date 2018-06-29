@@ -1,5 +1,4 @@
 import React from 'react'
-import {TimelineMax, TweenMax} from 'gsap'
 import injectStyle from 'react-jss'
 import Container from '../../components/Container'
 import Heading from '../../components/Heading'
@@ -9,10 +8,13 @@ import ButtonText from '../../components/ButtonText'
 import ComponentFadeIn from '../../components/ComponentFadeIn'
 import Modal from "../../components/Modal";
 import theme from "../../theme"
-import getNodeRelativeViewportPercentPosition from "../../helpers/getNodeRelativeViewportPercentPosition";
-import IScroll from "iscroll/build/iscroll-probe";
+import PropTypes from "prop-types";
 
 class YoapComponentsSystem extends React.Component {
+    static propTypes = {
+        index: PropTypes.number.isRequired
+    };
+
     static data = [
         {
             image: 'filter.jpg',
@@ -85,7 +87,7 @@ class YoapComponentsSystem extends React.Component {
                             return null;
 
                         return (
-                            <ComponentFadeIn delay={idx * 0.04} noAnimation={isModal}>
+                            <ComponentFadeIn key={idx} delay={idx * 0.04} noAnimation={isModal}>
                                 <div key={component.title}>
                                     <Title size={2}>{component.title}</Title>
                                     <img

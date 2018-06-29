@@ -1,10 +1,16 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import windowSize from 'react-window-size';
 import injectStyles from 'react-jss'
 import { TweenMax } from 'gsap'
 
 
 class MatrixRainingCode extends React.Component {
+    static propTypes = {
+        noAnimation: PropTypes.bool,
+        onComplete: PropTypes.func
+    };
+
     static initialImageScale = 1.15;
     static initialImageBlur = 200;
     columns = [];

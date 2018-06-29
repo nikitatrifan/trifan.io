@@ -1,5 +1,5 @@
 import React from 'react'
-import Waypoint from 'react-waypoint'
+import PropTypes from 'prop-types'
 import injectStyles from 'react-jss'
 import classNames from 'classnames'
 import {Power0, TimelineMax, TweenMax} from 'gsap'
@@ -10,7 +10,12 @@ import ButtonText from './ButtonText'
 import Box from './Box'
 import theme from '../theme.js'
 
-class Footer extends React.Component{
+class Footer extends React.Component {
+    static propTypes = {
+        theme: PropTypes.string,
+        className: PropTypes.string
+    };
+
     static links = [{
         href: 'https://instagram.com/latrifan',
         title: 'instagram'
@@ -81,7 +86,7 @@ class Footer extends React.Component{
     };
 
     render() {
-        const { classes, logo, theme, className } = this.props;
+        const { classes, theme, className } = this.props;
 
         return (
             <footer ref={b => this.wrapper = b} id="footer"

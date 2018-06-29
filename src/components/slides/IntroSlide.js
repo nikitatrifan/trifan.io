@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import windowSize from 'react-window-size'
 import Container from '../Container'
 import Heading from '../Heading'
@@ -10,6 +11,9 @@ import injectStyles from 'react-jss'
 import getNodeRelativeViewportPercentPosition from '../../helpers/getNodeRelativeViewportPercentPosition'
 
 class IntroSlide extends React.Component{
+    static propTypes = {
+        onMatrixRainingCodeComplete: PropTypes.func
+    }
     content = [];
     componentDidMount() {
         this.showContent();

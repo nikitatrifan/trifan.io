@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import {TimelineMax, TweenMax, Power0} from 'gsap'
 import Container from '../../components/Container'
 import Heading from '../../components/Heading'
@@ -11,6 +12,10 @@ import theme from "../../theme";
 import getNodeRelativeViewportPercentPosition from "../../helpers/getNodeRelativeViewportPercentPosition";
 
 class YoapCms extends React.Component {
+    static propTypes = {
+        index: PropTypes.number.isRequired
+    };
+
     static screens = [
         {
             image: 1,
@@ -91,8 +96,8 @@ class YoapCms extends React.Component {
                             {YoapCms.screens.map(it => (
                                 <ComponentFadeIn delay={0.2 + (it * 0.04)} key={it.image}>
                                     <div className={classes.image_wrapper}>
-                                        <BrowserScreen title={it.title} className={classes.image_screen}>
-                                            <img src={`/yoap/cms/${it.image}.jpg`} className={classes.image}/>
+                                        <BrowserScreen title={it.title} clYoapComponentsSystemassName={classes.image_screen}>
+                                            <img alt={`Yoap Screenshot #${it.image}`} src={`/yoap/cms/${it.image}.jpg`} className={classes.image}/>
                                         </BrowserScreen>
                                     </div>
                                 </ComponentFadeIn>

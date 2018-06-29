@@ -76,6 +76,14 @@ Paragraph.propTypes = {
         PropTypes.string, PropTypes.number
     ]),
     className: PropTypes.string,
+    weight: PropTypes.oneOfType([
+        PropTypes.string, PropTypes.number
+    ]),
+    margin: PropTypes.string,
+    style: PropTypes.object,
+    color: PropTypes.string,
+    upperCase: PropTypes.bool,
+    opacity: PropTypes.bool
 };
 
 export default injectStyles(styles)(Paragraph);

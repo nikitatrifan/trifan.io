@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import windowSize from 'react-window-size'
 import injectStyles from 'react-jss'
 import Waypoint from '../../components/Waypoint'
@@ -14,6 +15,10 @@ import theme from '../../theme'
 import {TweenMax, TimelineMax, Power0} from "gsap";
 
 class YoapInterface extends React.Component {
+    static propTypes = {
+        index: PropTypes.number.isRequired
+    };
+
     iScroll = null;
 
     setMapRef = b => this.map = b;
@@ -163,8 +168,8 @@ class YoapInterface extends React.Component {
                                 <Waypoint onEnter={this.mapFocusIn}>
                                     <div ref={this.setWrapperRef} className={classes.scrollMap}>
                                         <div ref={this.setMapRef} className={classes.scrollMapContainer}>
-                                            <img src="/yoap/map.jpg" className={classes.map}/>
-                                            <img src="/yoap/map-content.jpg" className={classes.map_content}/>
+                                            <img src="/yoap/map.jpg" alt="Yoap Map" className={classes.map}/>
+                                            <img src="/yoap/map-content.jpg" alt="Yoap Map Content" className={classes.map_content}/>
                                         </div>
                                     </div>
                                 </Waypoint>

@@ -1,9 +1,20 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import Waypoint from './Waypoint'
 import { findDOMNode } from 'react-dom'
 import { TweenMax } from 'gsap'
 
 export default class ComponentFadeIn extends React.Component {
+    static propTypes = {
+        gap: PropTypes.number,
+        minOpacity: PropTypes.number,
+        maxOpacity: PropTypes.number,
+        delay: PropTypes.number,
+        duration: PropTypes.number,
+        noReset: PropTypes.bool,
+        noAnimation: PropTypes.bool,
+    };
+
     static defaultProps = {
         gap: -40,
         minOpacity: 0,
@@ -11,7 +22,7 @@ export default class ComponentFadeIn extends React.Component {
         delay: 0,
         duration: .3,
         noReset: true,
-        noAnimation: false
+        noAnimation: false,
     };
 
     get block() {

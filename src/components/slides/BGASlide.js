@@ -80,9 +80,6 @@ class BGASlide extends React.Component {
         return tl;
     };
 
-    buttonClickHandler = () =>
-        TweenMax.to(window, .7, {scrollTo: (this.props.index * 2) * window.innerHeight});
-
     render() {
         const { classes } = this.props;
         return (

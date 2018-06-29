@@ -1,9 +1,15 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import windowSize from 'react-window-size'
-import getScrollY from '../helpers/getScrollY'
 import { findDOMNode } from 'react-dom'
 
 class Waypoint extends React.Component {
+    static propTypes = {
+        onLeave: PropTypes.func,
+        onEnter: PropTypes.func,
+        children: PropTypes.any
+    };
+
     isInFocus = false;
 
     isNodeInFocus = () => {

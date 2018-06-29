@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import { Link as RouterLink } from 'react-router-dom'
 import injectStyles from 'react-jss'
@@ -55,6 +56,18 @@ const styles = {
         marginLeft: '6px',
         opacity: .8
     }
+};
+
+Link.propTypes = {
+    icon: PropTypes.bool,
+    to: PropTypes.string,
+    color: PropTypes.string,
+    className: PropTypes.string,
+    children: PropTypes.any
+};
+
+Link.defaultProps = {
+    color: theme.textColor
 };
 
 export default injectStyles(styles)(Link)

@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import injectStyles from 'react-jss'
 
 const Container = ({className, type, classes, children, ...props}) => (
@@ -10,12 +11,26 @@ const Container = ({className, type, classes, children, ...props}) => (
 const styles = {
     wrapper: {
         width: '90%',
-        maxWidth: '1440px',
         margin: '0 auto'
     },
     content: {
         maxWidth: '767px',
+    },
+    default: {
+        maxWidth: '1440px',
     }
+};
+
+Container.propTypes = {
+    className: PropTypes.string,
+    children: PropTypes.any,
+    type: PropTypes.oneOf([
+        'content', 'default'
+    ]),
+};
+
+Container.defaultProps = {
+    type: 'default',
 };
 
 export default injectStyles(styles)(Container);

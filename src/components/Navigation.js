@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import Container from './Container'
 import { NavLink as RouterLink } from 'react-router-dom'
 import Box from './Box'
@@ -8,6 +9,12 @@ import { TweenMax } from 'gsap'
 import theme from '../theme.js'
 
 class Navigation extends React.Component{
+    static propTypes = {
+        theme: PropTypes.string,
+        className: PropTypes.string,
+        logo: PropTypes.any,
+    };
+
     static links = [{
         href: '/work',
         title: 'Work'

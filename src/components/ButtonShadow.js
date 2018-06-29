@@ -1,30 +1,38 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import { NavLink as RouterLink } from 'react-router-dom'
 import theme from '../theme'
 import injectStyles from 'react-jss'
 
 class ButtonShadow extends React.Component {
-  render() {
-      const { classes, className, gradient, children, to, ...props } = this.props;
-      const buttonStyle = gradient && {
-          background: `linear-gradient(to right, ${gradient.join(', ')})`
-      };
-      const shadowStyle = gradient && {
-          backgroundColor: gradient[gradient.length - 1]
-      };
+    static propTypes = {
+        className: PropTypes.string,
+        gradient: PropTypes.array,
+        children: PropTypes.any,
+        to: PropTypes.string
+    };
 
-      const Wrapper = to ? RouterLink : 'div';
+    render() {
+        const { classes, className, gradient, children, to, ...props } = this.props;
+        const buttonStyle = gradient && {
+            background: `linear-gradient(to right, ${gradient.join(', ')})`
+        };
+        const shadowStyle = gradient && {
+            backgroundColor: gradient[gradient.length - 1]
+        };
 
-      return (
-          <Wrapper className={classNames(classes.wrapper, className)} to={to}>
-              <button style={buttonStyle} {...props} className={classes.button}>
-                  {children}
-              </button>
-              <span style={shadowStyle} className={classes.shadow}/>
-          </Wrapper>
-      )
-  }
+        const Wrapper = to ? RouterLink : 'div';
+
+        return (
+            <Wrapper className={classNames(classes.wrapper, className)} to={to}>
+                <button style={buttonStyle} {...props} className={classes.button}>
+                    {children}
+                </button>
+                <span style={shadowStyle} className={classes.shadow}/>
+            </Wrapper>
+        )
+    }
 }
 
 const styles = {

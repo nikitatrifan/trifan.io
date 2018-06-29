@@ -5,7 +5,8 @@ import { TweenMax } from 'gsap'
 
 export default class OpacityCarousel extends React.Component {
     static propTypes = {
-        children: PropTypes.array.isRequired
+        children: PropTypes.array.isRequired,
+        className: PropTypes.string
     };
 
     state = {

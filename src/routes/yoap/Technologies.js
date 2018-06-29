@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import injectStyles from 'react-jss'
 import Container from '../../components/Container'
 import Link from '../../components/Link'
@@ -11,6 +12,10 @@ import {Power0, TimelineMax, TweenMax} from "gsap";
 import getNodeRelativeViewportPercentPosition from "../../helpers/getNodeRelativeViewportPercentPosition";
 
 class YoapTechnologies extends React.Component {
+    static propTypes = {
+        index: PropTypes.number.isRequired
+    };
+
     static data = [
         {
             image: '/icons/logos/react.png',
@@ -121,9 +126,11 @@ class YoapTechnologies extends React.Component {
 }
 
 const styles = {
-    wrapper: {
+    wrapper: props => ({
         backgroundColor: '#1C1C26',
-    },
+        position: 'relative',
+        zIndex: props.index
+    }),
     scroller: {
         padding: '60px 0 80px',
     },

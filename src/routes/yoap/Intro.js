@@ -11,8 +11,13 @@ import Link from '../../components/Link'
 import getNodeRelativeViewportPercentPosition from '../../helpers/getNodeRelativeViewportPercentPosition'
 import { TweenMax, TimelineMax, Power0 } from 'gsap'
 import theme from '../../theme'
+import PropTypes from "prop-types";
 
 class YoapIntroSlide extends React.Component {
+    static propTypes = {
+        index: PropTypes.number.isRequired
+    };
+
     componentDidMount() {
         setTimeout(() => {
             this.tl = this.tween();
