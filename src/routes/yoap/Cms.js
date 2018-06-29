@@ -4,12 +4,27 @@ import Container from '../../components/Container'
 import Heading from '../../components/Heading'
 import Paragraph from '../../components/Paragraph'
 import ComponentFadeIn from '../../components/ComponentFadeIn'
+import BrowserScreen from '../../components/BrowserScreen'
 import Box from '../../components/Box'
 import injectStyle from 'react-jss'
 import theme from "../../theme";
 import getNodeRelativeViewportPercentPosition from "../../helpers/getNodeRelativeViewportPercentPosition";
 
 class YoapCms extends React.Component {
+    static screens = [
+        {
+            image: 1,
+            title: 'yoap'
+        },
+        {
+            image: 2,
+            title: 'yoap'
+        },
+        {
+            image: 3,
+            title: 'yoap'
+        }
+    ];
     scrollHandler = () => {
         const percent = getNodeRelativeViewportPercentPosition(this.wrapper);
 
@@ -73,10 +88,12 @@ class YoapCms extends React.Component {
                     </Container>
                     <Container className={classes.images}>
                         <Box wrap jusityf="start" align="start">
-                            {[1,2,3].map(it => (
-                                <ComponentFadeIn delay={0.2 + (it * 0.04)} key={it}>
+                            {YoapCms.screens.map(it => (
+                                <ComponentFadeIn delay={0.2 + (it * 0.04)} key={it.image}>
                                     <div className={classes.image_wrapper}>
-                                        <img src={`/yoap/cms/${it}.jpg`} className={classes.image}/>
+                                        <BrowserScreen title={it.title} className={classes.image_screen}>
+                                            <img src={`/yoap/cms/${it.image}.jpg`} className={classes.image}/>
+                                        </BrowserScreen>
                                     </div>
                                 </ComponentFadeIn>
                             ))}
@@ -100,11 +117,12 @@ const styles = {
     content: {
         paddingBottom: '37px'
     },
-    image: {
+    image_screen: {
         width: '95%', margin: '0 auto',
-        userSelect: 'none', pointerEvents: 'none',
-        boxShadow: '0 0 60px 1px rgba(0,0,0, .1)',
-        transition: 'transform .25s ease-in-out',
+    },
+    image: {
+        width: '100%', userSelect: 'none', pointerEvents: 'none',
+        display: 'block'
     },
     images: {
         paddingTop: '15px'
@@ -113,9 +131,6 @@ const styles = {
         width: '50%', marginBottom: '37px',
         '@media only screen and (max-width: 960px)': {
             width: '100%'
-        },
-        '&:hover img': {
-            transform: 'scale(1.01)'
         }
     }
 };

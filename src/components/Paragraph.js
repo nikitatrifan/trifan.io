@@ -42,7 +42,7 @@ const styles = {
         fontFamily: theme.mainFont,
         margin: 0, padding: 0,
         color: theme.textColor,
-        fontWeight: '400'
+        fontWeight: '100'
     },
     upperCase: {
         textTransform: 'upperCase'

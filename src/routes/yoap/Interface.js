@@ -1,11 +1,12 @@
 import React from 'react'
 import windowSize from 'react-window-size'
 import injectStyles from 'react-jss'
-import Waypoint from 'react-waypoint'
+import Waypoint from '../../components/Waypoint'
 import Heading from '../../components/Heading'
 import Paragraph from '../../components/Paragraph'
 import Container from '../../components/Container'
 import ComponentFadeIn from '../../components/ComponentFadeIn'
+import BrowserScreen from '../../components/BrowserScreen'
 import IPadCarousel from '../../components/IPadCarousel'
 import getNodeRelativeViewportPercentPosition from '../../helpers/getNodeRelativeViewportPercentPosition'
 import IScroll from 'iscroll/build/iscroll-probe.js'
@@ -90,8 +91,12 @@ class YoapInterface extends React.Component {
     mapFocusIn = () => {
         const longImage = this.map.children[1];
         const imageHeight = parseInt(longImage.clientHeight, 10);
-        this.iScroll.scrollTo(0, -imageHeight, 0);
-        this.iScroll.scrollTo(0, 0, 900, IScroll.utils.ease.circular);
+        setTimeout(() => {
+            this.iScroll.scrollTo(0, -imageHeight, 0);
+        }, 60);
+        setTimeout(() => {
+            this.iScroll.scrollTo(0, 0, 900, IScroll.utils.ease.circular);
+        }, 300)
     };
 
     componentDidUpdate(prevProps) {
@@ -152,16 +157,18 @@ class YoapInterface extends React.Component {
                                 and get routes from an apartment to that addresses.
                             </Paragraph>
                         </ComponentFadeIn>
-                        <ComponentFadeIn delay={.14}>
-                            <Waypoint onEnter={this.mapFocusIn}>
-                                <div ref={this.setWrapperRef} className={classes.scrollMap}>
-                                    <div ref={this.setMapRef} className={classes.scrollMapContainer}>
-                                        <img src="/yoap/map.jpg" className={classes.map}/>
-                                        <img src="/yoap/map-content.jpg" className={classes.map_content}/>
-                                    </div>
-                                </div>
-                            </Waypoint>
 
+                        <ComponentFadeIn delay={.14}>
+                            <BrowserScreen className={classes.scrollMapWrapper}>
+                                <Waypoint onEnter={this.mapFocusIn}>
+                                    <div ref={this.setWrapperRef} className={classes.scrollMap}>
+                                        <div ref={this.setMapRef} className={classes.scrollMapContainer}>
+                                            <img src="/yoap/map.jpg" className={classes.map}/>
+                                            <img src="/yoap/map-content.jpg" className={classes.map_content}/>
+                                        </div>
+                                    </div>
+                                </Waypoint>
+                            </BrowserScreen>
                         </ComponentFadeIn>
                     </Container>
                 </div>
@@ -196,10 +203,13 @@ const styles = {
     },
     scrollMap: {
         position: 'relative',
-        width: '100%', marginTop: '50px',
+        width: '100%',
         height: '573px',
         overflowY: 'hidden',
         cursor: 'move'
+    },
+    scrollMapWrapper: {
+        marginTop: '50px',
     },
     scrollMapContainer: {
         position: 'relative',
