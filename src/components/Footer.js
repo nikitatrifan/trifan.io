@@ -33,7 +33,7 @@ class Footer extends React.Component{
             <Waypoint onEnter={this.enterHandler}>
                 <footer id="footer" className={classNames(classes.wrapper, classes[theme], className)}>
                     <Container className={classes.container}>
-                        <Box justify="between" align="center">
+                        <Box wrap justify="between" align="center">
                             <Box align="center" className={classes.col}>
                                 <div ref={b => this.links = b} className={classes.links}>
                                     {Footer.links.map(it => (
@@ -70,7 +70,10 @@ const styles = {
         transition: 'color .35s ease-in-out'
     },
     col: {
-        width: '33%'
+        width: '33%',
+        '@media only screen and (max-width: 700px)': {
+            width: '100%'
+        }
     },
     black: {
         color: '#121212'

@@ -55,7 +55,7 @@ const styles = {
 Box.propTypes = {
     children: PropTypes.any,
     justify: PropTypes.oneOf([
-        'start', 'end', 'between', 'around',
+        'start', 'end', 'between', 'around', 'center'
     ]),
     align: PropTypes.oneOf([
         'start', 'end', 'center',

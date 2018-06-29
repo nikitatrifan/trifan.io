@@ -52,7 +52,10 @@ const styles = {
         userSelect: 'none', pointerEvents: 'none'
     },
     image_wrapper: {
-        width: '50%', marginBottom: '37px'
+        width: '50%', marginBottom: '37px',
+        '@media only screen and (max-width: 960px)': {
+            width: '100%'
+        }
     }
 };
 

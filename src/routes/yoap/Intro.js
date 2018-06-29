@@ -21,7 +21,7 @@ class YoapIntroSlide extends React.Component {
                         Real Estate Web Application
                     </Paragraph>
                 </Container>
-                <Container>
+                <Container className={classes.carousel_container}>
                     <OpacityCarousel>
                         <img className={classes.image} src="/yoap/yoap-door-white.png" alt=""/>
                         <img className={classes.image} src="/yoap/yoap-map.png" alt=""/>
@@ -51,10 +51,26 @@ const styles = {
     image: {
         display: 'block',
         width: '100%',
-        margin: '-60px auto 0'
+        margin: '-60px auto 0',
+        '@media only screen and (max-width: 1160px)': {
+            width: '130%',
+            margin: '-20px auto 20px',
+            marginLeft: '-15%'
+        },
+        '@media only screen and (max-width: 930px)': {
+            margin: '-10px auto 40px',
+            marginLeft: '-20%',
+            width: '140%'
+        }
     },
     bottomContent: {
         marginTop: '-80px'
+    },
+    carousel_container: {
+        '@media only screen and (max-width: 1024px)': {
+            width: '100%',
+            overflowX: 'hidden'
+        },
     }
 };
 

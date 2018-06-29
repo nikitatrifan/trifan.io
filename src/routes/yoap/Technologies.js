@@ -44,7 +44,7 @@ class YoapTechnologies extends React.Component {
                         The server-side is written on Node.js and as database we are using MongoDB.
                     </Paragraph>
 
-                    <Box className={classes.tech} align="start" justify="start">
+                    <Box wrap className={classes.tech} align="start" justify="start">
                         {YoapTechnologies.data.map(item => (
                             <div key={item.title} className={classes.item}>
                                 <Link to={item.link} target="__blank" color={theme.whiteColor} icon>

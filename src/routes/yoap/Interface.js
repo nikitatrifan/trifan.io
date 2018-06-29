@@ -17,7 +17,9 @@ class YoapInterface extends React.Component {
 
     componentDidMount() {
         this.iScroll = new IScroll(this.mapWrapper, {
-            mousewheel: true,
+            disableMouse: false,
+            disablePointer: false,
+            disableTouch: false,
             probeType: 3,
             bounce: false
         });
@@ -30,8 +32,9 @@ class YoapInterface extends React.Component {
     }
 
     updateScrollSize = () => {
-        const longImage = this.map.children[1];
+        const [shortImage, longImage] = this.map.children;
         this.map.style.height = parseInt(longImage.clientHeight, 10) + 'px';
+        this.mapWrapper.style.height = parseInt(shortImage.clientHeight, 10) + 'px';
 
         this.iScroll.refresh();
     };
@@ -123,7 +126,7 @@ const styles = {
         position: 'relative',
         width: '100%', marginTop: '50px',
         height: '573px',
-        overflowY: 'scroll',
+        overflowY: 'hidden',
         cursor: 'move'
     },
     scrollMapContainer: {
