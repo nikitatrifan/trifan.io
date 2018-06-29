@@ -47,7 +47,6 @@ class Home extends React.Component{
                     </span>
                 )}  />
                 <IntroSlide
-                    noAnimation
                     onMatrixRainingCodeComplete={this.completeRainingCodeHandler}
                 />
                 <BGASlide />
