@@ -5,7 +5,6 @@ import YoapSlide from '../components/slides/YoapSlide'
 import USSlide from '../components/slides/USSlide'
 import BGASlide from '../components/slides/BGASlide'
 import { TweenMax, Power0 } from 'gsap'
-import 'gsap/ScrollToPlugin'
 import injectStyles from 'react-jss'
 
 class Home extends React.Component{

@@ -7,7 +7,7 @@ const Box = __props => {
     const {
         children, classes,
         align = "start", direction = "row",
-        justify = "start",
+        justify = "start", wrap,
         className,
         ...props
     } = __props;
@@ -24,6 +24,8 @@ const Box = __props => {
         justify === 'around' && classes.jusAround,
         justify === 'start' && classes.jusStart,
         justify === 'end' && classes.jusEnd,
+        justify === 'center' && classes.jusCenter,
+        wrap && classes.wrap
     );
 
     return (
@@ -36,16 +38,18 @@ const Box = __props => {
 const styles = {
     wrapper: { display: 'flex' },
     alignStart: { alignItems: 'flex-start' },
-    alignCenter: { alignItems: 'flex-center' },
+    alignCenter: { alignItems: 'center' },
     alignEnd: { alignItems: 'flex-end' },
     dirRow: { flexDirection: 'row' },
     dirCol: { flexDirection: 'column' },
     dirRowRev: { flexDirection: 'row-reverse' },
     dirColRev: { flexDirection: 'column-reverse' },
     jusBetween: { justifyContent: 'space-between' },
+    jusCenter: { justifyContent: 'center' },
     jusAround: { justifyContent: 'space-around' },
     jusStart: { justifyContent: 'flex-start' },
-    jusEnd: { justifyContent: 'flex-end' }
+    jusEnd: { justifyContent: 'flex-end' },
+    wrap: { flexWrap: 'wrap' }
 };
 
 Box.propTypes = {

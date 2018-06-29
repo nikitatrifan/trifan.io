@@ -1,16 +1,18 @@
 import bindWheel from './bindWheel'
 import { TweenMax } from 'gsap'
-const { body } = document;
+const rootNode = document.querySelector('#root');
 const doc = document.documentElement;
 
 const bind = () =>
-    bindWheel.on(body, onWheel);
+    bindWheel.on(rootNode, onWheel);
 
 const unbind = () =>
-    bindWheel.off(body, onWheel);
+    bindWheel.off(rootNode, onWheel);
 
 
 function onWheel(e = window.event) {
+    if (window.isScrollBlocked)
+        return false;
     const delta = e.deltaY || e.detail || e.wheelDelta;
     const y = (window.pageYOffset || doc.scrollTop)  - (doc.clientTop || 0);
 

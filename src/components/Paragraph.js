@@ -8,12 +8,13 @@ function Paragraph(__props) {
     const {
         size = 2, classes, color, style = {},
         weight = '300', margin, upperCase,
-        className, children, ...props
+        className, children, opacity, ...props
     } = __props;
     const __className = classNames(
         classes.wrapper,
         classes[`size_${size}`],
         upperCase && classes.upperCase,
+        opacity && classes.opacity,
         className
     );
     const __margin = margin ? {
@@ -41,10 +42,12 @@ const styles = {
         fontFamily: theme.mainFont,
         margin: 0, padding: 0,
         color: theme.textColor,
+        fontWeight: '400'
     },
     upperCase: {
         textTransform: 'upperCase'
     },
+    opacity: { opacity: .55 },
     size_2: {
         fontSize: '21px',
         lineHeight: '26px',
@@ -52,6 +55,10 @@ const styles = {
     size_3: {
         fontSize: '19px',
         lineHeight: '24px',
+    },
+    size_4: {
+        fontSize: '16px',
+        lineHeight: '19px'
     },
     size_5: {
         fontSize: '14px',

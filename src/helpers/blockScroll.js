@@ -1,5 +1,5 @@
-let contentOffset = 0;
 
+let contentOffset = 0;
 const setBodyStyles = styles => {
   const body = document.body;
   for (let prop in styles) {
@@ -10,11 +10,11 @@ const setBodyStyles = styles => {
 };
 const setContentPos = y => {
   let offset = `translate3d(0px, ${y || 0}px, 0px)`;
-  const pages = document.querySelector('#pages');
-  const nav = document.querySelector('#nav');
+  const pages = document.querySelector('#root');
 
-  pages && (pages.style.transform = offset);
-  nav && (nav.style.transform = offset);
+  if (pages) {
+    pages.style.transform = offset;
+  }
 
   if (y == null) {
     window.scrollTo(0, contentOffset);
@@ -51,6 +51,7 @@ const blockScroll = cb => {
   });
 
   setContentPos(-scrollY);
+  window.isScrollBlocked = true;
 
   if (cb) {
     cb(true);
@@ -58,6 +59,7 @@ const blockScroll = cb => {
 };
 const unBlockScroll = cb => {
   window.removeEventListener('resize', resize);
+  window.isScrollBlocked = false;
 
   setBodyStyles({
     overflowY: 'visible',

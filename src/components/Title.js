@@ -31,12 +31,18 @@ function Title({ size = 2, classes, style, margin, color, className, children, .
 
 const styles = {
     wrapper: {
-        fontFamily: theme.mainFont,
-        margin: 0, padding: 0
+        fontFamily: theme.secondaryFont,
+        margin: 0, padding: 0, display: 'block'
     },
-    size_2: {
+    size_1: {
         fontSize: '21px',
         lineHeight: '26px',
+        fontWeight: '500',
+        color: theme.textColor,
+    },
+    size_2: {
+        fontSize: '18px',
+        lineHeight: '24px',
         color: theme.textColor,
         opacity: .6
     }

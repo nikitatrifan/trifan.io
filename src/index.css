@@ -8,3 +8,25 @@ body {
 * {
   box-sizing: border-box;
 }
+img {
+  user-select: none
+}
+.root {
+  display: block;
+  width: 100%;
+  position: relative;
+}
+.modal-root {
+  opacity: 0;
+  position: fixed;
+  display: none;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 999;
+}
+.modal-wrapper {
+  position: static;
+}

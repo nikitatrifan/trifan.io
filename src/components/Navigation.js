@@ -29,9 +29,10 @@ class Navigation extends React.Component{
     }
 
     render() {
-        const { classes, logo, className } = this.props;
+        const { classes, logo, theme, className } = this.props;
+
         return (
-            <nav className={classNames(classes.wrapper, className)}>
+            <nav id="nav" className={classNames(classes.wrapper, classes[theme], className)}>
                 <Container className={classes.container}>
                     <Box justify="between" align="center">
                         <span className={classes.logo}>
@@ -57,7 +58,12 @@ const styles = {
         left: 0, top: 0,
         width: '100%',
         color: '#fff',
-        zIndex: 10
+        zIndex: 10,
+        transition: 'color .35s ease-in-out',
+        display: 'block'
+    },
+    black: {
+        color: '#121212'
     },
     logo: {
         fontSize: '18px',
@@ -79,6 +85,10 @@ const styles = {
         color: 'inherit',
         textDecoration: 'none',
         opacity: 0,
+        transition: 'color .25s ease-in-out',
+        '&:hover': {
+            color: theme.primaryColor
+        }
     },
     container: {
         padding: '45px 0'
