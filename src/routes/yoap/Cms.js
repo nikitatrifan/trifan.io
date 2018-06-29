@@ -102,12 +102,20 @@ const styles = {
     },
     image: {
         width: '95%', margin: '0 auto',
-        userSelect: 'none', pointerEvents: 'none'
+        userSelect: 'none', pointerEvents: 'none',
+        boxShadow: '0 0 60px 1px rgba(0,0,0, .1)',
+        transition: 'transform .25s ease-in-out',
+    },
+    images: {
+        paddingTop: '15px'
     },
     image_wrapper: {
         width: '50%', marginBottom: '37px',
         '@media only screen and (max-width: 960px)': {
             width: '100%'
+        },
+        '&:hover img': {
+            transform: 'scale(1.01)'
         }
     }
 };

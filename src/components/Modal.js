@@ -2,6 +2,7 @@ import React from 'react'
 import windowSize from 'react-window-size'
 import ReactDOM from 'react-dom'
 import { TweenMax } from 'gsap'
+import Title from './Title'
 import IScroll from 'iscroll'
 import classNames from 'classnames'
 import injectStyle from 'react-jss'
@@ -11,6 +12,10 @@ const appRoot = document.getElementById('root');
 const modalRoot = document.getElementById('modal');
 
 class Modal extends React.Component {
+    static defaultProps = {
+        backButton: true
+    };
+
     constructor(props) {
         super(props);
         this.el = document.createElement('div');
@@ -92,7 +97,7 @@ class Modal extends React.Component {
     };
 
     render() {
-        const { classes, className } = this.props;
+        const { classes, className, backButton, backButtonText = 'Back' } = this.props;
         return ReactDOM.createPortal(
             [
                 <div key={0} ref={b => this.wrapper = b}
@@ -101,10 +106,14 @@ class Modal extends React.Component {
                         {this.props.children}
                     </div>
                 </div>,
-                <div key={1} className={classes.close} onClick={this.closeHandler}>
+                !backButton && <div key={1} className={classes.close} onClick={this.closeHandler}>
                     <span className={classes.close_left} />
                     <span className={classes.close_right} />
-                </div>
+                </div> || undefined,
+                backButton && <div key={2} className={classes.back} onClick={this.closeHandler}>
+                    <span className={classes.arrow} />
+                    <Title size={1} className={classes.back_title}>{backButtonText}</Title>
+                </div> || undefined,
             ],
             this.el,
         );
@@ -152,6 +161,38 @@ const styles = {
         transform: 'translate(-50%, -50%) rotateZ(-45deg)',
         backgroundColor: '#121212',
         position: 'absolute',
+    },
+    back: {
+        display: 'flex', justifyContent: 'flex-start',
+        alignItems: 'center',
+        position: 'absolute',
+        left: '25px',
+        top: '25px',
+        userSelect: 'none',
+        cursor: 'pointer',
+        overflowX: 'hidden',
+        '&:hover span': {
+            transform: 'translateX(-30px) rotateZ(180deg)'
+        },
+        '&:hover strong': {
+            transform: 'translateX(-10px)'
+        }
+    },
+    back_title: {
+        transition: 'transform .3s ease-in-out',
+    },
+    arrow: {
+        width: '19px',
+        height: '10px',
+        '-webkit-mask': 'url(/icons/arrow.svg) no-repeat 100% 100%',
+        mask: 'url(/icons/arrow.svg) no-repeat 100% 100%',
+        '-webkit-mask-size': 'cover',
+        'mask-size': 'cover',
+        display: 'inline-block',
+        marginRight: '6px',
+        transition: 'transform .3s ease-in-out',
+        transform: 'rotateZ(180deg)',
+        backgroundColor: '#121212',
     }
 };
 

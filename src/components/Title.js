@@ -15,7 +15,7 @@ function Title({ size = 2, classes, style, margin, color, className, children, .
     } : {};
 
     return (
-        <span
+        <strong
             {...props}
             className={__className}
             style={{
@@ -25,7 +25,7 @@ function Title({ size = 2, classes, style, margin, color, className, children, .
             }}
         >
             {children}
-        </span>
+        </strong>
     )
 }
 
@@ -43,8 +43,8 @@ const styles = {
     size_2: {
         fontSize: '18px',
         lineHeight: '24px',
+        fontWeight: '500',
         color: theme.textColor,
-        opacity: .6
     }
 };
 

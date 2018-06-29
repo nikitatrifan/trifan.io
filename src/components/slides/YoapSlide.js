@@ -90,6 +90,7 @@ class YoapSlide extends React.Component {
                     <div ref={b => this.content = b}>
                         <SlideAbout
                             onButtonClick={this.buttonClickHandler}
+                            buttonGradientLink="/yoap"
                             buttonGradient={['#ff899b', '#ff4d66']}
                             className={classes.about}
                             labels={['front-end', 'back-end']}

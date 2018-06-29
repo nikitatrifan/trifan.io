@@ -52,6 +52,9 @@ const styles = {
         },
         '&:hover strong': {
             transform: 'translateX(30px)'
+        },
+        '&:hover button': {
+            transform: 'translateX(10px)'
         }
     },
     button: {

@@ -1,5 +1,6 @@
 import React from 'react'
 import Container from './Container'
+import { NavLink as RouterLink } from 'react-router-dom'
 import Box from './Box'
 import injectStyles from 'react-jss'
 import classNames from 'classnames'
@@ -35,14 +36,21 @@ class Navigation extends React.Component{
             <nav id="nav" className={classNames(classes.wrapper, classes[theme], className)}>
                 <Container className={classes.container}>
                     <Box justify="between" align="center">
-                        <span className={classes.logo}>
+                        <RouterLink
+                            to="/" className={classes.logo}
+                            activeClassName={classes.logo_active}
+                        >
                             {logo ? logo : 'trifan.io'}
-                        </span>
+                        </RouterLink>
                         <div ref={b => this.links = b} className={classes.links}>
                             {Navigation.links.map(it => (
-                                <a className={classes.link} key={it.href} href={it.href}>
+                                <RouterLink
+                                    activeClassName={classes.link_active}
+                                    className={classes.link} key={it.href}
+                                    to={it.href}
+                                >
                                     {it.title}
-                                </a>
+                                </RouterLink>
                             ))}
                         </div>
                     </Box>
@@ -69,7 +77,13 @@ const styles = {
         fontSize: '18px',
         fontFamily: theme.secondaryFont,
         fontWeight: '500',
-        color: 'inherit'
+        color: 'inherit',
+        textDecoration: 'none',
+        cursor: 'pointer',
+        transition: 'color .25s ease-in-out',
+        '&:hover': {
+            color: theme.primaryColor
+        }
     },
     links: {
         display: 'flex',
@@ -87,8 +101,11 @@ const styles = {
         opacity: 0,
         transition: 'color .25s ease-in-out',
         '&:hover': {
-            color: theme.primaryColor
+            color: theme.primaryLightColor
         }
+    },
+    link_active: {
+        color: theme.primaryColor
     },
     container: {
         padding: '45px 0'

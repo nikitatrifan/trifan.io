@@ -7,7 +7,7 @@ import ButtonShadow from './ButtonShadow'
 import classNames from 'classnames'
 import injectStyles from 'react-jss'
 
-const SlideAbout = ({classes, className, onButtonClick, buttonGradient, labels, title, description}) => (
+const SlideAbout = ({classes, className, onButtonClick, buttonGradient, buttonGradientLink, labels, title, description}) => (
     <div className={classNames(classes.content, className)}>
         <Box justify="start" align="start">
             {labels.map(it => (
@@ -26,7 +26,7 @@ const SlideAbout = ({classes, className, onButtonClick, buttonGradient, labels, 
             {description}
         </Paragraph>
         <Box justify="start" align="center">
-            <ButtonShadow onClick={onButtonClick} gradient={buttonGradient}>
+            <ButtonShadow to={buttonGradientLink} onClick={onButtonClick} gradient={buttonGradient}>
                 Explore more
             </ButtonShadow>
             <ButtonText className={classes.textButton}>

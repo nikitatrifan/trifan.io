@@ -13,7 +13,7 @@ class Home extends React.Component{
     };
 
     logoFlashingAnimation = () => {
-        if (!this.state.isLogoFlashing)
+        if (!this.state.isLogoFlashing || this.isUnMounted)
             return false;
 
         const opacityPropVal = parseFloat(this.logo.style.opacity);
@@ -31,6 +31,9 @@ class Home extends React.Component{
     };
     componentDidMount() {
         this.logoFlashingAnimation();
+    }
+    componentWillUnmount() {
+        this.isUnMounted = true;
     }
 
     render() {
