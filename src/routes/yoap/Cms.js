@@ -96,7 +96,7 @@ class YoapCms extends React.Component {
                             {YoapCms.screens.map(it => (
                                 <ComponentFadeIn delay={0.2 + (it * 0.04)} key={it.image}>
                                     <div className={classes.image_wrapper}>
-                                        <BrowserScreen title={it.title} clYoapComponentsSystemassName={classes.image_screen}>
+                                        <BrowserScreen title={it.title} className={classes.image_screen}>
                                             <img alt={`Yoap Screenshot #${it.image}`} src={`/yoap/cms/${it.image}.jpg`} className={classes.image}/>
                                         </BrowserScreen>
                                     </div>

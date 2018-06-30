@@ -1,43 +1,48 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import injectStyles from 'react-jss'
-import Container from '../../components/Container'
-import Link from '../../components/Link'
-import Box from '../../components/Box'
-import Heading from '../../components/Heading'
-import Paragraph from '../../components/Paragraph'
-import ComponentFadeIn from '../../components/ComponentFadeIn'
-import theme from "../../theme";
+import Container from './Container'
+import Link from './Link'
+import Box from './Box'
+import Heading from './Heading'
+import Paragraph from './Paragraph'
+import ComponentFadeIn from './ComponentFadeIn'
+import theme from "../theme";
 import {Power0, TimelineMax, TweenMax} from "gsap";
-import getNodeRelativeViewportPercentPosition from "../../helpers/getNodeRelativeViewportPercentPosition";
+import getNodeRelativeViewportPercentPosition from "../helpers/getNodeRelativeViewportPercentPosition";
 
-class YoapTechnologies extends React.Component {
+class Technologies extends React.Component {
     static propTypes = {
         index: PropTypes.number.isRequired
     };
 
-    static data = [
-        {
-            image: '/icons/logos/react.png',
-            link: 'https://reactjs.org/',
-            title: 'React'
-        },
-        {
-            image: '/icons/logos/mobx.png',
-            link: 'https://mobx.js.org/',
-            title: 'MobX'
-        },
-        {
-            image: '/icons/logos/node.png',
-            link: 'https://nodejs.org/',
-            title: 'Node.js'
-        },
-        {
-            image: '/icons/logos/mongo.png',
-            link: 'https://mongodb.com/',
-            title: 'MongoDB'
-        }
-    ];
+    static defaultProps = {
+        data: [
+            {
+                image: '/icons/logos/react.png',
+                link: 'https://reactjs.org/',
+                title: 'React'
+            },
+            {
+                image: '/icons/logos/mobx.png',
+                link: 'https://mobx.js.org/',
+                title: 'MobX'
+            },
+            {
+                image: '/icons/logos/node.png',
+                link: 'https://nodejs.org/',
+                title: 'Node.js'
+            },
+            {
+                image: '/icons/logos/mongo.png',
+                link: 'https://mongodb.com/',
+                title: 'MongoDB'
+            },
+        ],
+        content: 'The client-side is single-page web app developed on React and MobX.\n' +
+        'Transition between pages is instant because of no page reloading.\n' +
+        'The server-side is written on Node.js and as database we are using MongoDB.',
+    };
     scrollHandler = () => {
         const percent = getNodeRelativeViewportPercentPosition(this.wrapper);
 
@@ -84,7 +89,7 @@ class YoapTechnologies extends React.Component {
     }
 
     render() {
-        const { classes } = this.props;
+        const { classes, content, data } = this.props;
         return (
             <div ref={b => this.wrapper = b} className={classes.wrapper}>
                 <div ref={b => this.scroller = b} className={classes.scroller}>
@@ -96,14 +101,12 @@ class YoapTechnologies extends React.Component {
                         </ComponentFadeIn>
                         <ComponentFadeIn delay={.04}>
                             <Paragraph opacity size="3" color={theme.whiteColor} margin="small">
-                                The client-side is single-page web app developed on React and MobX.
-                                Transition between pages is instant because of no page reloading.
-                                The server-side is written on Node.js and as database we are using MongoDB.
+                                {content}
                             </Paragraph>
                         </ComponentFadeIn>
 
                         <Box wrap className={classes.tech} align="start" justify="start">
-                            {YoapTechnologies.data.map((item, idx) => (
+                            {data.map((item, idx) => (
                                 <ComponentFadeIn key={item.title} delay={idx * .04}>
                                     <div className={classes.item}>
                                         <Link to={item.link} target="__blank" color={theme.whiteColor} icon>
@@ -127,7 +130,7 @@ class YoapTechnologies extends React.Component {
 
 const styles = {
     wrapper: props => ({
-        backgroundColor: '#1C1C26',
+        backgroundColor: (props.backgroundColor || '#1C1C26'),
         position: 'relative',
         zIndex: props.index
     }),
@@ -155,4 +158,4 @@ const styles = {
     }
 };
 
-export default injectStyles(styles)(YoapTechnologies)
+export default injectStyles(styles)(Technologies)

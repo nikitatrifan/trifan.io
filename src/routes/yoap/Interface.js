@@ -133,7 +133,6 @@ class YoapInterface extends React.Component {
                                 Also, they wanted to create simple and fast service with all users needs.
                             </Paragraph>
                         </ComponentFadeIn>
-
                     </Container>
                     <ComponentFadeIn delay={.14}>
                         <Container type="content" className={classes.ipadCarousel}>

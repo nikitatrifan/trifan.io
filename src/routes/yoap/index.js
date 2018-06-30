@@ -6,7 +6,7 @@ import Intro from './Intro'
 import Interface from './Interface'
 import Cms from './Cms'
 import ComponentsSystem from './ComponentsSystem'
-import Technologies from './Technologies'
+import Technologies from '../../components/Technologies'
 import injectStyles from 'react-jss'
 
 const { body } = document || {};
@@ -27,7 +27,7 @@ class YoapPage extends React.Component {
                 <Interface index={2}/>
                 <Cms index={3}/>
                 <ComponentsSystem index={4}/>
-                <Technologies index={5}/>
+                <Technologies index={5} />
                 <Footer theme="black" />
             </div>
         )

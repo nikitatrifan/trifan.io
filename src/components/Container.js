@@ -18,6 +18,9 @@ const styles = {
     },
     default: {
         maxWidth: '1440px',
+    },
+    bootstrap: {
+        maxWidth: '1160px'
     }
 };
 
@@ -25,7 +28,7 @@ Container.propTypes = {
     className: PropTypes.string,
     children: PropTypes.any,
     type: PropTypes.oneOf([
-        'content', 'default'
+        'content', 'default', 'bootstrap'
     ]),
 };
 

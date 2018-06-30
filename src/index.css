@@ -8,8 +8,11 @@ body {
 * {
   box-sizing: border-box;
 }
-img {
-  user-select: none
+img, svg {
+  user-select: none;
+  width: 100%;
+  display: block;
+  pointer-events: none;
 }
 .root {
   display: block;

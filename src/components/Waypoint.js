@@ -55,7 +55,7 @@ class Waypoint extends React.Component {
 
     componentDidMount() {
         this.updateRef();
-        this.scrollerHandler();
+        setTimeout(this.scrollerHandler, 60);
         setTimeout(this.scrollerHandler, 300);
         window.addEventListener('scroll', this.scrollerHandler);
     }

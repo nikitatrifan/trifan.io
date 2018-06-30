@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Waypoint from 'react-waypoint'
+import Waypoint from './Waypoint'
 import { TweenMax } from 'gsap'
 import classNames from 'classnames'
 import injectStyle from 'react-jss'
@@ -16,6 +16,7 @@ class IPadCarousel extends React.Component {
 
     dur = .7;
     inactiveOpacity = 0.1;
+    isUnMounted = true;
 
     componentDidMount() {
         setTimeout(() => {
@@ -164,10 +165,10 @@ const styles = {
     image: {
         display: 'block',
         position: 'absolute',
-        let: 0, top: 0,
+        left: 0, top: 0,
         width: '100%',
         height: 'auto',
-        'pointerEvents': 'none'
+        pointerEvents: 'none'
     },
     container: {
         position: 'absolute',

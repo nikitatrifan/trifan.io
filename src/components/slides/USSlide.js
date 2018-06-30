@@ -83,6 +83,7 @@ class USSLide extends React.Component {
                 <Container>
                     <div ref={b => this.content = b}>
                         <SlideAbout
+                            buttonGradientLink="/ultrastore"
                             onButtonClick={this.buttonClickHandler}
                             buttonGradient={['#525252', '#121212']}
                             labels={['front-end', 'back-end']}
