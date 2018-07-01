@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import windowSize from 'react-window-size'
 import { findDOMNode } from 'react-dom'
+import getScrollY from '../helpers/getScrollY'
 
 class Waypoint extends React.Component {
     static propTypes = {
@@ -11,11 +12,12 @@ class Waypoint extends React.Component {
     };
 
     isInFocus = false;
+    scrollY = 0;
 
-    isNodeInFocus = () => {
+    isNodeInFocus = direction => {
         const wrapperRect = this.node.getBoundingClientRect();
         const appHeight = parseInt(window.innerHeight, 10);
-        const bound = wrapperRect.top;
+        const bound = wrapperRect.top + (direction === 'up' ? wrapperRect.height : 0);
 
         if (bound < 0)
             return false;
@@ -24,7 +26,15 @@ class Waypoint extends React.Component {
     };
 
     scrollerHandler = () => {
-        if (this.isNodeInFocus()) {
+        const prevScrollY = this.scrollY;
+        const scrollY = this.scrollY = getScrollY();
+        let direction = 'down';
+
+        if (scrollY < prevScrollY) {
+            direction = 'up';
+        }
+
+        if (this.isNodeInFocus(direction)) {
             return this.enterHandler();
         }
 

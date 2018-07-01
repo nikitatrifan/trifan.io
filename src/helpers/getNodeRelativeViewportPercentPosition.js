@@ -1,6 +1,9 @@
 import getScrollY from "./getScrollY";
-//import { getScrollY } from './normalizeScroll'
+
 export default node => {
+    if (!node)
+        return undefined;
+
     const windowHeight = parseInt(window.innerHeight, 10);
     const scrollY = getScrollY();
     const wrapperRect = node.getBoundingClientRect();

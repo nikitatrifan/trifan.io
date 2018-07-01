@@ -10,7 +10,6 @@ import getNodeRelativeViewportPercentPosition from "../../helpers/getNodeRelativ
 class VideoSlidesSection extends React.Component {
     current = 0;
     componentDidMount() {
-        this.tl = this.colorTween();
         setTimeout(() => {
             this.scrollTl = this.scrollTween();
             this.scrollHandler();
@@ -51,32 +50,14 @@ class VideoSlidesSection extends React.Component {
         })
     };
 
-    colorTween = () => {
-        const tl = new TimelineMax({ paused: true });
-        const { backgroundColor } = this;
-        const dur = 3;
-
-        tl.to(this.scroller, dur, {
-            backgroundColor, ease: Power0.easeNone
-        });
-
-
-        return tl;
-    };
-
-    colorChangeHandler = (progress, index) => {
-        if (index === this.current) {
-            TweenMax.to(this.tl, 0, {
-                progress, ease: Power0.easeNone
-            })
-        }
-    };
-
     enterHandler = index => {
         this.current = index;
         this.backgroundColor = this.colors[index];
 
-        this.tl = this.colorTween();
+        TweenMax.to(this.scroller, .35, {
+            backgroundColor: this.backgroundColor,
+            delay: .35
+        })
     };
 
     componentDidUpdate(prevProps) {
@@ -85,7 +66,6 @@ class VideoSlidesSection extends React.Component {
             prevProps.windowHeight !== this.props.windowHeight
         ) {
             return this.scrollTl = this.scrollTween();
-
         }
     }
 
@@ -107,7 +87,6 @@ class VideoSlidesSection extends React.Component {
                             description="As the result of development we have supa-fast single page web application."
                             backgroundColor={this.colors[0]}
                             textColor={theme.whiteColor}
-                            onColorChange={this.colorChangeHandler}
                             index={0}
                         />
                     </Waypoint>
@@ -123,7 +102,6 @@ class VideoSlidesSection extends React.Component {
                             )}
                             backgroundColor={this.colors[1]}
                             textColor={theme.textColor}
-                            onColorChange={this.colorChangeHandler}
                             index={1}
                         />
                     </Waypoint>
@@ -139,7 +117,6 @@ class VideoSlidesSection extends React.Component {
                             )}
                             backgroundColor={this.colors[2]}
                             textColor={theme.whiteColor}
-                            onColorChange={this.colorChangeHandler}
                             index={2}
                         />
                     </Waypoint>
@@ -153,7 +130,6 @@ class VideoSlidesSection extends React.Component {
                             )}
                             backgroundColor={this.colors[3]}
                             textColor={theme.whiteColor}
-                            onColorChange={this.colorChangeHandler}
                             index={3}
                         />
                     </Waypoint>

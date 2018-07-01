@@ -14,7 +14,7 @@ class BrowserScreen extends React.Component {
         contentWidth: 0,
     };
     componentDidMount() {
-        setTimeout(this.resizeHandler, 3000);
+        setTimeout(this.resizeHandler, 300);
         window.addEventListener('resize', this.resizeHandler);
     }
     componentWillUnmount() {

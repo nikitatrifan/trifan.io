@@ -9,7 +9,6 @@ import Box from '../../components/Box'
 import Svg from '../../components/Svg'
 import WayPoint from '../../components/Waypoint'
 import injectStyle from 'react-jss'
-import getNodeRelativeViewportPercentPosition from "../../helpers/getNodeRelativeViewportPercentPosition";
 
 class VideoSlide extends React.Component {
     static propTypes = {
@@ -34,32 +33,6 @@ class VideoSlide extends React.Component {
     enterHandler = () => {
         this.video && this.video.play();
     };
-
-    scrollHandler = () => {
-        const percent = getNodeRelativeViewportPercentPosition(this.wrapper);
-
-        if (percent === undefined)
-            return false;
-
-        this.props.onColorChange(
-            percent,
-            this.props.index,
-            this.props.backgroundColor
-        );
-    };
-
-    componentWillUnmount() {
-        window.removeEventListener('scroll', this.scrollHandler);
-    }
-
-    componentDidMount() {
-        this.wrapper = findDOMNode(this);
-        setTimeout(() => {
-            this.scrollHandler();
-        }, 300);
-
-        window.addEventListener('scroll', this.scrollHandler);
-    }
 
     render() {
         const {
