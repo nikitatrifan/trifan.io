@@ -129,7 +129,10 @@ const styles = {
         color: theme.primaryColor
     },
     container: {
-        padding: '45px 0'
+        padding: '45px 0',
+        '@media only screen and (max-width: 600px)': {
+            padding: '15px 0'
+        }
     },
 
     back: {

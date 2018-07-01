@@ -11,4 +11,6 @@ export default {
 
     primaryColor: '#5F5AF1',
     primaryLightColor: '#9893F9',
+
+    mobilePoint: 600
 };

@@ -110,6 +110,7 @@ class USAbout extends React.Component {
     }
 }
 
+const mobileMedia = `@media only screen and (max-width: ${theme.mobilePoint}px)`;
 const styles = {
     wrapper: {
         minHeight: '100vh',
@@ -121,16 +122,25 @@ const styles = {
         backgroundColor: theme.lightGrayColor
     },
     header: {
-        padding: '60px 0'
+        padding: '60px 0',
+        [mobileMedia]: {
+            padding: '10px 0'
+        }
     },
     imageWrapper: {
-        width: '50%'
+        width: '50%',
+        [mobileMedia]: {
+            width: '100%'
+        }
     },
     image: {
         width: '100%', margin: '0 auto'
     },
     sideBarAnimation: {
-        paddingBottom: '150px'
+        paddingBottom: '150px',
+        [mobileMedia]: {
+            padding: '40px 0'
+        }
     }
 };
 

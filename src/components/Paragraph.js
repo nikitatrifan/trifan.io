@@ -37,6 +37,7 @@ function Paragraph(__props) {
     )
 }
 
+const mobileMedia = `@media only screen and (max-width: ${theme.mobilePoint}px)`;
 const styles = {
     wrapper: {
         fontFamily: theme.mainFont,
@@ -51,22 +52,42 @@ const styles = {
     size_2: {
         fontSize: '21px',
         lineHeight: '26px',
+        [mobileMedia]: {
+            fontSize: '19px',
+            lineHeight: '24px',
+        }
     },
     size_3: {
         fontSize: '19px',
         lineHeight: '24px',
+        [mobileMedia]: {
+            fontSize: '16px',
+            lineHeight: '19px'
+        }
     },
     size_4: {
         fontSize: '16px',
-        lineHeight: '19px'
+        lineHeight: '19px',
+        [mobileMedia]: {
+            fontSize: '16px',
+            lineHeight: '19px',
+        }
     },
     size_5: {
         fontSize: '14px',
         lineHeight: '21px',
+        [mobileMedia]: {
+            fontSize: '12px',
+            lineHeight: '16px'
+        }
     },
     size_6: {
         fontSize: '12px',
-        lineHeight: '16px'
+        lineHeight: '16px',
+        [mobileMedia]: {
+            fontSize: '11px',
+            lineHeight: '13.5px'
+        }
     }
 };
 

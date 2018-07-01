@@ -189,7 +189,10 @@ const styles = {
     slide_current: {
         cursor: 'default',
         '& img': {
-            boxShadow: '0px 1px 60px 10px rgba(0,0,0,0.1)'
+            boxShadow: '0px 1px 60px 10px rgba(0,0,0,0.1)',
+            '@media only screen and (max-width: 700px)': {
+                boxShadow: '0px 0px 5px 1px rgba(0,0,0,0.1)',
+            },
         }
     },
     info: {

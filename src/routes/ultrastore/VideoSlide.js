@@ -8,6 +8,7 @@ import Box from '../../components/Box'
 import Svg from '../../components/Svg'
 import WayPoint from '../../components/Waypoint'
 import injectStyle from 'react-jss'
+import theme from '../../theme'
 
 class VideoSlide extends React.Component {
     static propTypes = {
@@ -17,7 +18,6 @@ class VideoSlide extends React.Component {
         description: PropTypes.string.isRequired,
         backgroundColor: PropTypes.string,
         textColor: PropTypes.string,
-        onColorChange: PropTypes.func.isRequired
     };
 
     static defaultProps = {
@@ -72,10 +72,14 @@ class VideoSlide extends React.Component {
     }
 }
 
+const mobileMedia = `@media only screen and (max-width: ${theme.mobilePoint}px)`;
 const styles = {
     wrapper: {
         width: '100%', minHeight: '100vh',
-        padding: '120px 0'
+        padding: '120px 0',
+        [mobileMedia]: {
+            padding: '40px 0'
+        }
     },
     lineWrapper: {
         position: 'absolute',

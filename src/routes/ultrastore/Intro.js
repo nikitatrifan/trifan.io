@@ -111,6 +111,7 @@ class USIntro extends React.Component {
     }
 }
 
+const mobileMedia = `@media only screen and (max-width: ${theme.mobilePoint}px)`;
 const styles = {
     wrapper: props => ({
         minHeight: '100vh',
@@ -132,7 +133,11 @@ const styles = {
         '& svg': {
             minWidth: '100%',
             minHeight: '100%',
-            width: 'auto'
+            width: 'auto',
+            [mobileMedia]: {
+                width: '150%',
+                marginLeft: '-25%'
+            }
         }
     },
     imageWrapper: {

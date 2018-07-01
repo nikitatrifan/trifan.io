@@ -30,10 +30,13 @@ class BrowserScreen extends React.Component {
     };
 
     render() {
-        const { classes, className, title, children } = this.props;
+        const { classes, className, title, children, windowWidth } = this.props;
         const { contentWidth } = this.state;
         const calculatedBarHeight = contentWidth / 23;
-        const barHeight = calculatedBarHeight < 35 ? 35 : calculatedBarHeight > 55 ? 55 : calculatedBarHeight;
+        const minHeight = windowWidth > 600 ? 35 : 15;
+        const maxHeight = 55;
+        const barHeight = calculatedBarHeight < minHeight ? minHeight :
+            calculatedBarHeight > maxHeight ? maxHeight : calculatedBarHeight;
         const dotSize = barHeight / 3.5;
         const addressBarHeight = barHeight / 2;
         const dotStyle = {

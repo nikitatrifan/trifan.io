@@ -32,6 +32,7 @@ function Heading({ size = 2, classes, weight, margin, style, color, className, c
     )
 }
 
+const mobileMedia = `@media only screen and (max-width: ${theme.mobilePoint}px)`;
 const styles = {
     wrapper: {
         fontFamily: theme.mainFont,
@@ -42,11 +43,19 @@ const styles = {
         lineHeight: '50px',
         fontWeight: '500',
         color: theme.textColor,
+        [mobileMedia]: {
+            fontSize: '28px',
+            lineHeight: '36px',
+        }
     },
     size_2: {
         fontSize: '36px',
         lineHeight: '46px',
-        fontWeight: '500'
+        fontWeight: '500',
+        [mobileMedia]: {
+            fontSize: '26px',
+            lineHeight: '34px',
+        }
     }
 };
 
