@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Container from './Container'
 import { NavLink as RouterLink } from 'react-router-dom'
+import Svg from './Svg'
 import Box from './Box'
 import injectStyles from 'react-jss'
 import classNames from 'classnames'
@@ -37,7 +38,7 @@ class Navigation extends React.Component{
     }
 
     render() {
-        const { classes, logo, theme, className } = this.props;
+        const { classes, logo, back, theme, className } = this.props;
 
         return (
             <nav id="nav" className={classNames(classes.wrapper, classes[theme], className)}>
@@ -47,7 +48,15 @@ class Navigation extends React.Component{
                             to="/" className={classes.logo}
                             activeClassName={classes.logo_active}
                         >
-                            {logo ? logo : 'trifan.io'}
+                            {
+                                back ? (
+                                    <Box justify="start" align="center" className={classes.back}>
+                                        <Svg src="/icons/arrow.svg" className={classes.arrow}/>
+                                        <span>Back</span>
+                                    </Box>
+                                ) :
+                                    logo ? logo : 'trifan.io'
+                            }
                         </RouterLink>
                         <div ref={b => this.links = b} className={classes.links}>
                             {Navigation.links.map(it => (
@@ -67,6 +76,8 @@ class Navigation extends React.Component{
     }
 }
 
+const cssTransitionTime = .25;
+
 const styles = {
     wrapper: {
         position: 'fixed',
@@ -74,11 +85,12 @@ const styles = {
         width: '100%',
         color: '#fff',
         zIndex: 10,
-        transition: 'color .35s ease-in-out',
-        display: 'block'
+        transition: `color ${cssTransitionTime}s ease-in-out`,
+        display: 'block',
     },
     black: {
-        color: '#121212'
+        color: '#121212',
+        fill: '#121212'
     },
     logo: {
         fontSize: '18px',
@@ -87,9 +99,11 @@ const styles = {
         color: 'inherit',
         textDecoration: 'none',
         cursor: 'pointer',
-        transition: 'color .25s ease-in-out',
+        fill: 'inherit',
+        transition: `color ${cssTransitionTime}s ease-in-out, fill ${cssTransitionTime}s ease-in-out`,
         '&:hover': {
-            color: theme.primaryColor
+            color: theme.primaryColor,
+            fill: theme.primaryColor
         }
     },
     links: {
@@ -106,7 +120,7 @@ const styles = {
         color: 'inherit',
         textDecoration: 'none',
         opacity: 0,
-        transition: 'color .25s ease-in-out',
+        transition: `color ${cssTransitionTime}s ease-in-out`,
         '&:hover': {
             color: theme.primaryLightColor
         }
@@ -116,6 +130,29 @@ const styles = {
     },
     container: {
         padding: '45px 0'
+    },
+
+    back: {
+        '& span': {
+            transition: `transform ${cssTransitionTime}s ease-in-out`,
+        },
+        '&:hover svg': {
+            transform: 'translateX(7px)',
+        },
+        '&:hover span': {
+            transform: 'translateX(-5px)',
+        },
+    },
+    arrow: {
+        transform: 'rotateZ(180deg)',
+        marginRight: '10px',
+        '& svg': {
+            transition: `transform ${cssTransitionTime}s ease-in-out`,
+            fill: 'inherit',
+            '& *': {
+                fill: 'inherit'
+            }
+        }
     }
 };
 

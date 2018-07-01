@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { findDOMNode } from 'react-dom'
 import BrowserScreen from '../../components/BrowserScreen'
 import Container from '../../components/Container'
 import Heading from '../../components/Heading'

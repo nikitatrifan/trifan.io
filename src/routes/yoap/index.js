@@ -20,9 +20,10 @@ class YoapPage extends React.Component {
         body.style.background = this.bgBackup;
     }
     render() {
+        const isNavBack = this.props.history.action === 'PUSH';
         return (
             <div>
-                <Navigation theme="black" />
+                <Navigation back={isNavBack} theme="black" />
                 <Intro index={1}/>
                 <Interface index={2}/>
                 <Cms index={3}/>

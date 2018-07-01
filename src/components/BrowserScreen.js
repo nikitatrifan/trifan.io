@@ -21,6 +21,9 @@ class BrowserScreen extends React.Component {
         window.addEventListener('resize', this.resizeHandler)
     }
     resizeHandler = () => {
+        if (!this.contentWrapper)
+            return false;
+
         this.setState({
             contentWidth: parseFloat(this.contentWrapper.clientWidth)
         })
