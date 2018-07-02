@@ -45,7 +45,7 @@ export default class USPage extends React.Component {
                         'The client-side is single-page web app developed on React and Redux.\n' +
                         'Transition between pages is instant because of no page reloading. \n' +
                         'The project supports server-side rendering for increasing app loading speed. ' +
-                        'The server-side is written by Oleg Romanenko on PHP using Symfony framework.'
+                        'The server-side is written on PHP using Symfony framework.'
                     )}
                 />
                 <Footer />

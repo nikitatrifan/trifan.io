@@ -3,6 +3,7 @@ import { Switch, Route, withRouter } from 'react-router-dom'
 import Home from './routes/Home'
 import YoapPage from './routes/yoap'
 import USPage from './routes/ultrastore'
+import BGAPage from './routes/bga'
 import normalizeScroll from './helpers/normalizeScroll'
 import { TweenMax } from 'gsap'
 
@@ -41,6 +42,7 @@ class App extends Component {
                     <Route path="/" exact component={Home}/>
                     <Route path="/yoap" exact component={YoapPage}/>
                     <Route path="/ultrastore" exact component={USPage}/>
+                    <Route path="/gym-assistant" exact component={BGAPage}/>
                 </Switch>
             </div>
         );

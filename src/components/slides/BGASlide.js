@@ -88,6 +88,7 @@ class BGASlide extends React.Component {
                     <div ref={b => this.content = b}>
                         <SlideAbout
                             onButtonClick={this.buttonClickHandler}
+                            buttonGradientLink="/gym-assistant"
                             labels={['design', 'front-end', 'back-end']}
                             title={(
                                 'Boosted Gym Assistant \n' +

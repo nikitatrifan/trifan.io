@@ -58,7 +58,6 @@ class USIntro extends React.Component {
     };
     scrollHandler = () => {
         const percent = getNodeRelativeViewportPercentPosition(this.wrapper);
-
         if (percent === undefined)
             return false;
 
@@ -69,7 +68,7 @@ class USIntro extends React.Component {
     };
     tween = () => {
         const tl = new TimelineMax({ paused: true });
-        const height = parseInt(window.innerHeight / 2, 10);
+        const height = parseInt(window.innerHeight * 0.6, 10);
         const dur = 1;
 
         tl.fromTo(this.scroller, dur, {

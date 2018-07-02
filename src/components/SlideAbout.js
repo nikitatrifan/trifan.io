@@ -16,7 +16,7 @@ const SlideAbout = props => {
     return (
         <div className={classNames(classes.content, className)}>
             <Box justify="start" align="start">
-                {labels.map(it => (
+                {labels && labels.map(it => (
                     <Paragraph
                         key={it} size={6}
                         className={classes.label}
