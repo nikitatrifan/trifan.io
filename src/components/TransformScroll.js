@@ -99,7 +99,7 @@ class TransformScroll extends React.Component {
         // the animation begins when bottom block bezel
         // reach the bottom of a viewport
         const heightRatio = wrapperHeight / windowHeight;
-        if (heightRatio >= .9 && heightRatio <= 1.1) {
+        if (heightRatio >= .95 && heightRatio <= 1) {
             if (offsetTop <= wrapperHeight) {
                 return offsetTop / wrapperHeight;
             }

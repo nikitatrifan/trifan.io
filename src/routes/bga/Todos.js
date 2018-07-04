@@ -32,8 +32,10 @@ class BGATodos extends React.Component {
         }), () => {
             this.scroller.resizeHandler();
             if (!this.state.isFullState) {
-                TweenMax.to(window, .25, {
-                    scrollTo: this.wrapper
+                const node = document.querySelector('#todos-header').parentElement;
+                TweenMax.to(window, 0, {
+                    scrollTo: node,
+                    onComplete: this.scroller.resizeHandler
                 })
             }
         })
@@ -48,11 +50,11 @@ class BGATodos extends React.Component {
         const maxItems = isMobile ? 0 : isTablet ? 1 : 2;
         return (
             <TransformScroll
-                offset={0.6595} scrollRef={b => this.scroller = b}
+                offset={isFullState ? 0.6595 : 0.5} scrollRef={b => this.scroller = b}
                 wrapperClassName={classes.wrapper} scrollerClassName={classes.scroller}
             >
                 <NavigationWaypoint theme="light">
-                    <Container className={classes.header} type="content">
+                    <Container id="todos-header" className={classes.header} type="content">
                         <ComponentFadeIn delay={.04}>
                             <Heading color={theme.whiteColor} size="2">
                                 Under Development
@@ -114,7 +116,8 @@ const styles = {
     }),
     scroller: {
         backgroundColor: '#6059F1',
-        paddingBottom: '109px'
+        paddingBottom: '109px',
+        minHeight: '101vh'
     },
     header: {
         padding: '65px 0 36px',

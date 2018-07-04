@@ -10,6 +10,7 @@ import ComponentFadeIn from './ComponentFadeIn'
 import theme from "../theme";
 import {Power0, TimelineMax, TweenMax} from "gsap";
 import {NavigationWaypoint} from "../containers/NavigationContainer";
+import responsive from '../helpers/responsive'
 import getNodeRelativeViewportPercentPosition from "../helpers/getNodeRelativeViewportPercentPosition";
 
 class Technologies extends React.Component {
@@ -89,12 +90,25 @@ class Technologies extends React.Component {
         window.addEventListener('scroll', this.scrollHandler);
     }
 
+    Wrapper = ({children, theme}) => {
+        if (responsive().isMobile) {
+            return (
+                <NavigationWaypoint theme={theme}>
+                    {children}
+                </NavigationWaypoint>
+            )
+        }
+
+        return children;
+    };
+
     render() {
         const { classes, content, data } = this.props;
+        const { Wrapper } = this;
         return (
             <div ref={b => this.wrapper = b} className={classes.wrapper}>
                 <div ref={b => this.scroller = b} className={classes.scroller}>
-                    <NavigationWaypoint theme="light">
+                    <Wrapper theme="light">
                         <Container type="content">
                             <ComponentFadeIn>
                                 <Heading color={theme.whiteColor} size="2">
@@ -124,7 +138,7 @@ class Technologies extends React.Component {
                                 ))}
                             </Box>
                         </Container>
-                    </NavigationWaypoint>
+                    </Wrapper>
                 </div>
             </div>
         )

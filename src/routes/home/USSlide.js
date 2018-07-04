@@ -10,7 +10,7 @@ import responsive from "../../helpers/responsive";
 class USSLide extends React.Component {
     images = [];
     componentDidMount() {
-        if (responsive('mobile'))
+        if (responsive().isMobile)
             return false;
 
         setTimeout(() => {
