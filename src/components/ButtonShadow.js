@@ -2,8 +2,9 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import { NavLink as RouterLink } from 'react-router-dom'
-import theme from '../theme'
+import { TweenMax } from 'gsap'
 import injectStyles from 'react-jss'
+import theme from '../theme'
 
 class ButtonShadow extends React.Component {
     static propTypes = {
@@ -11,6 +12,36 @@ class ButtonShadow extends React.Component {
         gradient: PropTypes.array,
         children: PropTypes.any,
         to: PropTypes.string
+    };
+
+    setRef = b => this.button = b;
+
+    dur = .35;
+    scale = .85;
+    hoverScale = .9;
+
+    hoverAnimation = () => {
+        if (!this.button)
+            return;
+        TweenMax.to(this.button, this.dur, {
+            scale: this.hoverScale
+        })
+    };
+
+    startAnimation = () => {
+        if (!this.button)
+            return;
+        TweenMax.to(this.button, this.dur, {
+            scale: this.scale
+        })
+    };
+
+    endAnimation = () => {
+        if (!this.button)
+            return;
+        TweenMax.to(this.button, this.dur, {
+            scale: 1
+        })
     };
 
     render() {
@@ -26,7 +57,16 @@ class ButtonShadow extends React.Component {
 
         return (
             <Wrapper className={classNames(classes.wrapper, className)} to={to}>
-                <button style={buttonStyle} {...props} className={classes.button}>
+                <button
+                    ref={this.setRef}
+                    onMouseOver={this.hoverAnimation}
+                    onMouseLeave={this.endAnimation}
+                    onTouchStart={this.startAnimation}
+                    onMouseDown={this.startAnimation}
+                    onTouchEnd={this.endAnimation}
+                    onMouseUp={this.endAnimation}
+                    style={buttonStyle} {...props}
+                    className={classes.button}>
                     {children}
                 </button>
                 <span style={shadowStyle} className={classes.shadow}/>
@@ -41,9 +81,6 @@ const styles = {
         display: 'inline-block',
         position: 'relative',
         zIndex: 0,
-        '&:hover button': {
-            transform: 'scale(0.95)'
-        },
         '&:hover span': {
             transform: 'translate(-50%, -40%)'
         },
@@ -63,9 +100,10 @@ const styles = {
         cursor: 'pointer',
         display: 'inline-block',
         position: 'relative',
+        userSelect: 'none',
         zIndex: 10,
         border: 'none',
-        transition: 'transform .25s ease-in-out',
+        //transition: 'transform .25s ease-in-out',
         whiteSpace: 'pre',
         [mobileMedia]: {
             fontSize: '18px',
