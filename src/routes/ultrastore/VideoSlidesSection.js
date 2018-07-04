@@ -41,7 +41,7 @@ class VideoSlidesSection extends React.Component {
     scrollHandler = () => {
         const percent = getNodeRelativeViewportPercentPosition(this.wrapper);
 
-        if (percent === undefined)
+        if (percent === undefined || !this.scrollTl)
             return false;
 
         TweenMax.to(this.scrollTl, 0, {

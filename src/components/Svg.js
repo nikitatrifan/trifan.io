@@ -69,7 +69,7 @@ export default class Svg extends React.Component {
     }
     componentDidUpdate() {
         if (this.state.isLoaded) {
-            setTimeout(this.props.onLoad, 200);
+            setTimeout(this.props.onLoad, 100);
         }
     }
 

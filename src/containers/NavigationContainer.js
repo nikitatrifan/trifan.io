@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import { withRouter } from 'react-router-dom'
 import Navigation from '../components/Navigation'
 import Waypoint from '../components/Waypoint'
-//import theme from '../theme'
 
 const NavigationContext = React.createContext();
 export const NavigationConsumer = NavigationContext.Consumer;
@@ -22,6 +21,7 @@ export const NavigationWaypoint = ({theme, children, ...props}) => (
 
             return (
                 <Waypoint
+                    offset={-context.navOffset}
                     onEnter={() => changeNavigationTheme(theme)}
                     topListener
                 >
@@ -38,7 +38,7 @@ NavigationWaypoint.propTypes = {
 
 class NavigationContainer extends React.Component{
     state = {
-        theme: 'dark'
+        theme: 'dark', navOffset: 45
     };
 
     changeTheme = theme => {
@@ -46,12 +46,29 @@ class NavigationContainer extends React.Component{
             this.setState({theme});
     };
 
+    resizeHandler = () => {
+        clearTimeout(this.resizeTimeout);
+        this.resizeTimeout = setTimeout(() => {
+            const navWrapper = document.querySelector('#nav-wrapper');
+            const { offsetTop, clientHeight } = navWrapper;
+
+            this.setState({
+                navOffset: offsetTop + (clientHeight / 2)
+            })
+        }, 60);
+    };
+
     componentDidMount() {
-        setTimeout(() => {
+        try {
             window.scrollTo(0, 10);
             window.dispatchEvent(new Event('scroll'));
             window.scrollTo(0, 0);
-        }, 160)
+        } catch (e) {
+            console.warn(e)
+        }
+
+        window.addEventListener('resize', this.resizeHandler);
+        setTimeout(this.resizeHandler, 300);
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -65,12 +82,14 @@ class NavigationContainer extends React.Component{
 
     componentWillUnmount() {
         this.isUnMounted = true;
+        window.removeEventListener('resize', this.resizeHandler)
     }
 
     render() {
         const data = {
             theme: this.state.theme,
-            changeNavigationTheme: this.changeTheme
+            changeNavigationTheme: this.changeTheme,
+            navOffset: this.state.navOffset
         };
 
         const { history, ...props } = this.props;
@@ -79,7 +98,10 @@ class NavigationContainer extends React.Component{
 
         return (
             <NavigationContext.Provider value={data}>
-                <Navigation {...props} back={isNavBack} theme={this.state.theme} />
+                <Navigation {...props}
+                            back={isNavBack}
+                            theme={this.state.theme}
+                />
                 {this.props.children}
             </NavigationContext.Provider>
         )

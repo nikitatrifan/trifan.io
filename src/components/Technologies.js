@@ -48,7 +48,7 @@ class Technologies extends React.Component {
     scrollHandler = () => {
         const percent = getNodeRelativeViewportPercentPosition(this.wrapper);
 
-        if (percent === undefined)
+        if (percent === undefined || !this.tl)
             return false;
 
         TweenMax.to(this.tl, 0, {

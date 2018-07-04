@@ -45,7 +45,7 @@ class Navigation extends React.Component{
         return (
             <nav id="nav" className={classNames(classes.wrapper, classes[theme], className)}>
                 <Container className={classes.container}>
-                    <Box justify="between" align="center">
+                    <Box id="nav-wrapper" justify="between" align="center">
                         <RouterLink
                             to="/" className={classes.logo}
                             activeClassName={classes.logo_active}
@@ -144,6 +144,7 @@ const styles = {
     back: {
         '& span': {
             transition: `transform ${cssTransitionTime}s ease-in-out`,
+            marginLeft: '10px'
         },
         '&:hover svg': {
             transform: 'translateX(7px)',
@@ -154,7 +155,7 @@ const styles = {
     },
     arrow: {
         transform: 'rotateZ(180deg)',
-        marginRight: '10px',
+        width: '19px',
         '& svg': {
             transition: `transform ${cssTransitionTime}s ease-in-out`,
             fill: 'inherit',

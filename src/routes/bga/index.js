@@ -1,6 +1,5 @@
 import React from 'react'
 import windowSize from 'react-window-size'
-import Navigation from '../../components/Navigation'
 import Footer from '../../components/Footer'
 import Intro from './Intro'
 import Todos from './Todos'
