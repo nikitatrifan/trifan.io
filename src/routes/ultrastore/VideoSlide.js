@@ -97,7 +97,8 @@ const styles = {
         width: '100%', zIndex: 0,
     },
     header: {
-        paddingBottom: '60px'
+        paddingBottom: '60px', position: 'relative',
+        zIndex: 10
     },
     browser: {
         zIndex: 10, position: 'relative'

@@ -96,8 +96,8 @@ class USAbout extends React.Component {
                             </ComponentFadeIn>
                             <ComponentFadeIn delay={.14}>
                                 <Paragraph opacity size="3" margin="small">
-                                    We are decided with Nikita Nikiforof that user will have access to main shop
-                                    features like cart, checkout and account everywhere without any delays.
+                                    We are decided with Nikita Nikiforov that user will have access to main shop
+                                    features like cart, checkout and account everywhere and immediately.
                                 </Paragraph>
                             </ComponentFadeIn>
                         </Container>

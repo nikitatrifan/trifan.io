@@ -35,11 +35,11 @@ class Brandbook extends React.Component {
                                 Brandbook
                             </Heading>
                             <Paragraph  opacity size="3" margin="small">
-                                Nikita Nikiforof designed this brandbook for the client.
+                                Nikita Nikiforov designed this awesome brandbook for the client.
                             </Paragraph>
                         </Container>
 
-                        <Container>
+                        <Container type="bootstrap">
                             <Carousel
                                 minOpacity={.3}
                                 images={this.getData()}

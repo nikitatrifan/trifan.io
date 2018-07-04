@@ -78,7 +78,7 @@ class YoapComponentsSystem extends React.Component {
                 <ComponentFadeIn delay={.04} noAnimation={isModal}>
                     <Paragraph opacity size="3" margin="small">
                         Each component is reusable. Each smart component has one data flow at everywhere with saved
-                        user settings\actions. The result of the approach: unique framework for all client needs.
+                        user settings\actions. The result of the approach: unique and scalable framework for all client needs.
                     </Paragraph>
                 </ComponentFadeIn>
 

@@ -4,6 +4,8 @@ import Paragraph from '../../components/Paragraph'
 import Svg from '../../components/Svg'
 import injectStyles from 'react-jss'
 import ComponentFadeIn from '../../components/ComponentFadeIn'
+import CallToScroll from '../../components/CallToScroll'
+import Container from '../../components/Container'
 import {Power0, TimelineMax, TweenMax} from 'gsap'
 import theme from '../../theme'
 import { NavigationWaypoint } from "../../containers/NavigationContainer";
@@ -107,6 +109,11 @@ class USIntro extends React.Component {
                                 </ComponentFadeIn>
                             </div>
                         </div>
+                        <div className={classes.scrollForMore}>
+                            <Container>
+                                <CallToScroll text="Scroll To Learn More" />
+                            </Container>
+                        </div>
                     </NavigationWaypoint>
                 </div>
             </div>
@@ -170,6 +177,11 @@ const styles = {
         width: '100%', height: '100%',
         willChange: 'transform'
     },
+    scrollForMore: {
+        position: 'absolute',
+        left: 0, bottom: 0,
+        width: '100%'
+    }
 };
 
 export default windowSize(

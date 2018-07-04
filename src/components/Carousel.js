@@ -12,8 +12,12 @@ import theme from '../theme'
 
 class Carousel extends React.Component {
     static propTypes = {
-        images: PropTypes.array.isRequired
+        images: PropTypes.array.isRequired,
+        interval: PropTypes.number,
     };
+    static defaultProps = {
+        interval: 2
+    }
 
     state = {
         slide: 0,
@@ -39,7 +43,7 @@ class Carousel extends React.Component {
 
     startAnimation = () => {
         clearInterval(this.animationTimeout);
-        this.animationTimeout = setInterval(this.nextSlide, 5000);
+        this.animationTimeout = setInterval(this.nextSlide, this.props.interval * 1000);
     };
     nextSlide = () => {
         if (this.isUnMounted)
@@ -130,6 +134,8 @@ class Carousel extends React.Component {
         this.setSlide(idx);
     };
 
+    static slidesOffset = 3;
+
     render() {
         const { classes, images, windowWidth } = this.props;
         const { slide, } = this.state;
@@ -156,7 +162,7 @@ class Carousel extends React.Component {
                                  className={classNames(classes.slide, idx === slide && classes.slide_current)}
                                  onClick={() => this.slideClickHandler(idx)}
                                  style={{
-                                     left: windowWidth <= 1000 ? `${idx*100}%` : `${(idx*100) + 5}%`,
+                                     left: windowWidth <= 1000 ? `${idx*100}%` : `${(idx*100) + Carousel.slidesOffset}%`,
                                      opacity: idx === slide ? 1 : this.inactiveOpacity
                                  }}>
                                 <img className={classes.image} src={it} alt="YOAP Website Screen" />
@@ -172,22 +178,25 @@ class Carousel extends React.Component {
 const styles = {
     wrapper: {
         width: '100%', height: '588px', borderRadius: '3.5%', position: 'relative',
+        marginTop: '35px',
         '@media only screen and (max-width: 1330px)': {
-            marginTop: '40px'
+            marginTop: '55px'
+        },
+        '@media only screen and (max-width: 1000px)': {
+            marginTop: '75px'
         },
     },
     slide: {
         position: 'absolute',
-        width: '90%', height: '90%',
-        top: '5%', left: '5%',
+        width: `${100 - Carousel.slidesOffset * 2}%`,
+        height: `${100 - Carousel.slidesOffset * 2}%`,
+        top: `${Carousel.slidesOffset}%`,
+        left: `${Carousel.slidesOffset}%`,
         cursor: 'pointer',
         transition: 'box-shadow .15s ease-in-out',
         '@media only screen and (max-width: 1000px)': {
-            width: '100%', left: 0
-        }
-    },
-    slide_current: {
-        cursor: 'default',
+            width: '100%', left: 0, top: 0
+        },
         '& img': {
             boxShadow: '0px 1px 60px 10px rgba(0,0,0,0.1)',
             '@media only screen and (max-width: 700px)': {
@@ -195,21 +204,17 @@ const styles = {
             },
         }
     },
+    slide_current: {
+        cursor: 'default',
+    },
     info: {
         marginLeft: '8%',
         userSelect: 'none',
+        transform: 'translateY(-16px)',
         '@media only screen and (max-width: 1000px)': {
             marginLeft: '0%',
-            transform: 'translateY(-40%)'
+            transform: 'translateY(-31px)',
         },
-        '@media only screen and (max-width: 700px)': {
-            marginLeft: '0%',
-            transform: 'translateY(-60%)'
-        },
-        '@media only screen and (max-width: 466px)': {
-            marginLeft: '0%',
-            transform: 'translateY(-70%)'
-        }
     },
     info_text: {
         color: theme.textColor

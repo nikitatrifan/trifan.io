@@ -14,7 +14,7 @@ class AppInterface extends React.Component {
     static data = [
         {
             title: 'Smart trainings process',
-            about: 'The app will track: your training progress, calculate sets, measure relax time, show you statistics and instructions of exercise.',
+            about: 'The app will track your training progress, calculate exercises sets, measure relax time between exercises, show you statistics and exercises how to.',
             screens: [
                 '/bga/screens/Todays-Training.jpg',
                 '/bga/screens/Todays-Exercise.jpg',
@@ -34,7 +34,7 @@ class AppInterface extends React.Component {
         },
         {
             title: 'Unique programs',
-            about: 'You can: choose program, let define the program by app or write by yourself new one in 2 minutes.',
+            about: 'You can choose program, let define the program by app or write by yourself new one in 2 minutes.',
             screens: [
                 '/bga/screens/Training-Programs-List.jpg',
                 '/bga/screens/Custom-Program-Days.jpg',

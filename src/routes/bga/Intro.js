@@ -43,7 +43,7 @@ class BGAIntro extends React.Component {
     };
 
     fadeIn = () => {
-        const { mockup, about } = this;
+        const { mockup, about, scrollMore } = this;
         const mockupTl = new TimelineMax();
         const dur = 2;
 
@@ -64,7 +64,7 @@ class BGAIntro extends React.Component {
             y: -window.innerHeight/3,
         }, {
             y: 0, ease: Elastic.easeOut.config(1, 0.5)
-        }, '0')
+        }, '0');
     };
 
     enterHandler = () => {
@@ -109,9 +109,11 @@ class BGAIntro extends React.Component {
                                             <CarouselIOSTransition
                                                 noAnimate
                                                 images={[
-                                                    '/bga/screens/Custom-Program-Choose-Exercise.jpg',
-                                                    '/bga/screens/Custom-Program-Day.jpg',
-                                                    '/bga/screens/Custom-Program-Days.jpg',
+                                                    '/bga/screens/Todays-Training.jpg',
+                                                    '/bga/screens/Todays-Exercise.jpg',
+                                                    '/bga/screens/Todays-Exercise-Relax.jpg',
+                                                    '/bga/screens/Todays-Exercise.jpg',
+                                                    '/bga/screens/Todays-Exercise-Done.jpg',
                                                 ]}
                                             />
                                         </IPhoneMockup>
@@ -174,7 +176,7 @@ const styles = {
         [responsive('mobile')]: {
             width: '100%',
         }
-    }
+    },
 };
 
 export default windowSize(

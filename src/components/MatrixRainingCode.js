@@ -159,10 +159,15 @@ class MatrixRainingCode extends React.Component {
             return this.onAnimationEnd();
         }, 100);
     };
+    numbers = ['01', '10', '00', '11'];
+    getRandomInt = (min, max) => {
+        return Math.floor(Math.random() * (max - min + 1) + min);
+    };
 
     render() {
         const { classes, windowWidth, windowHeight, noAnimation } = this.props;
         const { isAnimationDeleted } = this.state;
+        const { numbers, getRandomInt } = this;
         const columns = this.makeArray(parseInt(windowWidth / 30, 10));
         const rows = this.makeArray(parseInt(windowHeight / 19, 10));
 
@@ -178,7 +183,7 @@ class MatrixRainingCode extends React.Component {
                                     className={classes.code}
                                     key={idx}
                                 >
-                                    {idx % 3 ? '10' : idx % 2 ? '01' : '00'}
+                                    {numbers[getRandomInt(0, 3)]}
                                 </span>
                             ))}
                         </div>
@@ -188,7 +193,7 @@ class MatrixRainingCode extends React.Component {
                     style={noAnimation ? {zIndex: 100} : undefined}
                     ref={b => this.image = b}
                     className={classes.image}
-                    src="/trifan-2.jpg" alt="Nikita Trifan"
+                    src="/trifan-touched.jpg" alt="Nikita Trifan"
                 />
             </div>
         )

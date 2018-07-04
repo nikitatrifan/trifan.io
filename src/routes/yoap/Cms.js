@@ -88,7 +88,7 @@ class YoapCms extends React.Component {
                             </ComponentFadeIn>
                             <ComponentFadeIn delay={.04}>
                                 <Paragraph opacity size="3" margin="small">
-                                    We designed and developed custom content management system for YOAP team needs.
+                                    We are designed and developed custom content management system for YOAP team needs.
                                     They can manage their objects and users without wasting time on loadings.
                                 </Paragraph>
                             </ComponentFadeIn>

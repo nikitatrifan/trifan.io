@@ -129,8 +129,8 @@ class YoapInterface extends React.Component {
                             <ComponentFadeIn delay={.14}>
                                 <Paragraph opacity size="3" color={theme.whiteColor} margin="small">
                                     YOAP team is working to help locals find a new apartment for a long-term rent: they are looking for
-                                    best offers for rent on local market and then upload to their website with huge amount of parameters of
-                                    accomodation that user can filter by.
+                                    exclusive offers for rent on a local market and then uploading them to their website with huge amount of parameters of
+                                    accomodations that user can filter by.
                                     <br/><br/>
                                     Also, they wanted to create simple and fast service with all users needs.
                                 </Paragraph>
@@ -159,7 +159,7 @@ class YoapInterface extends React.Component {
                                     We are developed an interactive map where user can get routes from an apartment to subway station
                                     on foot, car or bus with approximate time of.
                                     <br/><br/>
-                                    User can save his favorite addresses like office address or parents
+                                    User can save his favorite addresses like office or parents addresses
                                     and get routes from an apartment to that addresses.
                                 </Paragraph>
                             </ComponentFadeIn>

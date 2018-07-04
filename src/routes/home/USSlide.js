@@ -42,8 +42,10 @@ class USSLide extends React.Component {
         const dur = 3;
 
         tl.staggerFromTo(this.images, dur / 4, {
-            opacity: 0
+            opacity: 0,
+            display: 'none'
         }, {
+            display: 'block',
             opacity: 1,
             ease: Power0.easeNone
         }, 0.1);

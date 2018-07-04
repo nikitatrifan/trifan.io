@@ -149,7 +149,7 @@ const styles = {
         height: '100%',
         zIndex: 10,
         backgroundColor: '#151b23',
-        opacity: .76
+        opacity: .66
     }
 };
 

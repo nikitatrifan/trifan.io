@@ -100,7 +100,7 @@ class YoapIntroSlide extends React.Component {
                                 Objective
                             </Title>
                             <Paragraph opacity margin="medium">
-                                To develop new real-estate web service YOAP including front-end, back-end,
+                                To develop new real-estate web service YOAP including front-end, back-end
                                 and content management system.
                                 <br/> <br/>
                                 The project is developed in collaboration with designer

@@ -7,7 +7,12 @@ import responsive from "../helpers/responsive";
 
 class CallToScroll extends React.Component {
     static propTypes = {
-        color: PropTypes.string
+        color: PropTypes.string,
+        text: PropTypes.string,
+    };
+    static defaultProps = {
+        color: '#121212',
+        text: 'Explore my work'
     };
 
     setBarRef = b => this.indicator = b;
@@ -41,7 +46,7 @@ class CallToScroll extends React.Component {
     }
 
     render() {
-        const { classes, color = '#121212' } = this.props;
+        const { classes, text, color } = this.props;
         return (
             <div className={classes.wrapper}>
                 <Paragraph
@@ -49,7 +54,7 @@ class CallToScroll extends React.Component {
                     color={color} margin="small"
                     upperCase size={5}
                 >
-                    Explore my work
+                    {text}
                 </Paragraph>
                 <div className={classes.indicator}>
                     <div

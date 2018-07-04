@@ -179,7 +179,7 @@ class CarouselIOSTransition extends React.Component {
                 <div ref={this.setWrapperRef} className={classes.wrapper}>
                     <div ref={this.setRef} className={classes.container}>
                         {images.map((it, idx) => (
-                            <div key={it}
+                            <div key={idx}
                                  style={{zIndex: idx+1}}
                                  className={classNames(classes.slide, idx === slide && classes.slide_current)}
                                  onClick={this.nextSlide}>
