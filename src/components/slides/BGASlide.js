@@ -6,10 +6,14 @@ import injectStyles from 'react-jss'
 import SlideAbout from '../SlideAbout'
 import {Power0, TimelineMax, TweenMax} from "gsap";
 import getNodeRelativeViewportPercentPosition from "../../helpers/getNodeRelativeViewportPercentPosition";
+import responsive from "../../helpers/responsive";
 
 class BGASlide extends React.Component {
     images = [];
     componentDidMount() {
+        if (responsive().isMobile)
+            return false;
+
         setTimeout(() => {
             this.tl = this.tween();
             this.scrollHandler();
@@ -147,8 +151,11 @@ const styles = {
         justifyContent: 'center',
         backgroundColor: '#FAFAFA',
         position: 'relative',
-        zIndex: 1
-        //overflow: 'hidden',
+        zIndex: 1,
+        [responsive('mobile')]: {
+            flexDirection: 'column-reverse',
+            height: 'auto', padding: '60px 0 20px'
+        }
     },
     images: {
         display: 'flex',
@@ -156,11 +163,16 @@ const styles = {
         alignItems: 'flex-start',
         flexDirection: 'row',
         position: 'absolute',
-        flexWrap: 'no-wrap',
+        flexWrap: 'nowrap',
         top: '-10%', right: '-10%',
         width: '55%',
         height: '100%',
-        transform: 'rotateZ(45deg)'
+        transform: 'rotateZ(45deg)',
+        [responsive('mobile')]: {
+            position: 'static',
+            transform: 'rotateZ(0deg)',
+            width: '100%', height: 'auto'
+        }
     },
     images_col: {
         display: 'flex',

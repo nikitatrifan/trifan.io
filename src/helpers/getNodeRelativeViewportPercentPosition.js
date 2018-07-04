@@ -28,5 +28,8 @@ export default node => {
         );
     }
 
+    if (val < 0)
+        val = 0;
+
     return parseFloat(Math.min(val, 1));
 }

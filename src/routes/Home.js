@@ -47,7 +47,9 @@ class Home extends React.Component{
                     </span>
                 )}  />
                 <IntroSlide
-                    onMatrixRainingCodeComplete={this.completeRainingCodeHandler}
+                    onMatrixRainingCodeComplete={
+                        this.completeRainingCodeHandler
+                    }
                 />
                 <BGASlide />
                 <YoapSlide />

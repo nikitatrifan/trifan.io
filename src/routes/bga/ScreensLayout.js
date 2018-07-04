@@ -7,6 +7,7 @@ import Paragraph from '../../components/Paragraph'
 import ComponentFadeIn from '../../components/ComponentFadeIn'
 import IPhoneMockup from '../../components/IPhoneMockup'
 import Box from '../../components/Box'
+import responsive from "../../helpers/responsive";
 
 class ScreensLayout extends React.Component {
     static propTypes = {
@@ -52,13 +53,27 @@ class ScreensLayout extends React.Component {
 
 const styles = {
     wrapper: {
-        padding: '85px 0 65px'
+        padding: '85px 0 65px',
+        [responsive('mobile')]: {
+            padding: '65px 0 15px',
+        }
     },
     grid: {
-        marginTop: '95px'
+        marginTop: '95px',
+        [responsive('mobile')]: {
+            marginTop: '35px',
+        }
     },
     screen: {
-        width: '23%'
+        width: '23%',
+        [responsive('tablet')]: {
+            width: '30%',
+            marginBottom: '40px'
+        },
+        [responsive('mobile')]: {
+            width: '48%',
+            marginBottom: '40px'
+        }
     },
     screen_wrapper: {
         width: '95%',

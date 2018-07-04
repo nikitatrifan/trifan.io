@@ -35,6 +35,7 @@ class ButtonShadow extends React.Component {
     }
 }
 
+const mobileMedia = `@media only screen and (max-width: ${theme.mobilePoint}px)`;
 const styles = {
     wrapper: {
         display: 'inline-block',
@@ -65,7 +66,11 @@ const styles = {
         zIndex: 10,
         border: 'none',
         transition: 'transform .25s ease-in-out',
-        whiteSpace: 'pre'
+        whiteSpace: 'pre',
+        [mobileMedia]: {
+            fontSize: '18px',
+            lineHeight: '18px',
+        }
     },
     shadow: {
         display: 'block',

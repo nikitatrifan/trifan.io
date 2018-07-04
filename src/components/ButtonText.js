@@ -32,12 +32,16 @@ class ButtonText extends React.Component {
                         ) : children
                     }
                 </button>
-                <i className={classes.shadow}/>
+                <i
+                    style={{backgroundColor: color}}
+                    className={classes.shadow}
+                />
             </div>
         )
     }
 }
 
+const mobileMedia = `@media only screen and (max-width: ${theme.mobilePoint}px)`;
 const styles = {
     wrapper: {
         display: 'inline-block',
@@ -81,7 +85,11 @@ const styles = {
         zIndex: 0,
         border: 'none',
         transition: 'transform .25s ease-in-out',
-        whiteSpace: 'pre', backgroundColor: 'transparent'
+        whiteSpace: 'pre', backgroundColor: 'transparent',
+        [mobileMedia]: {
+            fontSize: '18px',
+            lineHeight: '18px',
+        }
     },
     shadow: {
         display: 'block',

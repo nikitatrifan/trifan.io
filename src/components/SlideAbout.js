@@ -7,6 +7,7 @@ import ButtonText from './ButtonText'
 import ButtonShadow from './ButtonShadow'
 import classNames from 'classnames'
 import injectStyles from 'react-jss'
+import theme from "../theme";
 
 const SlideAbout = props => {
     const {
@@ -43,10 +44,14 @@ const SlideAbout = props => {
     )
 };
 
+const mobileMedia = `@media only screen and (max-width: ${theme.mobilePoint}px)`;
 const styles = {
     content: {
         maxWidth: '450px',
-        width: '50%'
+        width: '50%',
+        [mobileMedia]: {
+            width: '100%',
+        }
     },
     label: {
         marginRight: '12px',
@@ -56,10 +61,16 @@ const styles = {
     },
     paragraph: {
         marginBottom: '50px',
-        opacity: .5
+        opacity: .5,
+        [mobileMedia]: {
+            marginBottom: '35px'
+        }
     },
     textButton: {
-        marginLeft: 25
+        marginLeft: '25px',
+        [mobileMedia]: {
+            marginLeft: '10px'
+        }
     },
 };
 

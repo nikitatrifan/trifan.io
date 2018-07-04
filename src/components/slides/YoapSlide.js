@@ -5,10 +5,14 @@ import injectStyles from 'react-jss'
 import SlideAbout from '../SlideAbout'
 import {Power0, TimelineMax, TweenMax} from "gsap";
 import getNodeRelativeViewportPercentPosition from "../../helpers/getNodeRelativeViewportPercentPosition";
+import responsive from "../../helpers/responsive";
 
 class YoapSlide extends React.Component {
     images = [];
     componentDidMount() {
+        if (responsive('mobile'))
+            return false;
+
         setTimeout(() => {
             this.tl = this.tween();
             this.scrollHandler();
@@ -134,7 +138,11 @@ const styles = {
         position: 'relative',
         //overflow: 'hidden',
         //marginBottom: '100vh',
-        zIndex: 0
+        padding: '60px 0 20px',
+        zIndex: 0,
+        [responsive('mobile')]: {
+            height: 'auto', flexDirection: 'column-reverse'
+        }
     },
 
     images: {
@@ -143,10 +151,13 @@ const styles = {
         alignItems: 'flex-start',
         flexDirection: 'row',
         position: 'absolute',
-        flexWrap: 'no-wrap',
+        flexWrap: 'nowrap',
         left: '-40%', top: '-4%',
-        width: '55%',
-        height: '100%',
+        width: '55%', height: '100%',
+        [responsive('mobile')]: {
+            width: '100%', position: 'relative',
+            height: 'auto',
+        }
     },
     image: {
         width: '110%',

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import Paragraph from './Paragraph'
 import { TweenMax } from 'gsap'
 import injectStyles from 'react-jss'
+import responsive from "../helpers/responsive";
 
 class CallToScroll extends React.Component {
     static propTypes = {
@@ -77,7 +78,10 @@ const styles = {
         height: '57px',
         width: '1px',
         position: 'relative',
-        overflow: 'hidden'
+        overflow: 'hidden',
+        [responsive('mobile')]: {
+            height: '37px'
+        }
     },
     indicator_bg: {
         position: 'absolute',

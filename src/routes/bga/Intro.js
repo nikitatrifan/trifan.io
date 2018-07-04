@@ -3,16 +3,18 @@ import { findDOMNode } from 'react-dom'
 import Waypoint from '../../components/Waypoint'
 import PropTypes from "prop-types";
 import windowSize from 'react-window-size'
+import classNames from 'classnames'
 import injectStyles from 'react-jss'
 import SlideAbout from '../../components/SlideAbout'
 import IPhoneMockup from '../../components/IPhoneMockup'
 import CarouselIOSTransition from '../../components/CarouselIOSTransition'
 import Box from '../../components/Box'
 import LogoAnimation from './LogoAnimation'
-import getNodeRelativeViewportPercentPosition from '../../helpers/getNodeRelativeViewportPercentPosition'
-import { TweenMax, TimelineMax, Power0, Elastic, Back } from 'gsap'
+import { TweenMax, TimelineMax, Elastic, Back } from 'gsap'
 import theme from '../../theme'
+import TransformScroll from '../../components/TransformScroll'
 import getScrollY from "../../helpers/getScrollY";
+import responsive from "../../helpers/responsive";
 
 class BGAIntro extends React.Component {
     static propTypes = {
@@ -33,59 +35,8 @@ class BGAIntro extends React.Component {
     };
 
     componentDidMount() {
-        setTimeout(() => {
-            this.tl = this.tween();
-            this.scrollHandler();
-
-            this.isAnimationInFocus();
-        }, 300);
-        window.addEventListener('scroll', this.scrollHandler);
+        setTimeout(this.isAnimationInFocus, 300);
     }
-    componentDidUpdate(prevProps) {
-        if (prevProps.windowWidth !== this.props.windowWidth) {
-            return this.resizeHandler()
-        }
-    }
-    componentWillUnmount() {
-        window.removeEventListener('scroll', this.scrollHandler);
-    }
-    resizeHandler = () => {
-        this.tl = this.tween();
-        this.scrollHandler();
-    };
-    scrollHandler = () => {
-        const percent = getNodeRelativeViewportPercentPosition(this.wrapper);
-
-        if (percent === undefined)
-            return false;
-
-        if (!this.tl)
-            return false;
-
-        TweenMax.to(this.tl, 0, {
-            progress: percent,
-            ease: Power0.easeNone
-        })
-    };
-    tween = () => {
-        if (!this.scroller)
-            return false;
-
-        const tl = new TimelineMax({ paused: true });
-        const height = parseInt(this.props.windowHeight / 2, 10);
-        const dur = 3;
-
-        tl.fromTo(this.scroller, dur, {
-            opacity: 1, y: 0
-        }, {
-            y: height,
-            opacity: .4,
-            ease: Power0.easeNone
-        });
-
-        return tl;
-    };
-
     setAboutRef = b => {
         this.about = findDOMNode(b);
     };
@@ -123,48 +74,50 @@ class BGAIntro extends React.Component {
         const { classes } = this.props;
         return (
             <Waypoint onEnter={this.enterHandler}>
-                <div ref={b => this.wrapper = b} className={classes.wrapper}>
-                    <div ref={b => this.scroller = b} className={classes.scroller}>
-                        <Box justify="center" align="center"
-                             ref={b => this.scroller = b}
-                             className={classes.scroller}>
-                            <LogoAnimation
-                                index={0}
-                                isAllowed={this.state.animationStarted}
-                                onComplete={this.fadeIn}
-                            />
-                            <div className={classes.container}>
-                                <Box justify="between" align="center" className={classes.content}>
-                                    <SlideAbout
-                                        className={classes.about}
-                                        ref={this.setAboutRef}
-                                        onButtonClick={this.buttonClickHandler}
-                                        title={(
-                                            'Boosted Gym Assistant \n' +
-                                            'iOS Application'
-                                        )}
-                                        description={(
-                                            'The app is designed to make user’s trainings at a gym\n' +
-                                            'easier and help to improve his body by the right way.'
-                                        )}
-                                    />
-                                    <div ref={b => this.mockup = b} className={classes.mockup}>
-                                        <IPhoneMockup>
-                                            <CarouselIOSTransition
-                                                noAnimate
-                                                images={[
-                                                    '/bga/screens/Custom-Program-Choose-Exercise.jpg',
-                                                    '/bga/screens/Custom-Program-Day.jpg',
-                                                    '/bga/screens/Custom-Program-Days.jpg',
-                                                ]}
-                                            />
-                                        </IPhoneMockup>
-                                    </div>
-                                </Box>
-                            </div>
-                        </Box>
-                    </div>
-                </div>
+                <TransformScroll
+                    name="Intro"
+                    wrapperClassName={classes.wrapper}
+                    scrollerClassName={classes.scroller}
+                >
+                    <Box justify="center" align="center"
+                         ref={b => this.scroller = b}
+                         className={classNames(classes.scroller, classes.scoller_wrapper)}>
+                        <LogoAnimation
+                            index={0}
+                            isAllowed={this.state.animationStarted}
+                            onComplete={this.fadeIn}
+                        />
+                        <div className={classes.container}>
+                            <Box justify="between" align="center" className={classes.content}>
+                                <SlideAbout
+                                    className={classes.about}
+                                    ref={this.setAboutRef}
+                                    onButtonClick={this.buttonClickHandler}
+                                    title={(
+                                        'Boosted Gym Assistant \n' +
+                                        'iOS Application'
+                                    )}
+                                    description={(
+                                        'The app is designed to make user’s trainings at a gym\n' +
+                                        'easier and help to improve his body by the right way.'
+                                    )}
+                                />
+                                <div ref={b => this.mockup = b} className={classes.mockup}>
+                                    <IPhoneMockup>
+                                        <CarouselIOSTransition
+                                            noAnimate
+                                            images={[
+                                                '/bga/screens/Custom-Program-Choose-Exercise.jpg',
+                                                '/bga/screens/Custom-Program-Day.jpg',
+                                                '/bga/screens/Custom-Program-Days.jpg',
+                                            ]}
+                                        />
+                                    </IPhoneMockup>
+                                </div>
+                            </Box>
+                        </div>
+                    </Box>
+                </TransformScroll>
             </Waypoint>
         )
     }
@@ -176,21 +129,48 @@ const styles = {
     }),
     scroller: {
         backgroundColor: theme.lightGrayColor,
-        height: '100vh', overflow: 'hidden'
+        height: '100vh', overflow: 'hidden',
+        willChange: 'transform, opacity',
+        [responsive('mobile')]: {
+            height: 'auto',
+            minHeight: '100vh',
+        }
+    },
+    scoller_wrapper: {
+        [responsive('mobile')]: {
+            padding: '50px 0 100px',
+        }
     },
     mockup: {
         width: '40%',
         opacity: 0,
-        willChange: 'transform, opacity'
+        minWidth: '200px',
+        willChange: 'transform, opacity',
+        [responsive('desktop')]: {
+            width: '34%',
+        },
+        [responsive('mobile')]: {
+            width: '50%', padding: '40px 0 30px'
+        }
     },
     container: {
         width: '90%', margin: '0 auto',
         maxWidth: '960px', position: 'relative',
         zIndex: 10
     },
+    content: {
+        [responsive('mobile')]: {
+            flexWrap: 'wrap',
+            flexDirection: 'column-reverse',
+            //alignItems: 'flex-start'
+        }
+    },
     about: {
         opacity: 0,
-        willChange: 'transform, opacity'
+        willChange: 'transform, opacity',
+        [responsive('mobile')]: {
+            width: '100%',
+        }
     }
 };
 

@@ -1,0 +1,349 @@
+[
+  {
+    "title":"Screens Design",
+    "todos":[
+      {
+        "title":"App Intro",
+        "isCompleted":true
+      },
+      {
+        "title":"Login / Signup",
+        "isCompleted":true
+      },
+      {
+        "title":"Program Definer",
+        "isCompleted":true
+      },
+      {
+        "title":"Programs List",
+        "isCompleted":true
+      },
+      {
+        "title":"Programs Review",
+        "isCompleted":true
+      },
+      {
+        "title":"Notifications",
+        "isCompleted":true
+      },
+      {
+        "title":"Training Dashboard",
+        "isCompleted":true
+      },
+      {
+        "title":"Training Process",
+        "isCompleted":true
+      },
+      {
+        "title":"Exercise Instruction",
+        "isCompleted":true
+      },
+      {
+        "title":"Add/Edit User's Program",
+        "isCompleted":true
+      },
+      {
+        "title":"Exercises",
+        "isCompleted":true
+      },
+      {
+        "title":"Settings",
+        "isCompleted":true
+      },
+      {
+        "title":"Measure Results",
+        "isCompleted":true
+      },
+      {
+        "title":"Results Dashboard",
+        "isCompleted":true
+      }
+    ]
+  },
+  {
+    "title":"Screens JSX Markup",
+    "todos":[
+      {
+        "title":"App Intro",
+        "isCompleted":true
+      },
+      {
+        "title":"Login / Signup",
+        "isCompleted":true
+      },
+      {
+        "title":"Program Definer",
+        "isCompleted":true
+      },
+      {
+        "title":"Programs List",
+        "isCompleted":true
+      },
+      {
+        "title":"Programs Review",
+        "isCompleted":true
+      },
+      {
+        "title":"Notifications",
+        "isCompleted":true
+      },
+      {
+        "title":"Training Dashboard",
+        "isCompleted":true
+      },
+      {
+        "title":"Training Process",
+        "isCompleted":true
+      },
+      {
+        "title":"Exercise Instruction",
+        "isCompleted":true
+      },
+      {
+        "title":"Add/Edit User's Program",
+        "isCompleted":true
+      },
+      {
+        "title":"Exercises",
+        "isCompleted":true
+      },
+      {
+        "title":"Settings",
+        "isCompleted":true
+      },
+      {
+        "title":"Measure Results",
+        "isCompleted":true
+      },
+      {
+        "title":"Results Dashboard",
+        "isCompleted":true
+      }
+    ]
+  },
+  {
+    "title":"CMS Pages Design",
+    "todos":[
+      {
+        "title":"Login Page",
+        "isCompleted":true
+      },
+      {
+        "title":"Exercises Management",
+        "isCompleted":true
+      },
+      {
+        "title":"Programs Management",
+        "isCompleted":true
+      },
+      {
+        "title":"Training Management",
+        "isCompleted":true
+      },
+      {
+        "title":"Users Management",
+        "isCompleted":true
+      }
+    ]
+  },
+  {
+    "title":"CMS JSX Markup",
+    "todos":[
+      {
+        "title":"LoginPage / LogoutPage",
+        "isCompleted":true
+      },
+      {
+        "title":"ExercisesPage",
+        "isCompleted":true
+      },
+      {
+        "title":"ProgramsPage",
+        "isCompleted":true
+      },
+      {
+        "title":"UsersPage",
+        "isCompleted":true
+      },
+      {
+        "title":"ExerciseEdit",
+        "isCompleted":true
+      },
+      {
+        "title":"ExercisesSchedule",
+        "isCompleted":true
+      },
+      {
+        "title":"Header",
+        "isCompleted":true
+      },
+      {
+        "title":"ImageUpload",
+        "isCompleted":true
+      },
+      {
+        "title":"ProgramEdit",
+        "isCompleted":true
+      },
+      {
+        "title":"TrainingEdit",
+        "isCompleted":true
+      },
+      {
+        "title":"TrainingSchedule",
+        "isCompleted":true
+      }
+    ]
+  },
+  {
+    "title":"CMS Front-End",
+    "todos":[
+      {
+        "title":"LoginPage / LogoutPage",
+        "isCompleted":true
+      },
+      {
+        "title":"ExercisesPage",
+        "isCompleted":true
+      },
+      {
+        "title":"ProgramsPage",
+        "isCompleted":true
+      },
+      {
+        "title":"UsersPage",
+        "isCompleted":true
+      },
+      {
+        "title":"ExerciseEditContainer",
+        "isCompleted":true
+      },
+      {
+        "title":"ProgramEditContainer",
+        "isCompleted":true
+      },
+      {
+        "title":"SearchExerciseContainer",
+        "isCompleted":true
+      },
+      {
+        "title":"ImageUploadContainer",
+        "isCompleted":true
+      },
+      {
+        "title":"Exercises—reducer/actions/constants",
+        "isCompleted":true
+      },
+      {
+        "title":"Programs—reducer/actions/constants",
+        "isCompleted":true
+      },
+      {
+        "title":"User—reducer/actions/constants",
+        "isCompleted":true
+      },
+      {
+        "title":"Users—reducer/actions/constants",
+        "isCompleted":true
+      }
+    ]
+  },
+  {
+    "title":"Back-End and Rest API",
+    "todos":[
+      {
+        "title":"Exercise Model",
+        "isCompleted":true
+      },
+      {
+        "title":"Program Model",
+        "isCompleted":true
+      },
+      {
+        "title":"Training Model",
+        "isCompleted":true
+      },
+      {
+        "title":"User Model",
+        "isCompleted":true
+      },
+      {
+        "title":"Exercise Controller",
+        "isCompleted":true
+      },
+      {
+        "title":"ProgramController",
+        "isCompleted":true
+      },
+      {
+        "title":"User Controller",
+        "isCompleted":true
+      },
+      {
+        "title":"Users Controller",
+        "isCompleted":true
+      },
+      {
+        "title":"Image Controller",
+        "isCompleted":true
+      }
+    ]
+  },
+  {
+    "title":"App Front-End",
+    "todos":[
+      {
+        "title":"Login / Signup",
+        "isCompleted":true
+      },
+      {
+        "title":"Program Definer",
+        "isCompleted":false
+      },
+      {
+        "title":"Programs List",
+        "isCompleted":true
+      },
+      {
+        "title":"Programs Review",
+        "isCompleted":false
+      },
+      {
+        "title":"Notifications",
+        "isCompleted":false
+      },
+      {
+        "title":"Training Dashboard",
+        "isCompleted":false
+      },
+      {
+        "title":"Training Process",
+        "isCompleted":false
+      },
+      {
+        "title":"Exercise Instruction",
+        "isCompleted":false
+      },
+      {
+        "title":"Add/Edit User's Program",
+        "isCompleted":false
+      },
+      {
+        "title":"Exercises",
+        "isCompleted":false
+      },
+      {
+        "title":"Settings",
+        "isCompleted":false
+      },
+      {
+        "title":"Measure Results",
+        "isCompleted":false
+      },
+      {
+        "title":"Results Dashboard",
+        "isCompleted":false
+      }
+    ]
+  }
+]

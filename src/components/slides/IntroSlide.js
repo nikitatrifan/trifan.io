@@ -109,7 +109,7 @@ const styles = {
     wrapper: {
         width: '100%', height: '100vh',
         position: 'relative',
-        zIndex: 2
+        zIndex: 2, overflow: 'hidden'
     },
     content: {
         width: '100%',

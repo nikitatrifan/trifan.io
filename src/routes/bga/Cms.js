@@ -8,72 +8,11 @@ import Paragraph from '../../components/Paragraph'
 import BrowserScreen from '../../components/BrowserScreen'
 import OpacityCarousel from '../../components/OpacityCarousel'
 import ComponentFadeIn from '../../components/ComponentFadeIn'
-import {Power0, TimelineMax, TweenMax} from "gsap";
-import getNodeRelativeViewportPercentPosition from "../../helpers/getNodeRelativeViewportPercentPosition";
+import responsive from "../../helpers/responsive";
 
 class Cms extends React.Component {
     static propTypes = {
         index: PropTypes.number.isRequired
-    };
-
-    componentDidMount() {
-        const upd = () => {
-            this.tl = this.tween();
-            this.scrollHandler();
-        };
-        setTimeout(() => {
-            upd();
-            setTimeout(upd, 1500);
-        }, 300);
-        window.addEventListener('scroll', this.scrollHandler);
-    }
-    componentDidUpdate(prevProps) {
-        if (prevProps.windowWidth !== this.props.windowWidth) {
-            return this.resizeHandler()
-        }
-    }
-    componentWillUnmount() {
-        window.removeEventListener('scroll', this.scrollHandler);
-    }
-    resizeHandler = () => {
-        this.tl = this.tween();
-        this.scrollHandler();
-    };
-    scrollHandler = () => {
-        const percent = getNodeRelativeViewportPercentPosition(this.wrapper);
-
-        if (percent === undefined)
-            return false;
-
-        if (!this.tl)
-            return false;
-
-        TweenMax.to(this.tl, 0, {
-            progress: percent,
-            ease: Power0.easeNone
-        })
-    };
-    tween = () => {
-        if (!this.scroller)
-            return false;
-
-        const tl = new TimelineMax({ paused: true });
-        const height = parseInt(this.props.windowHeight / 2, 10);
-        const dur = 3;
-        const entryPoint = dur * .55;
-
-        tl.to(this.scroller, entryPoint, {
-            y: 0, opacity: 1,
-            ease: Power0.easeNone
-        });
-
-        tl.to(this.scroller, dur - entryPoint, {
-            y: height,
-            opacity: .4,
-            ease: Power0.easeNone
-        }, entryPoint);
-
-        return tl;
     };
 
 
@@ -123,10 +62,16 @@ const styles = {
     }),
     scroller: {
         minHeight: '100vh', backgroundColor: '#E8E8E8',
-        padding: '109px 0'
+        padding: '109px 0',
+        [responsive('mobile')]: {
+            padding: '66px 0 100px'
+        }
     },
     header: {
-        paddingBottom: '68px'
+        paddingBottom: '68px',
+        [responsive('mobile')]: {
+            paddingBottom: '45px',
+        }
     }
 };
 

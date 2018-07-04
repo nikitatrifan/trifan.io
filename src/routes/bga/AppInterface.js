@@ -3,8 +3,8 @@ import PropTypes from "prop-types";
 import windowSize from 'react-window-size'
 import injectStyles from 'react-jss'
 import ScreensLayout from './ScreensLayout'
-import {Power0, TimelineMax, TweenMax} from "gsap";
-import getNodeRelativeViewportPercentPosition from "../../helpers/getNodeRelativeViewportPercentPosition";
+import TransformScroll from '../../components/TransformScroll'
+//import {Power0, TimelineMax, TweenMax} from "gsap";
 
 class AppInterface extends React.Component {
     static propTypes = {
@@ -45,80 +45,31 @@ class AppInterface extends React.Component {
     ];
 
     componentDidMount() {
-        const upd = () => {
-            this.tl = this.tween();
-            this.scrollHandler();
-        };
         setTimeout(() => {
-            upd();
-            setTimeout(upd, 1500);
+            this.scroller.resizeHandler();
+            setTimeout(this.scroller.resizeHandler, 1500);
         }, 300);
-        window.addEventListener('scroll', this.scrollHandler);
     }
-    componentDidUpdate(prevProps) {
-        if (prevProps.windowWidth !== this.props.windowWidth) {
-            return this.resizeHandler()
-        }
-    }
-    componentWillUnmount() {
-        window.removeEventListener('scroll', this.scrollHandler);
-    }
-    resizeHandler = () => {
-        this.tl = this.tween();
-        this.scrollHandler();
-    };
-    scrollHandler = () => {
-        const percent = getNodeRelativeViewportPercentPosition(this.wrapper);
-
-        if (percent === undefined)
-            return false;
-
-        if (!this.tl)
-            return false;
-
-        TweenMax.to(this.tl, 0, {
-            progress: percent,
-            ease: Power0.easeNone
-        })
-    };
-    tween = () => {
-        if (!this.scroller)
-            return false;
-
-        const tl = new TimelineMax({ paused: true });
-        const height = parseInt(this.props.windowHeight / 2, 10);
-        const dur = 3;
-        const entryPoint = dur * .75;
-
-        tl.to(this.scroller, entryPoint, {
-            y: 0, opacity: 1,
-            ease: Power0.easeNone
-        });
-
-        tl.to(this.scroller, dur - entryPoint, {
-            y: height,
-            opacity: .4,
-            ease: Power0.easeNone
-        }, entryPoint);
-
-        return tl;
-    };
 
     render() {
         const { classes } = this.props;
         return (
-            <div ref={b => this.wrapper = b} className={classes.wrapper}>
-                <div ref={b => this.scroller = b} className={classes.scroller}>
-                    {AppInterface.data.map((it, key) => (
-                        <ScreensLayout
-                            key={key}
-                            title={it.title}
-                            about={it.about}
-                            screens={it.screens}
-                        />
-                    ))}
-                </div>
-            </div>
+            <TransformScroll
+                name={'AppInterface'}
+                offset={0.71}
+                scrollRef={b => this.scroller = b}
+                wrapperClassName={classes.wrapper}
+                scrollerClassName={classes.scroller}
+            >
+                {AppInterface.data.map((it, key) => (
+                    <ScreensLayout
+                        key={key}
+                        title={it.title}
+                        about={it.about}
+                        screens={it.screens}
+                    />
+                ))}
+            </TransformScroll>
         )
     }
 }

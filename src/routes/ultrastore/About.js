@@ -100,7 +100,7 @@ class USAbout extends React.Component {
                         </ComponentFadeIn>
                     </Container>
                     <ComponentFadeIn delay={.1}>
-                        <Container className={classes.sideBarAnimation}>
+                        <Container type="bootstrap" className={classes.sideBarAnimation}>
                             <SidebarAnimation />
                         </Container>
                     </ComponentFadeIn>

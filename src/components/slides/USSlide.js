@@ -5,10 +5,14 @@ import injectStyles from 'react-jss'
 import SlideAbout from '../SlideAbout'
 import {Power0, TimelineMax, TweenMax} from "gsap";
 import getNodeRelativeViewportPercentPosition from "../../helpers/getNodeRelativeViewportPercentPosition";
+import responsive from "../../helpers/responsive";
 
 class USSLide extends React.Component {
     images = [];
     componentDidMount() {
+        if (responsive('mobile'))
+            return false;
+
         setTimeout(() => {
             this.tl = this.tween();
             this.scrollHandler();
@@ -73,9 +77,6 @@ class USSLide extends React.Component {
         return tl;
     };
 
-    buttonClickHandler = () =>
-        TweenMax.to(window, .7, {scrollTo: (this.props.index * 2) * window.innerHeight});
-
     render() {
         const { classes } = this.props;
         return (
@@ -84,7 +85,6 @@ class USSLide extends React.Component {
                     <div ref={b => this.content = b}>
                         <SlideAbout
                             buttonGradientLink="/ultrastore"
-                            onButtonClick={this.buttonClickHandler}
                             buttonGradient={['#525252', '#121212']}
                             labels={['front-end', 'back-end']}
                             title={(
@@ -132,7 +132,11 @@ const styles = {
         position: 'relative',
         //overflow: 'hidden',
         marginBottom: '100vh',
-        zIndex: 0
+        zIndex: 0,
+        padding: '60px 0 20px',
+        [responsive('mobile')]: {
+            height: 'auto', flexDirection: 'column-reverse'
+        }
     },
     images: {
         display: 'flex',
@@ -144,6 +148,11 @@ const styles = {
         top: '0%', width: '55%',
         right: '0%',
         height: '100%',
+        [responsive('mobile')]: {
+            height: 'auto', flexDirection: 'column-reverse',
+            position: 'static', width: '100%',
+            marginBottom: '30px'
+        }
     },
     image: {
         width: '100%'
