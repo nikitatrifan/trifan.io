@@ -1,8 +1,8 @@
 import React from 'react'
 import windowSize from 'react-window-size'
-import Container from '../Container'
 import injectStyles from 'react-jss'
-import SlideAbout from '../SlideAbout'
+import Container from '../../components/Container'
+import SlideAbout from '../../components/SlideAbout'
 import {Power0, TimelineMax, TweenMax} from "gsap";
 import getNodeRelativeViewportPercentPosition from "../../helpers/getNodeRelativeViewportPercentPosition";
 import responsive from "../../helpers/responsive";

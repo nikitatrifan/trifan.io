@@ -7,11 +7,13 @@ import Box from './Box'
 import injectStyles from 'react-jss'
 import classNames from 'classnames'
 import { TweenMax } from 'gsap'
-import theme from '../theme.js'
+import theme from '../theme'
 
 class Navigation extends React.Component{
     static propTypes = {
-        theme: PropTypes.string,
+        theme: PropTypes.oneOf([
+            'dark', 'light'
+        ]),
         className: PropTypes.string,
         logo: PropTypes.any,
     };
@@ -88,9 +90,13 @@ const styles = {
         transition: `color ${cssTransitionTime}s ease-in-out`,
         display: 'block',
     },
-    black: {
+    dark: {
         color: '#121212',
         fill: '#121212'
+    },
+    light: {
+        color: '#ffffff',
+        fill: '#ffffff'
     },
     logo: {
         fontSize: '18px',

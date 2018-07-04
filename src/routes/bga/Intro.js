@@ -13,6 +13,7 @@ import LogoAnimation from './LogoAnimation'
 import { TweenMax, TimelineMax, Elastic, Back } from 'gsap'
 import theme from '../../theme'
 import TransformScroll from '../../components/TransformScroll'
+import { NavigationWaypoint } from "../../containers/NavigationContainer";
 import getScrollY from "../../helpers/getScrollY";
 import responsive from "../../helpers/responsive";
 
@@ -79,44 +80,46 @@ class BGAIntro extends React.Component {
                     wrapperClassName={classes.wrapper}
                     scrollerClassName={classes.scroller}
                 >
-                    <Box justify="center" align="center"
-                         ref={b => this.scroller = b}
-                         className={classNames(classes.scroller, classes.scoller_wrapper)}>
-                        <LogoAnimation
-                            index={0}
-                            isAllowed={this.state.animationStarted}
-                            onComplete={this.fadeIn}
-                        />
-                        <div className={classes.container}>
-                            <Box justify="between" align="center" className={classes.content}>
-                                <SlideAbout
-                                    className={classes.about}
-                                    ref={this.setAboutRef}
-                                    onButtonClick={this.buttonClickHandler}
-                                    title={(
-                                        'Boosted Gym Assistant \n' +
-                                        'iOS Application'
-                                    )}
-                                    description={(
-                                        'The app is designed to make user’s trainings at a gym\n' +
-                                        'easier and help to improve his body by the right way.'
-                                    )}
-                                />
-                                <div ref={b => this.mockup = b} className={classes.mockup}>
-                                    <IPhoneMockup>
-                                        <CarouselIOSTransition
-                                            noAnimate
-                                            images={[
-                                                '/bga/screens/Custom-Program-Choose-Exercise.jpg',
-                                                '/bga/screens/Custom-Program-Day.jpg',
-                                                '/bga/screens/Custom-Program-Days.jpg',
-                                            ]}
-                                        />
-                                    </IPhoneMockup>
-                                </div>
-                            </Box>
-                        </div>
-                    </Box>
+                    <NavigationWaypoint theme="dark">
+                        <Box justify="center" align="center"
+                             ref={b => this.scroller = b}
+                             className={classNames(classes.scroller, classes.scoller_wrapper)}>
+                            <LogoAnimation
+                                index={0}
+                                isAllowed={this.state.animationStarted}
+                                onComplete={this.fadeIn}
+                            />
+                            <div className={classes.container}>
+                                <Box justify="between" align="center" className={classes.content}>
+                                    <SlideAbout
+                                        className={classes.about}
+                                        ref={this.setAboutRef}
+                                        onButtonClick={this.buttonClickHandler}
+                                        title={(
+                                            'Boosted Gym Assistant \n' +
+                                            'iOS Application'
+                                        )}
+                                        description={(
+                                            'The app is designed to make user’s trainings at a gym\n' +
+                                            'easier and help to improve his body by the right way.'
+                                        )}
+                                    />
+                                    <div ref={b => this.mockup = b} className={classes.mockup}>
+                                        <IPhoneMockup>
+                                            <CarouselIOSTransition
+                                                noAnimate
+                                                images={[
+                                                    '/bga/screens/Custom-Program-Choose-Exercise.jpg',
+                                                    '/bga/screens/Custom-Program-Day.jpg',
+                                                    '/bga/screens/Custom-Program-Days.jpg',
+                                                ]}
+                                            />
+                                        </IPhoneMockup>
+                                    </div>
+                                </Box>
+                            </div>
+                        </Box>
+                    </NavigationWaypoint>
                 </TransformScroll>
             </Waypoint>
         )

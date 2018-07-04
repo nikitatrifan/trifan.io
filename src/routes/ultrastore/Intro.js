@@ -6,6 +6,7 @@ import injectStyles from 'react-jss'
 import ComponentFadeIn from '../../components/ComponentFadeIn'
 import {Power0, TimelineMax, TweenMax} from 'gsap'
 import theme from '../../theme'
+import { NavigationWaypoint } from "../../containers/NavigationContainer";
 import getNodeRelativeViewportPercentPosition from "../../helpers/getNodeRelativeViewportPercentPosition";
 
 class USIntro extends React.Component {
@@ -87,23 +88,25 @@ class USIntro extends React.Component {
         return (
             <div ref={b => this.wrapper = b} onMouseMove={this.mouseMove} className={classes.wrapper}>
                 <div ref={b => this.scroller = b} className={classes.scroller}>
-                    <ComponentFadeIn delay={1.01}>
-                        <div className={classes.imageWrapper}>
-                            <Svg onLoad={this.setBlocksRefs} className={classes.image} src="/us/lines/intro.svg" />
+                    <NavigationWaypoint theme="dark">
+                        <ComponentFadeIn delay={1.01}>
+                            <div className={classes.imageWrapper}>
+                                <Svg onLoad={this.setBlocksRefs} className={classes.image} src="/us/lines/intro.svg" />
+                            </div>
+                        </ComponentFadeIn>
+                        <div className={classes.contentWrapper} ref={b => this.blocks[0] = b}>
+                            <div className={classes.content}>
+                                <ComponentFadeIn delay={1.05}>
+                                    <Svg className={classes.logo} src="/us/logo.svg" />
+                                </ComponentFadeIn>
+                                <ComponentFadeIn delay={1.06}>
+                                    <Paragraph opacity margin="small">
+                                        High-End Ecommerce Web App
+                                    </Paragraph>
+                                </ComponentFadeIn>
+                            </div>
                         </div>
-                    </ComponentFadeIn>
-                    <div className={classes.contentWrapper} ref={b => this.blocks[0] = b}>
-                        <div className={classes.content}>
-                            <ComponentFadeIn delay={1.05}>
-                                <Svg className={classes.logo} src="/us/logo.svg" />
-                            </ComponentFadeIn>
-                            <ComponentFadeIn delay={1.06}>
-                                <Paragraph opacity margin="small">
-                                    High-End Ecommerce Web App
-                                </Paragraph>
-                            </ComponentFadeIn>
-                        </div>
-                    </div>
+                    </NavigationWaypoint>
                 </div>
             </div>
         )

@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from "prop-types";
 import injectStyle from 'react-jss'
 import Container from '../../components/Container'
 import Heading from '../../components/Heading'
@@ -8,7 +9,7 @@ import ButtonText from '../../components/ButtonText'
 import ComponentFadeIn from '../../components/ComponentFadeIn'
 import Modal from "../../components/Modal";
 import theme from "../../theme"
-import PropTypes from "prop-types";
+import { NavigationWaypoint } from '../../containers/NavigationContainer'
 
 class YoapComponentsSystem extends React.Component {
     static propTypes = {
@@ -103,21 +104,23 @@ class YoapComponentsSystem extends React.Component {
         );
 
         return (
-            <div className={classes.wrapper}>
-                <Container className={classes.content} type="content">
-                    {!isHidden && (
-                        <Modal onClose={this.toggleModal} className={classes.modal}>
-                            <Container className={classes.modal_content} type="content">
-                                {content(true)}
-                            </Container>
-                        </Modal>
-                    )}
-                    {content(false)}
-                    <ButtonText onClick={this.toggleModal} icon>
-                        Show more
-                    </ButtonText>
-                </Container>
-            </div>
+            <NavigationWaypoint theme="dark">
+                <div className={classes.wrapper}>
+                    <Container className={classes.content} type="content">
+                        {!isHidden && (
+                            <Modal onClose={this.toggleModal} className={classes.modal}>
+                                <Container className={classes.modal_content} type="content">
+                                    {content(true)}
+                                </Container>
+                            </Modal>
+                        )}
+                        {content(false)}
+                        <ButtonText onClick={this.toggleModal} icon>
+                            Show more
+                        </ButtonText>
+                    </Container>
+                </div>
+            </NavigationWaypoint>
         )
     }
 }

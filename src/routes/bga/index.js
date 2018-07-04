@@ -8,6 +8,7 @@ import Cms from './Cms'
 import Technologies from '../../components/Technologies'
 import AppInterface from './AppInterface'
 import injectStyles from 'react-jss'
+import NavigationContainer from "../../containers/NavigationContainer";
 
 const { body } = document || {};
 
@@ -20,10 +21,8 @@ class BGAPage extends React.Component {
         body.style.background = this.bgBackup;
     }
     render() {
-        const isNavBack = this.props.history.action === 'PUSH';
         return (
-            <div>
-                <Navigation back={isNavBack} theme="black" />
+            <NavigationContainer>
                 <Intro index={1}/>
                 <Todos index={2}/>
                 <AppInterface index={3}/>
@@ -68,7 +67,7 @@ class BGAPage extends React.Component {
                     )}
                 />
                 <Footer theme="black" />
-            </div>
+            </NavigationContainer>
         )
     }
 }

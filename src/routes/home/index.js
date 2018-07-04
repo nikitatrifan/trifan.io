@@ -1,9 +1,9 @@
 import React from 'react'
-import Navigation from '../components/Navigation'
-import IntroSlide from '../components/slides/IntroSlide'
-import YoapSlide from '../components/slides/YoapSlide'
-import USSlide from '../components/slides/USSlide'
-import BGASlide from '../components/slides/BGASlide'
+import IntroSlide from './IntroSlide'
+import YoapSlide from './YoapSlide'
+import USSlide from './USSlide'
+import BGASlide from './BGASlide'
+import NavigationContainer, { NavigationWaypoint } from "../../containers/NavigationContainer";
 import { TweenMax, Power0 } from 'gsap'
 import injectStyles from 'react-jss'
 
@@ -13,7 +13,7 @@ class Home extends React.Component{
     };
 
     logoFlashingAnimation = () => {
-        if (!this.state.isLogoFlashing || this.isUnMounted)
+        if (!this.state.isLogoFlashing || this.isUnMounted || !this.logo)
             return false;
 
         const opacityPropVal = parseFloat(this.logo.style.opacity);
@@ -40,21 +40,27 @@ class Home extends React.Component{
         const { classes } = this.props;
         const { isLogoFlashing } = this.state;
         return (
-            <div className={classes.wrapper}>
-                <Navigation className={classes.nav} logo={isLogoFlashing && (
-                    <span className={classes.loading} ref={b => this.logo = b}>
-                        reading image...
-                    </span>
-                )}  />
-                <IntroSlide
-                    onMatrixRainingCodeComplete={
-                        this.completeRainingCodeHandler
-                    }
-                />
-                <BGASlide />
-                <YoapSlide />
-                <USSlide />
-            </div>
+            <NavigationContainer
+                className={classes.nav} logo={isLogoFlashing && (
+                <span className={classes.loading} ref={b => this.logo = b}>
+                    reading image...
+                </span>
+            )}>
+                <div className={classes.wrapper}>
+                    <NavigationWaypoint theme="light">
+                        <IntroSlide
+                            onMatrixRainingCodeComplete={
+                                this.completeRainingCodeHandler
+                            }
+                        />
+                    </NavigationWaypoint>
+                    <NavigationWaypoint theme="dark">
+                        <BGASlide />
+                        <YoapSlide />
+                        <USSlide />
+                    </NavigationWaypoint>
+                </div>
+            </NavigationContainer>
         )
     }
 }

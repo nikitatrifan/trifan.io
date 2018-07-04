@@ -14,6 +14,7 @@ import TransformScroll from '../../components/TransformScroll'
 import theme from '../../theme'
 import responsive from '../../helpers/responsive'
 import {TweenMax} from "gsap";
+import { NavigationWaypoint } from "../../containers/NavigationContainer";
 import todosData from './todosData'
 
 class BGATodos extends React.Component {
@@ -50,56 +51,58 @@ class BGATodos extends React.Component {
                 offset={0.6595} scrollRef={b => this.scroller = b}
                 wrapperClassName={classes.wrapper} scrollerClassName={classes.scroller}
             >
-                <Container className={classes.header} type="content">
-                    <ComponentFadeIn delay={.04}>
-                        <Heading color={theme.whiteColor} size="2">
-                            Under Development
-                        </Heading>
-                    </ComponentFadeIn>
-                    <ComponentFadeIn delay={.08}>
-                        <Paragraph color={theme.whiteColor} opacity size="3" margin="small">
-                            This is the unique case because the app is in work in progress stage. You can track the progress here
-                            and watch
-                            {' '}
-                            <Link
-                                color={theme.whiteColor}
-                                className={classes.link}
-                                to="https://github.com/nikitatrifan/train-app"
-                                target="__blank" icon
-                            >
-                                github repo
-                            </Link>
-                        </Paragraph>
-                    </ComponentFadeIn>
-                </Container>
-                <Container type="bootstrap">
-                    <div className={classes.grid}>
-                        {BGATodos.data.map((it, idx) => {
-                            if (!isFullState && idx > maxItems)
-                                return null;
+                <NavigationWaypoint theme="light">
+                    <Container className={classes.header} type="content">
+                        <ComponentFadeIn delay={.04}>
+                            <Heading color={theme.whiteColor} size="2">
+                                Under Development
+                            </Heading>
+                        </ComponentFadeIn>
+                        <ComponentFadeIn delay={.08}>
+                            <Paragraph color={theme.whiteColor} opacity size="3" margin="small">
+                                This is the unique case because the app is in work in progress stage. You can track the progress here
+                                and watch
+                                {' '}
+                                <Link
+                                    color={theme.whiteColor}
+                                    className={classes.link}
+                                    to="https://github.com/nikitatrifan/train-app"
+                                    target="__blank" icon
+                                >
+                                    github repo
+                                </Link>
+                            </Paragraph>
+                        </ComponentFadeIn>
+                    </Container>
+                    <Container type="bootstrap">
+                        <div className={classes.grid}>
+                            {BGATodos.data.map((it, idx) => {
+                                if (!isFullState && idx > maxItems)
+                                    return null;
 
-                            return (
-                                <ComponentFadeIn key={idx} delay={.04*idx}>
-                                    <Todo
-                                        className={classes.todo}
-                                        title={it.title} data={it.todos}
-                                    />
-                                </ComponentFadeIn>
-                            )
-                        })}
-                    </div>
-                </Container>
-                <ComponentFadeIn>
-                    <Box
-                        onClick={this.toggleFullState}
-                        align="center" justify="center"
-                        className={classes.buttonWrapper}
-                    >
-                        <ButtonText color={theme.whiteColor}>
-                            {isFullState ? 'Show Less Todos' : 'Show All Todos'}
-                        </ButtonText>
-                    </Box>
-                </ComponentFadeIn>
+                                return (
+                                    <ComponentFadeIn key={idx} delay={.04*idx}>
+                                        <Todo
+                                            className={classes.todo}
+                                            title={it.title} data={it.todos}
+                                        />
+                                    </ComponentFadeIn>
+                                )
+                            })}
+                        </div>
+                    </Container>
+                    <ComponentFadeIn>
+                        <Box
+                            onClick={this.toggleFullState}
+                            align="center" justify="center"
+                            className={classes.buttonWrapper}
+                        >
+                            <ButtonText color={theme.whiteColor}>
+                                {isFullState ? 'Show Less Todos' : 'Show All Todos'}
+                            </ButtonText>
+                        </Box>
+                    </ComponentFadeIn>
+                </NavigationWaypoint>
             </TransformScroll>
         )
     }

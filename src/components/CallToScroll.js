@@ -73,6 +73,9 @@ const styles = {
     },
     paragraph: {
         letterSpacing: .4,
+        [responsive('mobile')]: {
+            fontSize: '10px'
+        }
     },
     indicator: {
         height: '57px',

@@ -1,5 +1,5 @@
 import React from 'react'
-import Navigation from '../../components/Navigation'
+import NavigationContainer from '../../containers/NavigationContainer'
 import Intro from './Intro'
 import About from './About'
 import VideoSlidesSection from './VideoSlidesSection'
@@ -18,10 +18,8 @@ export default class USPage extends React.Component {
         body.style.background = this.bgBackup;
     }
     render() {
-        const isNavBack = this.props.history.action === 'PUSH';
         return (
-            <div>
-                <Navigation back={isNavBack} theme="black" />
+            <NavigationContainer>
                 <Intro index={0} />
                 <About index={1} />
                 <VideoSlidesSection index={2} />
@@ -49,7 +47,7 @@ export default class USPage extends React.Component {
                     )}
                 />
                 <Footer />
-            </div>
+            </NavigationContainer>
         )
     }
 }

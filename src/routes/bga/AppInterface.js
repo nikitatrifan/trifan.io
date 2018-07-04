@@ -4,7 +4,7 @@ import windowSize from 'react-window-size'
 import injectStyles from 'react-jss'
 import ScreensLayout from './ScreensLayout'
 import TransformScroll from '../../components/TransformScroll'
-//import {Power0, TimelineMax, TweenMax} from "gsap";
+import { NavigationWaypoint } from "../../containers/NavigationContainer";
 
 class AppInterface extends React.Component {
     static propTypes = {
@@ -61,14 +61,16 @@ class AppInterface extends React.Component {
                 wrapperClassName={classes.wrapper}
                 scrollerClassName={classes.scroller}
             >
-                {AppInterface.data.map((it, key) => (
-                    <ScreensLayout
-                        key={key}
-                        title={it.title}
-                        about={it.about}
-                        screens={it.screens}
-                    />
-                ))}
+                <NavigationWaypoint theme="dark">
+                    {AppInterface.data.map((it, key) => (
+                        <ScreensLayout
+                            key={key}
+                            title={it.title}
+                            about={it.about}
+                            screens={it.screens}
+                        />
+                    ))}
+                </NavigationWaypoint>
             </TransformScroll>
         )
     }

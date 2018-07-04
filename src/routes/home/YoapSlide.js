@@ -1,17 +1,16 @@
 import React from 'react'
 import windowSize from 'react-window-size'
-import classNames from 'classnames'
-import Container from '../Container'
 import injectStyles from 'react-jss'
-import SlideAbout from '../SlideAbout'
+import Container from '../../components/Container'
+import SlideAbout from '../../components/SlideAbout'
 import {Power0, TimelineMax, TweenMax} from "gsap";
 import getNodeRelativeViewportPercentPosition from "../../helpers/getNodeRelativeViewportPercentPosition";
 import responsive from "../../helpers/responsive";
 
-class BGASlide extends React.Component {
+class YoapSlide extends React.Component {
     images = [];
     componentDidMount() {
-        if (responsive().isMobile)
+        if (responsive('mobile'))
             return false;
 
         setTimeout(() => {
@@ -38,44 +37,44 @@ class BGASlide extends React.Component {
     };
 
     tween = () => {
-        const { windowHeight } = this.props;
         const tl = new TimelineMax({ paused: true });
         const dur = 3;
 
-        tl.staggerFromTo(this.images, dur / 2, {
+        tl.staggerFromTo(this.images, dur / 3, {
             opacity: 0
         }, {
             opacity: 1,
             ease: Power0.easeNone
-        }, 1);
+        }, dur / 4);
 
-        const y = windowHeight / 5;
+        const y = 150, x = 50, deg = 15;
 
-        tl.staggerFromTo(this.images, dur,
-            {y},
-            {
-                y: -y, ease: Power0.easeNone
-            },
-            1,
-            '0'
-        );
+        tl.staggerFromTo(this.images, dur, {
+            y, x, rotation: `${deg}deg`
+        }, {
+            y: -y, x: -x,
+            rotation: `-${deg}deg`,
+            ease: Power0.easeNone
+        }, 0.7, '0');
 
         tl.fromTo(this.content, dur / 2, {
             opacity: 0,
-            y: 100,
         }, {
-            y: - 100,
             opacity: 1,
             ease: Power0.easeNone
         }, '0');
-
-        tl.fromTo([...this.images].reverse(), dur / 2, {
+        tl.fromTo(this.content, dur, {
+            y,
+        }, {
+            y: -y,
+            ease: Power0.easeNone
+        }, '0');
+        tl.staggerFromTo([...this.images].reverse(), dur, {
             opacity: 1,
         }, {
             opacity: 0,
             ease: Power0.easeNone
-        }, dur * 1.1);
-
+        }, 0.7, dur);
         tl.to(this.content, dur / 2, {
             opacity: 0,
             ease: Power0.easeNone
@@ -83,6 +82,9 @@ class BGASlide extends React.Component {
 
         return tl;
     };
+
+    buttonClickHandler = () =>
+        TweenMax.to(window, .7, {scrollTo: (this.props.index * 2) * window.innerHeight});
 
     render() {
         const { classes } = this.props;
@@ -92,11 +94,13 @@ class BGASlide extends React.Component {
                     <div ref={b => this.content = b}>
                         <SlideAbout
                             onButtonClick={this.buttonClickHandler}
-                            buttonGradientLink="/gym-assistant"
-                            labels={['design', 'front-end', 'back-end']}
+                            buttonGradientLink="/yoap"
+                            buttonGradient={['#ff899b', '#ff4d66']}
+                            className={classes.about}
+                            labels={['front-end', 'back-end']}
                             title={(
-                                'Boosted Gym Assistant \n' +
-                                'iOS Application'
+                                'Yoap Real Estate\n' +
+                                'Web-Application'
                             )}
                             description={(
                                 'The app is designed to make user’s trainings at a gym\n' +
@@ -106,35 +110,16 @@ class BGASlide extends React.Component {
                     </div>
                 </Container>
                 <div className={classes.images}>
-                    <div ref={b => this.images[0] = b}
-                         className={classes.images_col}>
-                        <img
-                            className={classes.image}
-                            src="/bga/1.png" alt=""
-                        />
-                        <img
-                            className={classes.image}
-                            src="/bga/2.png" alt=""
-                        />
-                    </div>
-                    <div ref={b => this.images[1] = b}
-                         className={classNames(classes.images_col, classes.image_col_second)}>
-                        <img
-                            className={classes.image}
-                            src="/bga/3.png" alt=""
-                        />
-                        <img
-                            className={classes.image}
-                            src="/bga/4.png" alt=""
-                        />
-                    </div>
-                    <div ref={b => this.images[2] = b}
-                         className={classNames(classes.images_col, classes.image_col_third)}>
-                        <img
-                            className={classes.image}
-                            src="/bga/5.png" alt=""
-                        />
-                    </div>
+                    <img
+                        ref={b => this.images[0] = b}
+                        className={classes.image}
+                        src="/yoap/yoap-map.png" alt=""
+                    />
+                    <img
+                        ref={b => this.images[1] = b}
+                        className={classes.image}
+                        src="/yoap/yoap-door-white.png" alt=""
+                    />
                 </div>
             </div>
         )
@@ -151,12 +136,15 @@ const styles = {
         justifyContent: 'center',
         backgroundColor: '#FAFAFA',
         position: 'relative',
-        zIndex: 1,
+        //overflow: 'hidden',
+        //marginBottom: '100vh',
+        padding: '60px 0 20px',
+        zIndex: 0,
         [responsive('mobile')]: {
-            flexDirection: 'column-reverse',
-            height: 'auto', padding: '60px 0 20px'
+            height: 'auto', flexDirection: 'column-reverse'
         }
     },
+
     images: {
         display: 'flex',
         justifyContent: 'flex-start',
@@ -164,34 +152,23 @@ const styles = {
         flexDirection: 'row',
         position: 'absolute',
         flexWrap: 'nowrap',
-        top: '-10%', right: '-10%',
-        width: '55%',
-        height: '100%',
-        transform: 'rotateZ(45deg)',
+        left: '-40%', top: '-4%',
+        width: '55%', height: '100%',
         [responsive('mobile')]: {
-            position: 'static',
-            transform: 'rotateZ(0deg)',
-            width: '100%', height: 'auto'
+            width: '100%', position: 'relative',
+            height: 'auto',
         }
     },
-    images_col: {
-        display: 'flex',
-        justifyContent: 'flex-start',
-        alignItems: 'center',
-        flexDirection: 'column',
-        width: '33.3%',
-        willChange: 'transform, opacity'
-    },
-    image_col_second: {
-        marginTop: '30%'
-    },
-    image_col_third: {
-        marginTop: '60%'
-    },
     image: {
-        width: '125%',
-        marginTop: '-20%'
+        width: '110%',
+        '&:last-child': {
+            marginLeft: '-20%',
+            marginTop: '10%'
+        }
+    },
+    about: {
+        margin: '0 0 0 auto'
     }
 };
 
-export default windowSize(injectStyles(styles)(BGASlide));
+export default windowSize(injectStyles(styles)(YoapSlide));

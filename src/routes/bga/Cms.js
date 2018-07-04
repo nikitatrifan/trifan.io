@@ -8,6 +8,7 @@ import Paragraph from '../../components/Paragraph'
 import BrowserScreen from '../../components/BrowserScreen'
 import OpacityCarousel from '../../components/OpacityCarousel'
 import ComponentFadeIn from '../../components/ComponentFadeIn'
+import { NavigationWaypoint } from "../../containers/NavigationContainer";
 import responsive from "../../helpers/responsive";
 
 class Cms extends React.Component {
@@ -26,30 +27,32 @@ class Cms extends React.Component {
         return (
             <div ref={b => this.wrapper = b} className={classes.wrapper}>
                 <div ref={b => this.scroller = b} className={classes.scroller}>
-                    <Container className={classes.header} type="content">
-                        <ComponentFadeIn delay={.04}>
-                            <Heading size="2">
-                                Content Management System
-                            </Heading>
-                        </ComponentFadeIn>
-                        <ComponentFadeIn delay={.08}>
-                            <Paragraph size="3" margin="small">
-                                Created to manage the app content: exercises, programs and users. Based on React.js, Redux and Grommet.io.
-                            </Paragraph>
-                        </ComponentFadeIn>
-                    </Container>
-                    <Container type="bootstrap">
-                        <BrowserScreen>
-                            <OpacityCarousel>
-                                {Cms.images.map(it => (
-                                    <img
-                                        src={it} key={it}
-                                        alt="Gym Assistant Content Management System"
-                                    />
-                                ))}
-                            </OpacityCarousel>
-                        </BrowserScreen>
-                    </Container>
+                    <NavigationWaypoint theme="dark">
+                        <Container className={classes.header} type="content">
+                            <ComponentFadeIn delay={.04}>
+                                <Heading size="2">
+                                    Content Management System
+                                </Heading>
+                            </ComponentFadeIn>
+                            <ComponentFadeIn delay={.08}>
+                                <Paragraph size="3" margin="small">
+                                    Created to manage the app content: exercises, programs and users. Based on React.js, Redux and Grommet.io.
+                                </Paragraph>
+                            </ComponentFadeIn>
+                        </Container>
+                        <Container type="bootstrap">
+                            <BrowserScreen>
+                                <OpacityCarousel>
+                                    {Cms.images.map(it => (
+                                        <img
+                                            src={it} key={it}
+                                            alt="Gym Assistant Content Management System"
+                                        />
+                                    ))}
+                                </OpacityCarousel>
+                            </BrowserScreen>
+                        </Container>
+                    </NavigationWaypoint>
                 </div>
             </div>
         )

@@ -6,6 +6,7 @@ import Heading from '../../components/Heading'
 import Paragraph from '../../components/Paragraph'
 import ComponentFadeIn from '../../components/ComponentFadeIn'
 import BrowserScreen from '../../components/BrowserScreen'
+import { NavigationWaypoint } from "../../containers/NavigationContainer";
 import Box from '../../components/Box'
 import injectStyle from 'react-jss'
 import theme from "../../theme";
@@ -78,34 +79,36 @@ class YoapCms extends React.Component {
         return (
             <div ref={b => this.wrapper = b} className={classes.wrapper}>
                 <div ref={b => this.scroller = b} className={classes.scroller}>
-                    <Container className={classes.content} type="content">
-                        <ComponentFadeIn>
-                            <Heading size="2">
-                                Content Management System
-                            </Heading>
-                        </ComponentFadeIn>
-                        <ComponentFadeIn delay={.04}>
-                            <Paragraph opacity size="3" margin="small">
-                                We designed and developed custom content management system for YOAP team needs.
-                                They can manage their objects and users without wasting time on loadings.
-                            </Paragraph>
-                        </ComponentFadeIn>
-                    </Container>
-                    <Container className={classes.images}>
-                        <Box wrap jusityf="start" align="start">
-                            {YoapCms.screens.map(it => (
-                                <ComponentFadeIn delay={0.2 + (it * 0.04)} key={it.image}>
-                                    <div className={classes.image_wrapper}>
-                                        <BrowserScreen className={classes.image_screen}>
-                                            <img alt={it.title}
-                                                 src={`/yoap/cms/${it.image}.jpg`} className={classes.image}
-                                            />
-                                        </BrowserScreen>
-                                    </div>
-                                </ComponentFadeIn>
-                            ))}
-                        </Box>
-                    </Container>
+                    <NavigationWaypoint theme="dark">
+                        <Container className={classes.content} type="content">
+                            <ComponentFadeIn>
+                                <Heading size="2">
+                                    Content Management System
+                                </Heading>
+                            </ComponentFadeIn>
+                            <ComponentFadeIn delay={.04}>
+                                <Paragraph opacity size="3" margin="small">
+                                    We designed and developed custom content management system for YOAP team needs.
+                                    They can manage their objects and users without wasting time on loadings.
+                                </Paragraph>
+                            </ComponentFadeIn>
+                        </Container>
+                        <Container className={classes.images}>
+                            <Box wrap jusityf="start" align="start">
+                                {YoapCms.screens.map(it => (
+                                    <ComponentFadeIn delay={0.2 + (it * 0.04)} key={it.image}>
+                                        <div className={classes.image_wrapper}>
+                                            <BrowserScreen className={classes.image_screen}>
+                                                <img alt={it.title}
+                                                     src={`/yoap/cms/${it.image}.jpg`} className={classes.image}
+                                                />
+                                            </BrowserScreen>
+                                        </div>
+                                    </ComponentFadeIn>
+                                ))}
+                            </Box>
+                        </Container>
+                    </NavigationWaypoint>
                 </div>
             </div>
         )

@@ -9,6 +9,7 @@ import Paragraph from './Paragraph'
 import ComponentFadeIn from './ComponentFadeIn'
 import theme from "../theme";
 import {Power0, TimelineMax, TweenMax} from "gsap";
+import {NavigationWaypoint} from "../containers/NavigationContainer";
 import getNodeRelativeViewportPercentPosition from "../helpers/getNodeRelativeViewportPercentPosition";
 
 class Technologies extends React.Component {
@@ -93,35 +94,37 @@ class Technologies extends React.Component {
         return (
             <div ref={b => this.wrapper = b} className={classes.wrapper}>
                 <div ref={b => this.scroller = b} className={classes.scroller}>
-                    <Container type="content">
-                        <ComponentFadeIn>
-                            <Heading color={theme.whiteColor} size="2">
-                                Technologies
-                            </Heading>
-                        </ComponentFadeIn>
-                        <ComponentFadeIn delay={.04}>
-                            <Paragraph opacity size="3" color={theme.whiteColor} margin="small">
-                                {content}
-                            </Paragraph>
-                        </ComponentFadeIn>
+                    <NavigationWaypoint theme="light">
+                        <Container type="content">
+                            <ComponentFadeIn>
+                                <Heading color={theme.whiteColor} size="2">
+                                    Technologies
+                                </Heading>
+                            </ComponentFadeIn>
+                            <ComponentFadeIn delay={.04}>
+                                <Paragraph opacity size="3" color={theme.whiteColor} margin="small">
+                                    {content}
+                                </Paragraph>
+                            </ComponentFadeIn>
 
-                        <Box wrap className={classes.tech} align="start" justify="start">
-                            {data.map((item, idx) => (
-                                <ComponentFadeIn key={item.title} delay={idx * .04}>
-                                    <div className={classes.item}>
-                                        <Link to={item.link} target="__blank" color={theme.whiteColor} icon>
-                                            <Paragraph size={3} color={theme.whiteColor}  margin="small">
-                                                {item.title}
-                                            </Paragraph>
-                                        </Link>
-                                        <div className={classes.image_wrapper}>
-                                            <img className={classes.image} src={item.image} alt={item.title}/>
+                            <Box wrap className={classes.tech} align="start" justify="start">
+                                {data.map((item, idx) => (
+                                    <ComponentFadeIn key={item.title} delay={idx * .04}>
+                                        <div className={classes.item}>
+                                            <Link to={item.link} target="__blank" color={theme.whiteColor} icon>
+                                                <Paragraph size={3} color={theme.whiteColor}  margin="small">
+                                                    {item.title}
+                                                </Paragraph>
+                                            </Link>
+                                            <div className={classes.image_wrapper}>
+                                                <img className={classes.image} src={item.image} alt={item.title}/>
+                                            </div>
                                         </div>
-                                    </div>
-                                </ComponentFadeIn>
-                            ))}
-                        </Box>
-                    </Container>
+                                    </ComponentFadeIn>
+                                ))}
+                            </Box>
+                        </Container>
+                    </NavigationWaypoint>
                 </div>
             </div>
         )

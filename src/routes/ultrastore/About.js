@@ -9,6 +9,7 @@ import Box from '../../components/Box'
 import SidebarAnimation from './SidebarAnimation'
 import theme from '../../theme'
 import {Power0, TimelineMax, TweenMax} from "gsap";
+import { NavigationWaypoint } from "../../containers/NavigationContainer";
 import getNodeRelativeViewportPercentPosition from "../../helpers/getNodeRelativeViewportPercentPosition";
 
 class USAbout extends React.Component {
@@ -60,50 +61,52 @@ class USAbout extends React.Component {
         return (
             <div ref={b => this.wrapper = b} className={classes.wrapper}>
                 <div ref={b => this.scroller = b} className={classes.scroller}>
-                    <Container className={classes.header} type="content">
-                        <ComponentFadeIn delay={.1}>
-                            <Heading size="2">
-                                Objective
-                            </Heading>
-                        </ComponentFadeIn>
-                        <ComponentFadeIn delay={.14}>
-                            <Paragraph opacity size="3" margin="small">
-                                The client has so many ecommerce shops which uses website templates.
-                                He messaged me he’s tired of limitations of ecommerce platforms and he wants to create something fast, unique and modern.
-                                <br/><br/>
-                                There we are go.
-                            </Paragraph>
-                        </ComponentFadeIn>
-                    </Container>
-                    <Container>
-                        <Box wrap>
-                            {[1,2,3].map(it => (
-                                <ComponentFadeIn delay={.3 + (.04 * it)} key={it}>
-                                    <div className={classes.imageWrapper}>
-                                        <img className={classes.image} src={`/us/${it}.png`} alt=""/>
-                                    </div>
-                                </ComponentFadeIn>
-                            ))}
-                        </Box>
-                    </Container>
-                    <Container className={classes.header} type="content">
-                        <ComponentFadeIn delay={.1}>
-                            <Heading size="2">
-                                The Idea
-                            </Heading>
-                        </ComponentFadeIn>
-                        <ComponentFadeIn delay={.14}>
-                            <Paragraph opacity size="3" margin="small">
-                                We are decided with Nikita Nikiforof that user will have access to main shop
-                                features like cart, checkout and account everywhere without any delays.
-                            </Paragraph>
-                        </ComponentFadeIn>
-                    </Container>
-                    <ComponentFadeIn delay={.1}>
-                        <Container type="bootstrap" className={classes.sideBarAnimation}>
-                            <SidebarAnimation />
+                    <NavigationWaypoint theme="dark">
+                        <Container className={classes.header} type="content">
+                            <ComponentFadeIn delay={.1}>
+                                <Heading size="2">
+                                    Objective
+                                </Heading>
+                            </ComponentFadeIn>
+                            <ComponentFadeIn delay={.14}>
+                                <Paragraph opacity size="3" margin="small">
+                                    The client has so many ecommerce shops which uses website templates.
+                                    He messaged me he’s tired of limitations of ecommerce platforms and he wants to create something fast, unique and modern.
+                                    <br/><br/>
+                                    There we are go.
+                                </Paragraph>
+                            </ComponentFadeIn>
                         </Container>
-                    </ComponentFadeIn>
+                        <Container>
+                            <Box wrap>
+                                {[1,2,3].map(it => (
+                                    <ComponentFadeIn delay={.3 + (.04 * it)} key={it}>
+                                        <div className={classes.imageWrapper}>
+                                            <img className={classes.image} src={`/us/${it}.png`} alt=""/>
+                                        </div>
+                                    </ComponentFadeIn>
+                                ))}
+                            </Box>
+                        </Container>
+                        <Container className={classes.header} type="content">
+                            <ComponentFadeIn delay={.1}>
+                                <Heading size="2">
+                                    The Idea
+                                </Heading>
+                            </ComponentFadeIn>
+                            <ComponentFadeIn delay={.14}>
+                                <Paragraph opacity size="3" margin="small">
+                                    We are decided with Nikita Nikiforof that user will have access to main shop
+                                    features like cart, checkout and account everywhere without any delays.
+                                </Paragraph>
+                            </ComponentFadeIn>
+                        </Container>
+                        <ComponentFadeIn delay={.1}>
+                            <Container type="bootstrap" className={classes.sideBarAnimation}>
+                                <SidebarAnimation />
+                            </Container>
+                        </ComponentFadeIn>
+                    </NavigationWaypoint>
                 </div>
             </div>
         )

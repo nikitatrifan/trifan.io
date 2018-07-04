@@ -1,11 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import windowSize from 'react-window-size'
-import Container from '../Container'
-import Heading from '../Heading'
-import Paragraph from '../Paragraph'
-import CallToScroll from '../CallToScroll'
-import MatrixRainingCode from '../MatrixRainingCode'
+import Container from '../../components/Container'
+import Heading from '../../components/Heading'
+import Paragraph from '../../components/Paragraph'
+import CallToScroll from '../../components/CallToScroll'
+import MatrixRainingCode from '../../components/MatrixRainingCode'
 import { TweenMax, TimelineMax, Power0 } from 'gsap'
 import injectStyles from 'react-jss'
 import getNodeRelativeViewportPercentPosition from '../../helpers/getNodeRelativeViewportPercentPosition'
@@ -13,7 +13,8 @@ import getNodeRelativeViewportPercentPosition from '../../helpers/getNodeRelativ
 class IntroSlide extends React.Component{
     static propTypes = {
         onMatrixRainingCodeComplete: PropTypes.func
-    }
+    };
+
     content = [];
     componentDidMount() {
         this.showContent();

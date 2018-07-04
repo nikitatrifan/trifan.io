@@ -10,6 +10,7 @@ import ComponentFadeIn from '../../components/ComponentFadeIn'
 import Link from '../../components/Link'
 import getNodeRelativeViewportPercentPosition from '../../helpers/getNodeRelativeViewportPercentPosition'
 import { TweenMax, TimelineMax, Power0 } from 'gsap'
+import { NavigationWaypoint } from "../../containers/NavigationContainer";
 import theme from '../../theme'
 import PropTypes from "prop-types";
 
@@ -73,39 +74,41 @@ class YoapIntroSlide extends React.Component {
         return (
             <div ref={b => this.wrapper = b} className={classes.wrapper}>
                 <div ref={b => this.scroller = b} className={classes.scroller}>
-                    <Container className={classes.header} type="content">
-                        <ComponentFadeIn delay={1}>
-                            <Heading size="1">
-                                Yoap
-                            </Heading>
-                        </ComponentFadeIn>
-                        <ComponentFadeIn delay={1.04}>
-                            <Paragraph opacity margin="small">
-                                Real Estate Web Application
-                            </Paragraph>
-                        </ComponentFadeIn>
-                    </Container>
-                    <ComponentFadeIn delay={1.08}>
-                        <Container className={classes.carousel_container}>
-                            <OpacityCarousel>
-                                <img className={classes.image} src="/yoap/yoap-door-white.png" alt=""/>
-                                <img className={classes.image} src="/yoap/yoap-map.png" alt=""/>
-                            </OpacityCarousel>
+                    <NavigationWaypoint theme="dark">
+                        <Container className={classes.header} type="content">
+                            <ComponentFadeIn delay={1}>
+                                <Heading size="1">
+                                    Yoap
+                                </Heading>
+                            </ComponentFadeIn>
+                            <ComponentFadeIn delay={1.04}>
+                                <Paragraph opacity margin="small">
+                                    Real Estate Web Application
+                                </Paragraph>
+                            </ComponentFadeIn>
                         </Container>
-                    </ComponentFadeIn>
-                    <Container className={classes.bottomContent} type="content">
-                        <Title size="1">
-                            Objective
-                        </Title>
-                        <Paragraph opacity margin="medium">
-                            To develop new real-estate web service YOAP including front-end, back-end,
-                            and content management system.
-                            <br/> <br/>
-                            The project is developed in collaboration with designer
-                            {" "}
-                            <Link target="__blank" to="//nikitanikiforov.it" icon>Nikita Nikiforov</Link>
-                        </Paragraph>
-                    </Container>
+                        <ComponentFadeIn delay={1.08}>
+                            <Container className={classes.carousel_container}>
+                                <OpacityCarousel>
+                                    <img className={classes.image} src="/yoap/yoap-door-white.png" alt=""/>
+                                    <img className={classes.image} src="/yoap/yoap-map.png" alt=""/>
+                                </OpacityCarousel>
+                            </Container>
+                        </ComponentFadeIn>
+                        <Container className={classes.bottomContent} type="content">
+                            <Title size="1">
+                                Objective
+                            </Title>
+                            <Paragraph opacity margin="medium">
+                                To develop new real-estate web service YOAP including front-end, back-end,
+                                and content management system.
+                                <br/> <br/>
+                                The project is developed in collaboration with designer
+                                {" "}
+                                <Link target="__blank" to="//nikitanikiforov.it" icon>Nikita Nikiforov</Link>
+                            </Paragraph>
+                        </Container>
+                    </NavigationWaypoint>
                 </div>
             </div>
         )

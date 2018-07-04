@@ -11,6 +11,7 @@ import BrowserScreen from '../../components/BrowserScreen'
 import IPadCarousel from '../../components/IPadCarousel'
 import getNodeRelativeViewportPercentPosition from '../../helpers/getNodeRelativeViewportPercentPosition'
 import IScroll from 'iscroll/build/iscroll-probe.js'
+import { NavigationWaypoint } from "../../containers/NavigationContainer";
 import theme from '../../theme'
 import {TweenMax, TimelineMax, Power0} from "gsap";
 
@@ -118,63 +119,65 @@ class YoapInterface extends React.Component {
         return (
             <div ref={b => this.wrapper = b} className={classes.wrapper}>
                 <div ref={b => this.scroller = b} className={classes.scroller}>
-                    <Container className={classes.header} type="content">
-                        <ComponentFadeIn delay={.1}>
-                            <Heading color={theme.whiteColor} size="2">
-                                The Idea
-                            </Heading>
-                        </ComponentFadeIn>
-                        <ComponentFadeIn delay={.14}>
-                            <Paragraph opacity size="3" color={theme.whiteColor} margin="small">
-                                YOAP team is working to help locals find a new apartment for a long-term rent: they are looking for
-                                best offers for rent on local market and then upload to their website with huge amount of parameters of
-                                accomodation that user can filter by.
-                                <br/><br/>
-                                Also, they wanted to create simple and fast service with all users needs.
-                            </Paragraph>
-                        </ComponentFadeIn>
-                    </Container>
-                    <ComponentFadeIn delay={.14}>
-                        <Container type="content" className={classes.ipadCarousel}>
-                            <IPadCarousel images={[
-                                '/yoap/ipad-slides/1.jpg',
-                                '/yoap/ipad-slides/2.jpg',
-                                '/yoap/ipad-slides/1.jpg',
-                                '/yoap/ipad-slides/2.jpg',
-                            ]}/>
+                    <NavigationWaypoint theme="light">
+                        <Container className={classes.header} type="content">
+                            <ComponentFadeIn delay={.1}>
+                                <Heading color={theme.whiteColor} size="2">
+                                    The Idea
+                                </Heading>
+                            </ComponentFadeIn>
+                            <ComponentFadeIn delay={.14}>
+                                <Paragraph opacity size="3" color={theme.whiteColor} margin="small">
+                                    YOAP team is working to help locals find a new apartment for a long-term rent: they are looking for
+                                    best offers for rent on local market and then upload to their website with huge amount of parameters of
+                                    accomodation that user can filter by.
+                                    <br/><br/>
+                                    Also, they wanted to create simple and fast service with all users needs.
+                                </Paragraph>
+                            </ComponentFadeIn>
                         </Container>
-                    </ComponentFadeIn>
-                    <Container className={classes.article} type="content">
-                        <ComponentFadeIn delay={.04}>
-                            <Heading color={theme.whiteColor} size="2">
-                                Find Routes
-                            </Heading>
-                        </ComponentFadeIn>
                         <ComponentFadeIn delay={.14}>
-                            <Paragraph opacity size="3" color={theme.whiteColor} margin="small">
-                                In Russian cities like Moscow and Saint Petersburg people measure a location of an apartment at
-                                a distance from a nearest subway station.
-                                We are developed an interactive map where user can get routes from an apartment to subway station
-                                on foot, car or bus with approximate time of.
-                                <br/><br/>
-                                User can save his favorite addresses like office address or parents
-                                and get routes from an apartment to that addresses.
-                            </Paragraph>
+                            <Container type="content" className={classes.ipadCarousel}>
+                                <IPadCarousel images={[
+                                    '/yoap/ipad-slides/1.jpg',
+                                    '/yoap/ipad-slides/2.jpg',
+                                    '/yoap/ipad-slides/1.jpg',
+                                    '/yoap/ipad-slides/2.jpg',
+                                ]}/>
+                            </Container>
                         </ComponentFadeIn>
+                        <Container className={classes.article} type="content">
+                            <ComponentFadeIn delay={.04}>
+                                <Heading color={theme.whiteColor} size="2">
+                                    Find Routes
+                                </Heading>
+                            </ComponentFadeIn>
+                            <ComponentFadeIn delay={.14}>
+                                <Paragraph opacity size="3" color={theme.whiteColor} margin="small">
+                                    In Russian cities like Moscow and Saint Petersburg people measure a location of an apartment at
+                                    a distance from a nearest subway station.
+                                    We are developed an interactive map where user can get routes from an apartment to subway station
+                                    on foot, car or bus with approximate time of.
+                                    <br/><br/>
+                                    User can save his favorite addresses like office address or parents
+                                    and get routes from an apartment to that addresses.
+                                </Paragraph>
+                            </ComponentFadeIn>
 
-                        <ComponentFadeIn delay={.14}>
-                            <BrowserScreen className={classes.scrollMapWrapper}>
-                                <Waypoint onEnter={this.mapFocusIn}>
-                                    <div ref={this.setWrapperRef} className={classes.scrollMap}>
-                                        <div ref={this.setMapRef} className={classes.scrollMapContainer}>
-                                            <img src="/yoap/map.jpg" alt="Yoap Map" className={classes.map}/>
-                                            <img src="/yoap/map-content.jpg" alt="Yoap Map Content" className={classes.map_content}/>
+                            <ComponentFadeIn delay={.14}>
+                                <BrowserScreen className={classes.scrollMapWrapper}>
+                                    <Waypoint onEnter={this.mapFocusIn}>
+                                        <div ref={this.setWrapperRef} className={classes.scrollMap}>
+                                            <div ref={this.setMapRef} className={classes.scrollMapContainer}>
+                                                <img src="/yoap/map.jpg" alt="Yoap Map" className={classes.map}/>
+                                                <img src="/yoap/map-content.jpg" alt="Yoap Map Content" className={classes.map_content}/>
+                                            </div>
                                         </div>
-                                    </div>
-                                </Waypoint>
-                            </BrowserScreen>
-                        </ComponentFadeIn>
-                    </Container>
+                                    </Waypoint>
+                                </BrowserScreen>
+                            </ComponentFadeIn>
+                        </Container>
+                    </NavigationWaypoint>
                 </div>
             </div>
         )

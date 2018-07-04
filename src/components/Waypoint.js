@@ -8,7 +8,9 @@ class Waypoint extends React.Component {
     static propTypes = {
         onLeave: PropTypes.func,
         onEnter: PropTypes.func,
-        children: PropTypes.any
+        children: PropTypes.any,
+        bottomListener: PropTypes.bool,
+        topListener: PropTypes.bool
     };
 
     isInFocus = false;
@@ -17,7 +19,18 @@ class Waypoint extends React.Component {
     isNodeInFocus = direction => {
         const wrapperRect = this.node.getBoundingClientRect();
         const appHeight = parseInt(window.innerHeight, 10);
-        const bound = wrapperRect.top + (direction === 'up' ? wrapperRect.height : 0);
+        let bound = wrapperRect.top;
+
+        if (direction === 'up') {
+            bound += wrapperRect.height;
+        }
+
+        if (this.props.topListener && direction !== 'up') {
+            const heigth = appHeight > wrapperRect.height ?
+                wrapperRect.height : appHeight;
+
+            bound += heigth;
+        }
 
         if (bound < 0)
             return false;

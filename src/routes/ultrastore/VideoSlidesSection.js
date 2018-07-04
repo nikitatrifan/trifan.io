@@ -87,6 +87,7 @@ class VideoSlidesSection extends React.Component {
                             description="As the result of development we have supa-fast single page web application."
                             backgroundColor={this.colors[0]}
                             textColor={theme.whiteColor}
+                            navTheme="light"
                             index={0}
                         />
                     </Waypoint>
@@ -102,6 +103,7 @@ class VideoSlidesSection extends React.Component {
                             )}
                             backgroundColor={this.colors[1]}
                             textColor={theme.textColor}
+                            navTheme="dark"
                             index={1}
                         />
                     </Waypoint>
@@ -117,6 +119,7 @@ class VideoSlidesSection extends React.Component {
                             )}
                             backgroundColor={this.colors[2]}
                             textColor={theme.whiteColor}
+                            navTheme="light"
                             index={2}
                         />
                     </Waypoint>
@@ -130,6 +133,7 @@ class VideoSlidesSection extends React.Component {
                             )}
                             backgroundColor={this.colors[3]}
                             textColor={theme.whiteColor}
+                            navTheme="light"
                             index={3}
                         />
                     </Waypoint>

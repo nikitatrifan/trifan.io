@@ -1,6 +1,6 @@
 import React from 'react'
 import windowSize from 'react-window-size'
-import Navigation from '../../components/Navigation'
+import NavigationContainer from '../../containers/NavigationContainer'
 import Footer from '../../components/Footer'
 import Intro from './Intro'
 import Interface from './Interface'
@@ -20,17 +20,15 @@ class YoapPage extends React.Component {
         body.style.background = this.bgBackup;
     }
     render() {
-        const isNavBack = this.props.history.action === 'PUSH';
         return (
-            <div>
-                <Navigation back={isNavBack} theme="black" />
+            <NavigationContainer>
                 <Intro index={1}/>
                 <Interface index={2}/>
                 <Cms index={3}/>
                 <ComponentsSystem index={4}/>
                 <Technologies index={5} />
                 <Footer theme="black" />
-            </div>
+            </NavigationContainer>
         )
     }
 }

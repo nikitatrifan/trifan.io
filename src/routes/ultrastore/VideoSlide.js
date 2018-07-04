@@ -7,6 +7,7 @@ import Paragraph from '../../components/Paragraph'
 import Box from '../../components/Box'
 import Svg from '../../components/Svg'
 import WayPoint from '../../components/Waypoint'
+import { NavigationWaypoint } from "../../containers/NavigationContainer";
 import injectStyle from 'react-jss'
 import theme from '../../theme'
 
@@ -36,38 +37,40 @@ class VideoSlide extends React.Component {
     render() {
         const {
             classes, videoSrc, lineSrc, title, description,
-            textColor
+            textColor, navTheme
         } = this.props;
 
         return (
-            <Box wrap direction="column" justify="center" align="center" className={classes.wrapper}>
-                <Container className={classes.header} type="content">
-                    <Heading color={textColor} size="2">
-                        {title}
-                    </Heading>
-                    <Paragraph color={textColor} opacity size="3" margin="small">
-                        {description}
-                    </Paragraph>
-                </Container>
-                <WayPoint onLeave={this.leaveHandler} onEnter={this.enterHandler}>
+            <NavigationWaypoint theme={navTheme}>
+                <Box wrap direction="column" justify="center" align="center" className={classes.wrapper}>
+                    <Container className={classes.header} type="content">
+                        <Heading color={textColor} size="2">
+                            {title}
+                        </Heading>
+                        <Paragraph color={textColor} opacity size="3" margin="small">
+                            {description}
+                        </Paragraph>
+                    </Container>
+                    <WayPoint onLeave={this.leaveHandler} onEnter={this.enterHandler}>
 
-                    <div className={classes.video_wrapper}>
-                        <Container type="bootstrap" className={classes.browser}>
-                            <BrowserScreen>
-                                <video ref={b => this.video = b}
-                                       className={classes.video} loop>
-                                    <source src={videoSrc} type="video/mp4" />
-                                    Your browser does not support the video.
-                                </video>
-                            </BrowserScreen>
-                        </Container>
+                        <div className={classes.video_wrapper}>
+                            <Container type="bootstrap" className={classes.browser}>
+                                <BrowserScreen>
+                                    <video ref={b => this.video = b}
+                                           className={classes.video} loop>
+                                        <source src={videoSrc} type="video/mp4" />
+                                        Your browser does not support the video.
+                                    </video>
+                                </BrowserScreen>
+                            </Container>
 
-                        <div className={classes.lineWrapper}>
-                            <Svg className={classes.line} src={lineSrc} />
+                            <div className={classes.lineWrapper}>
+                                <Svg className={classes.line} src={lineSrc} />
+                            </div>
                         </div>
-                    </div>
-                </WayPoint>
-            </Box>
+                    </WayPoint>
+                </Box>
+            </NavigationWaypoint>
         )
     }
 }
