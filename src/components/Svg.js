@@ -74,11 +74,12 @@ export default class Svg extends React.Component {
     }
 
     render() {
-        const { src, alt = '', ...props } = this.props;
+        const { src, tag, alt = '', ...props } = this.props;
         const { isLoaded, markup } = this.state;
+        const Wrapper = tag || 'div';
         if (isLoaded) {
             return (
-                <div {...props} dangerouslySetInnerHTML={{ __html: markup }}/>
+                <Wrapper {...props} dangerouslySetInnerHTML={{ __html: markup }}/>
             )
         }
         return (

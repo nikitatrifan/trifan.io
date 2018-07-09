@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import windowSize from 'react-window-size';
 import injectStyles from 'react-jss'
 import { TweenMax } from 'gsap'
+import responsive from "../helpers/responsive";
 
 
 class MatrixRainingCode extends React.Component {
@@ -249,7 +250,10 @@ const styles = {
         objectPosition: 'center',
         zIndex: 0, filter: `blur(${MatrixRainingCode.initialImageBlur})`,
         transform: `scale(${MatrixRainingCode.initialImageScale})`,
-        willChange: 'filter, transform'
+        willChange: 'filter, transform',
+        [responsive('mobile')]: {
+            objectPosition: '80% 50%'
+        }
     }
 };
 

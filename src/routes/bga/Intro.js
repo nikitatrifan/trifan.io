@@ -43,7 +43,7 @@ class BGAIntro extends React.Component {
     };
 
     fadeIn = () => {
-        const { mockup, about, scrollMore } = this;
+        const { mockup, about } = this;
         const mockupTl = new TimelineMax();
         const dur = 2;
 

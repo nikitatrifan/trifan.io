@@ -4,6 +4,7 @@ export default {
     textColor: '#121212',
     whiteColor: '#ffffff',
     lightGrayColor: '#FAFAFA',
+    darkBackground: '#27292A',
 
     smallMargin: '12px 0 8px 0',
     mediumMargin: '32px 0 14px 0',

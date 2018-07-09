@@ -1,13 +1,25 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Container from './Container'
-import { NavLink as RouterLink } from 'react-router-dom'
-import Svg from './Svg'
+import { NavLink as RouterLink, withRouter } from 'react-router-dom'
+import ButtonBack from './ButtonBack'
 import Box from './Box'
 import injectStyles from 'react-jss'
 import classNames from 'classnames'
+import getScrollY from '../helpers/getScrollY'
 import { TweenMax } from 'gsap'
 import theme from '../theme'
+
+const themes = {
+    dark: {
+        color: '#121212',
+        fill: '#121212'
+    },
+    light: {
+        color: '#ffffff',
+        fill: '#ffffff'
+    },
+};
 
 class Navigation extends React.Component{
     static propTypes = {
@@ -19,13 +31,13 @@ class Navigation extends React.Component{
     };
 
     static links = [{
-        href: '/work',
+        href: '/#work',
         title: 'Work'
     },{
-        href: '/about',
+        href: '/#about',
         title: 'About'
     },{
-        href: '/contact',
+        href: '/#contact',
         title: 'Contact'
     }];
 
@@ -39,23 +51,95 @@ class Navigation extends React.Component{
         }, 300)
     }
 
+    getValues = block => {
+        const node = document.querySelector(block);
+        const windowHeight = parseInt(window.innerHeight, 10);
+        const top = node.getBoundingClientRect().top + (getScrollY() - windowHeight);
+        const margin = windowHeight / 3;
+        let offset = top - margin;
+
+        return {
+            top, windowHeight,
+            offset, rect: node.getBoundingClientRect()
+        }
+    };
+
+    scrollTo = block => {
+        const node = document.querySelector(block);
+        const nodeRect = node.getBoundingClientRect();
+        const windowHeight = parseInt(window.innerHeight, 10);
+        const top = nodeRect.top + (getScrollY() - windowHeight);
+        const margin = windowHeight / 2.3;
+        let offset = top - margin;
+        window.getValues = this.getValues;
+
+        if (top < getScrollY()) {
+            offset = top + margin
+        }
+
+        if (
+            (
+                nodeRect.top <= nodeRect.height ||
+                nodeRect.top >= nodeRect.height
+            ) && parseInt(nodeRect.top, 10) !== 0
+        ) {
+            window.scrollTo(0, offset);
+        }
+
+        TweenMax.to(window, .5, {
+            scrollTo: node,
+            onComplete: () =>
+                setTimeout(() => (
+                    window.dispatchEvent(new Event('scroll'))
+                ), 100)
+        })
+    };
+
+    handleLinksClick = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+
+        const href = e.target.getAttribute('href').replace('/', '');
+
+        if (this.props.history.location.pathname === '/') {
+            return this.scrollTo(href)
+        }
+
+        this.props.history.push('/');
+        setTimeout(() => {
+            this.scrollTo(href);
+        }, 60)
+    };
+
+    mouseDownClickHandler = e => {
+        TweenMax.to(e.target, .35, {
+            scale: .95,
+        })
+    };
+    mouseUpClickHandler = e => {
+        TweenMax.to(e.target, .35, {
+            scale: 1
+        })
+    };
+
     render() {
         const { classes, logo, back, theme, className } = this.props;
+        const color = themes[theme] ? themes[theme].color : '#121212';
 
         return (
             <nav id="nav" className={classNames(classes.wrapper, classes[theme], className)}>
                 <Container className={classes.container}>
                     <Box id="nav-wrapper" justify="between" align="center">
                         <RouterLink
-                            to="/" className={classes.logo}
+                            onMouseDown={!back && !logo ? this.mouseDownClickHandler : undefined}
+                            onMouseUp={!back && !logo ? this.mouseUpClickHandler : undefined}
+                            to="/#intro" className={classes.logo}
+                            onClick={this.handleLinksClick}
                             activeClassName={classes.logo_active}
                         >
                             {
                                 back ? (
-                                    <Box justify="start" align="center" className={classes.back}>
-                                        <Svg src="/icons/arrow.svg" className={classes.arrow}/>
-                                        <span>Back</span>
-                                    </Box>
+                                    <ButtonBack color={color} />
                                 ) :
                                     logo ? logo : 'trifan.io'
                             }
@@ -63,8 +147,11 @@ class Navigation extends React.Component{
                         <div ref={b => this.links = b} className={classes.links}>
                             {Navigation.links.map(it => (
                                 <RouterLink
+                                    onMouseDown={this.mouseDownClickHandler}
+                                    onMouseUp={this.mouseUpClickHandler}
                                     activeClassName={classes.link_active}
                                     className={classes.link} key={it.href}
+                                    onClick={this.handleLinksClick}
                                     to={it.href}
                                 >
                                     {it.title}
@@ -90,14 +177,7 @@ const styles = {
         transition: `color ${cssTransitionTime}s ease-in-out`,
         display: 'block',
     },
-    dark: {
-        color: '#121212',
-        fill: '#121212'
-    },
-    light: {
-        color: '#ffffff',
-        fill: '#ffffff'
-    },
+    ...themes,
     logo: {
         fontSize: '18px',
         fontFamily: theme.secondaryFont,
@@ -121,6 +201,7 @@ const styles = {
     link: {
         fontSize: '16px',
         fontFamily: theme.secondaryFont,
+        display: 'block',
         fontWeight: '500',
         marginLeft: '18px',
         color: 'inherit',
@@ -140,30 +221,6 @@ const styles = {
             padding: '15px 0'
         }
     },
-
-    back: {
-        '& span': {
-            transition: `transform ${cssTransitionTime}s ease-in-out`,
-            marginLeft: '10px'
-        },
-        '&:hover svg': {
-            transform: 'translateX(7px)',
-        },
-        '&:hover span': {
-            transform: 'translateX(-5px)',
-        },
-    },
-    arrow: {
-        transform: 'rotateZ(180deg)',
-        width: '19px',
-        '& svg': {
-            transition: `transform ${cssTransitionTime}s ease-in-out`,
-            fill: 'inherit',
-            '& *': {
-                fill: 'inherit'
-            }
-        }
-    }
 };
 
-export default injectStyles(styles)(Navigation);
+export default injectStyles(styles)(withRouter(Navigation));

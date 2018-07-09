@@ -1,7 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
+import Svg from './Svg'
 import theme from '../theme'
+import { TweenMax, Power2 } from 'gsap'
 import injectStyles from 'react-jss'
 
 class ButtonText extends React.Component {
@@ -12,20 +14,49 @@ class ButtonText extends React.Component {
         children: PropTypes.any
     };
 
+    dur = .3;
+    ease = Power2.easeOut;
+
+    mouseDownHandler = (e) => {
+        TweenMax.to(this.wrapper, this.dur, {
+            scale: .98, ease: this.ease,
+            transformOrigin: '50% 50%'
+        });
+
+        if (this.props.onMouseDown) {
+            this.props.onMouseDown(e)
+        }
+    };
+    mouseUpHandler = (e) => {
+        TweenMax.to(this.wrapper, this.dur, {
+            scale: 1, ease: this.ease,
+            transformOrigin: '50% 50%'
+        });
+
+        if (this.props.onMouseUp) {
+            this.props.onMouseUp(e)
+        }
+    };
+
     render() {
         const { classes, color = "#121212", className, icon, children, ...props } = this.props;
         const __className = classNames(
             classes.wrapper, icon && classes.wrapperWithIcon, className
         );
         return (
-            <div style={{color}} className={__className}>
+            <div ref={b => this.wrapper = b}
+                 onMouseDown={this.mouseDownHandler}
+                 onMouseUp={this.mouseUpHandler}
+                 style={{color}}
+                 className={__className}>
                 <button {...props} className={classes.button}>
                     {
                         icon ? (
                             <span className={classes.iconWrapper}>
                                 {children}
-                                <strong
-                                    style={{backgroundColor: color}}
+                                <Svg
+                                    tag="strong" src="/icons/arrow.svg"
+                                    style={{fill: color}}
                                     className={classes.icon}
                                 />
                             </span>
@@ -56,6 +87,10 @@ const styles = {
         }
     },
     wrapperWithIcon: {
+        overflow: 'visible',
+        '& g': {
+            opacity: '1 !important'
+        },
         '& i': {
             display: 'none !important'
         },
@@ -63,10 +98,10 @@ const styles = {
             padding: '20px 0'
         },
         '&:hover strong': {
-            transform: 'translateX(30px)'
+            transform: 'translateX(2px)',
         },
         '&:hover button': {
-            transform: 'translateX(10px)'
+            transform: 'translateX(5px)'
         }
     },
     button: {
@@ -109,10 +144,6 @@ const styles = {
     icon: {
         width: '19px',
         height: '10px',
-        '-webkit-mask': 'url(/icons/arrow.svg) no-repeat 100% 100%',
-        mask: 'url(/icons/arrow.svg) no-repeat 100% 100%',
-        '-webkit-mask-size': 'cover',
-        'mask-size': 'cover',
         display: 'inline-block',
         marginLeft: '6px',
         transition: 'transform .3s ease-in-out'

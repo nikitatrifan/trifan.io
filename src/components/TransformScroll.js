@@ -11,7 +11,8 @@ class TransformScroll extends React.Component {
         wrapperClassName: PropTypes.string,
         scrollerClassName: PropTypes.string,
         scrollRef: PropTypes.func,
-        offset: PropTypes.number
+        offset: PropTypes.number,
+        disabled: PropTypes.bool
     };
 
     constructor(props) {
@@ -44,6 +45,9 @@ class TransformScroll extends React.Component {
         }, 60)
     };
     scrollHandler = () => {
+        if (this.props.disabled)
+            return;
+
         const percent = getNodeRelativeViewportPercentPosition(this.wrapper);
 
         if (percent === undefined)
@@ -144,11 +148,11 @@ class TransformScroll extends React.Component {
     setScrollerRef = b => this.scroller = b;
 
     render() {
-        const { classes, wrapperClassName, scrollerClassName, children } = this.props;
+        const { classes, wrapperClassName, scrollerClassName, id, children } = this.props;
         return (
             <div
                 className={classNames(classes.wrapper, wrapperClassName)}
-                ref={this.setWrapperRef}
+                ref={this.setWrapperRef} id={id}
             >
                 <div
                     className={classNames(classes.scroller, scrollerClassName)}

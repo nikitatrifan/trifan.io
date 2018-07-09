@@ -72,7 +72,7 @@ class IntroSlide extends React.Component{
     render() {
         const { classes, onMatrixRainingCodeComplete } = this.props;
         return (
-            <div ref={b => this.wrapper = b} className={classes.wrapper}>
+            <div id="intro" ref={b => this.wrapper = b} className={classes.wrapper}>
                 <div ref={b => this.content[0] = b} className={classes.content}>
                     <Container>
                         <Paragraph size={3} color="#fff">

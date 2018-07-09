@@ -68,10 +68,13 @@ class USSLide extends React.Component {
             y: -windowHeight,
             ease: Power0.easeNone,
             opacity: 0
-        }, dur * 1.2);
+        }, dur);
+        tl.set(this.wrapper, {
+            overflow: 'hidden'
+        }, dur);
 
         tl.to(this.content, dur, {
-            y: -300,
+            y: -100,
             ease: Power0.easeNone,
             opacity: 0
         }, dur * 1.2);
@@ -133,7 +136,6 @@ const styles = {
         backgroundColor: '#FAFAFA',
         position: 'relative',
         //overflow: 'hidden',
-        marginBottom: '100vh',
         zIndex: 0,
         padding: '60px 0 20px',
         [responsive('mobile')]: {

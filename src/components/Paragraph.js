@@ -51,10 +51,10 @@ const styles = {
     opacity: { opacity: .55 },
     size_2: {
         fontSize: '21px',
-        lineHeight: '26px',
+        lineHeight: '30px',
         [mobileMedia]: {
             fontSize: '19px',
-            lineHeight: '24px',
+            lineHeight: '26px',
         }
     },
     size_3: {

@@ -18,7 +18,7 @@ class ButtonShadow extends React.Component {
 
     dur = .35;
     scale = .85;
-    hoverScale = .9;
+    hoverScale = .98;
 
     hoverAnimation = () => {
         if (!this.button)

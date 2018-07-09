@@ -5,6 +5,7 @@
   "dependencies": {
     "classnames": "^2.2.6",
     "gsap": "^2.0.1",
+    "hex-to-rgba": "^1.0.1",
     "iscroll": "^5.2.0",
     "lodash": "^4.17.10",
     "normalize.css": "^8.0.0",
