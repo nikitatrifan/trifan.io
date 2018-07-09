@@ -45,7 +45,7 @@ class Home extends React.Component{
         this.isUnMounted = true;
     }
 
-    static noAnimation = true;
+    static noAnimation = false;
 
     render() {
         const { classes } = this.props;

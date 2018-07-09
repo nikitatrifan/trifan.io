@@ -4,6 +4,7 @@ import Home from './routes/home'
 import BGAPage from './routes/bga'
 import YoapPage from './routes/yoap'
 import USPage from './routes/ultrastore'
+import AppLoader from './components/AppLoader'
 import normalizeScroll from './helpers/normalizeScroll'
 import { TweenMax } from 'gsap'
 
@@ -35,15 +36,22 @@ class App extends Component {
             });
         }
     }
+
+    setWrapperRef = b => this.wrapper = b;
+
     render() {
+
+
         return (
-            <div ref={b => this.wrapper = b}>
-                <Switch>
-                    <Route path="/" exact component={Home}/>
-                    <Route path="/yoap" exact component={YoapPage}/>
-                    <Route path="/ultrastore" exact component={USPage}/>
-                    <Route path="/gym-assistant" exact component={BGAPage}/>
-                </Switch>
+            <div ref={this.setWrapperRef}>
+                <AppLoader>
+                    <Switch>
+                        <Route path="/" exact component={Home}/>
+                        <Route path="/yoap" exact component={YoapPage}/>
+                        <Route path="/ultrastore" exact component={USPage}/>
+                        <Route path="/gym-assistant" exact component={BGAPage}/>
+                    </Switch>
+                </AppLoader>
             </div>
         );
     }

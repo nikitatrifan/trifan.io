@@ -99,7 +99,13 @@ class Navigation extends React.Component{
         e.preventDefault();
         e.stopPropagation();
 
-        const href = e.target.getAttribute('href').replace('/', '');
+        let href = e.target.getAttribute('href');
+
+        if (!href) {
+            href = document.querySelector('#logo').getAttribute('href');
+        }
+
+        href = href.replace('/', '');
 
         if (this.props.history.location.pathname === '/') {
             return this.scrollTo(href)
@@ -134,6 +140,7 @@ class Navigation extends React.Component{
                             onMouseDown={!back && !logo ? this.mouseDownClickHandler : undefined}
                             onMouseUp={!back && !logo ? this.mouseUpClickHandler : undefined}
                             to="/#intro" className={classes.logo}
+                            id="logo"
                             onClick={this.handleLinksClick}
                             activeClassName={classes.logo_active}
                         >
@@ -223,4 +230,4 @@ const styles = {
     },
 };
 
-export default injectStyles(styles)(withRouter(Navigation));
+export default withRouter(injectStyles(styles)(Navigation));

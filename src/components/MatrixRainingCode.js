@@ -238,6 +238,7 @@ const styles = {
         display: 'block',
         textAlign: 'center',
         fontFamily: 'Fira Code',
+        fontWeight: '400'
         //opacity: 0, backgroundColor: '#000',
         //willChange: 'opacity'
     },

@@ -14,12 +14,12 @@ export default class Svg extends React.Component {
         alt: ''
     };
 
-    storageName = '@storage/svg';
+    static storageName = '@storage/svg';
     constructor(props) {
         super(props);
         // set up initial data
         const { src } = props;
-        const markup = this.storage(src);
+        const markup = Svg.storage(src);
         const isLoaded = !isEmpty(markup);
 
         this.state = {
@@ -28,32 +28,36 @@ export default class Svg extends React.Component {
 
         // if we have no image in a cache
         // then load svg
-        if (!isLoaded)
-            this.loadSvg(src);
+        if (!isLoaded) {
+            Svg.loadSvg(src).then(markup => {
+                // show svg :)
+                this.setState({
+                    markup, isLoaded: true
+                })
+            });
+        }
     }
 
-    storage = (src, markup) => {
-        const storage = JSON.parse(localStorage.getItem(this.storageName)) || {};
+    static storage = (src, markup) => {
+        const storage = JSON.parse(localStorage.getItem(Svg.storageName)) || {};
 
         if (isEmpty(markup))
             return storage[src];
 
-        localStorage.setItem(this.storageName, JSON.stringify({
+        localStorage.setItem(Svg.storageName, JSON.stringify({
             ...storage,
             [src]: markup
         }))
     };
 
-    loadSvg = src => {
-        fetch(src)
+    static loadSvg = src => {
+        return fetch(src)
             .then(res => res.text())
             .then(markup => {
                 // save svg markup to local storage
-                this.storage(src, markup);
-                // show svg :)
-                this.setState({
-                    markup, isLoaded: true
-                })
+                Svg.storage(src, markup);
+
+                return markup;
             })
             .catch(err => {
                 console.warn(
