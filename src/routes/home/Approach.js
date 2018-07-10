@@ -152,9 +152,15 @@ class Approach extends React.Component {
                             </ComponentFadeIn>
                         </Box>
                     </Container>
-                    <Box justify="center" align="center" className={classes.requestButton}>
-                        <ButtonText color={textColor} icon>Send a Request</ButtonText>
-                    </Box>
+                    {!responsive().isMobile && (
+                        <Box justify="center" align="center" className={classes.requestButton}>
+                            <ButtonText
+                                target="__blank" to="mailto:hello@trifan.io"
+                                color={textColor} icon>
+                                Send a Request
+                            </ButtonText>
+                        </Box>
+                    )}
                 </div>
             </div>
         )
@@ -191,7 +197,10 @@ const styles = {
         }
     },
     requestButton: {
-        marginBottom: '109px'
+        marginBottom: '109px',
+        [responsive('mobile')]: {
+            marginBottom: '20px'
+        }
     }
 };
 

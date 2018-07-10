@@ -13,6 +13,7 @@ import { TweenMax, TimelineMax, Power0 } from 'gsap'
 import { NavigationWaypoint } from "../../containers/NavigationContainer";
 import theme from '../../theme'
 import PropTypes from "prop-types";
+import responsive from "../../helpers/responsive";
 
 class YoapIntroSlide extends React.Component {
     static propTypes = {
@@ -124,7 +125,12 @@ const styles = {
         backgroundColor: theme.lightGrayColor,
         paddingBottom: '97px',
     },
-    header: {paddingTop: '154px'},
+    header: {
+        paddingTop: '154px',
+        [responsive('mobile')]: {
+            paddingTop: '95px'
+        }
+    },
     image: {
         display: 'block',
         width: '100%',

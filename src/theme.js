@@ -15,5 +15,7 @@ export default {
 
     mobilePoint: 600,
     tabletPoint: 1060,
-    desktopPoint: 1200
+    desktopPoint: 1200,
+
+    logoName: 'trifan.io'
 };

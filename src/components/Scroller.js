@@ -38,7 +38,7 @@ class Scroller extends React.Component {
             interactiveScrollbars: true,
             deceleration: 0.004,
             //bounceTime: 350,
-            //bounce: true,
+            bounce: false,
             shrinkScrollbars: true
             //useTransition: false,
         });

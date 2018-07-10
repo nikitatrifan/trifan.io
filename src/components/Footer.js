@@ -105,7 +105,7 @@ class Footer extends React.Component {
                                 </div>
                             </Box>
                             <Box align="center" justify="center" className={classes.col}>
-                                <ButtonText className={classes.button} icon>
+                                <ButtonText to="mailto:hello@trifan.io" target="__blank" className={classes.button} icon>
                                     Send a Request
                                 </ButtonText>
                             </Box>

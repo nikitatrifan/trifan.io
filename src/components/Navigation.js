@@ -9,7 +9,7 @@ import classNames from 'classnames'
 import getScrollY from '../helpers/getScrollY'
 import IScroll from 'iscroll/build/iscroll-probe'
 import { TweenMax } from 'gsap'
-import theme from '../theme'
+import appTheme from '../theme'
 
 const themes = {
     dark: {
@@ -141,7 +141,7 @@ class Navigation extends React.Component{
                                 back ? (
                                     <ButtonBack color={color} />
                                 ) :
-                                    logo ? logo : 'trifan.io'
+                                    logo ? logo : appTheme.logoName
                             }
                         </RouterLink>
                         <div ref={b => this.links = b} className={classes.links}>
@@ -180,7 +180,7 @@ const styles = {
     ...themes,
     logo: {
         fontSize: '18px',
-        fontFamily: theme.secondaryFont,
+        fontFamily: appTheme.secondaryFont,
         fontWeight: '500',
         color: 'inherit',
         textDecoration: 'none',
@@ -188,8 +188,8 @@ const styles = {
         fill: 'inherit',
         transition: `color ${cssTransitionTime}s ease-in-out, fill ${cssTransitionTime}s ease-in-out`,
         '&:hover': {
-            color: theme.primaryColor,
-            fill: theme.primaryColor
+            color: appTheme.primaryColor,
+            fill: appTheme.primaryColor
         }
     },
     links: {
@@ -200,7 +200,7 @@ const styles = {
     },
     link: {
         fontSize: '16px',
-        fontFamily: theme.secondaryFont,
+        fontFamily: appTheme.secondaryFont,
         display: 'block',
         fontWeight: '500',
         marginLeft: '18px',
@@ -209,11 +209,11 @@ const styles = {
         opacity: 0,
         transition: `color ${cssTransitionTime}s ease-in-out`,
         '&:hover': {
-            color: theme.primaryLightColor
+            color: appTheme.primaryLightColor
         }
     },
     link_active: {
-        color: theme.primaryColor
+        color: appTheme.primaryColor
     },
     container: {
         padding: '45px 0',

@@ -73,7 +73,6 @@ class AppLoader extends React.Component {
             ...preloadImages(['/trifan-touched.jpg']),
             document.fonts.ready
         ]).then(res => {
-            console.log('CONTENT WAS LOADED', res);
             this.hide();
         })
     };
@@ -99,8 +98,16 @@ class AppLoader extends React.Component {
             <div className={classes.wrapper}>
                 <Container className={classes.container}>
                     <div className={classes.logo}>
-                        <span ref={b => this.logo_text = b} className={classes.logo_text}>trifan.io</span>
-                        <span ref={b => this.placeholder = b} className={classes.placeholder} />
+                        <span
+                            ref={b => this.logo_text = b}
+                            className={classes.logo_text}
+                        >
+                            {theme.logoName}
+                        </span>
+                        <span
+                            ref={b => this.placeholder = b}
+                            className={classes.placeholder}
+                        />
                     </div>
                 </Container>
             </div>

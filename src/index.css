@@ -102,7 +102,6 @@ img, svg {
 .root {
   display: block;
   width: 100%;
-  overflow-x: hidden;
   user-select: none
 }
 .modal-root {

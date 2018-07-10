@@ -1,4 +1,5 @@
 import React from 'react'
+import Helmet from 'react-helmet'
 import IntroSlide from './IntroSlide'
 import YoapSlide from './YoapSlide'
 import USSlide from './USSlide'
@@ -46,7 +47,7 @@ class Home extends React.Component{
         this.isUnMounted = true;
     }
 
-    static noAnimation = true;
+    static noAnimation = false;
 
     render() {
         const { classes } = this.props;
@@ -58,6 +59,9 @@ class Home extends React.Component{
                     reading image...
                 </span>
             )}>
+                <Helmet>
+                    <title>Developer — Nikita Trifan</title>
+                </Helmet>
                 <div className={classes.wrapper}>
                     <NavigationWaypoint theme="light">
                         <IntroSlide index={0}

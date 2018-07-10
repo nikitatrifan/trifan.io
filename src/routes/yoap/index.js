@@ -1,4 +1,5 @@
 import React from 'react'
+import Helmet from 'react-helmet'
 import windowSize from 'react-window-size'
 import NavigationContainer from '../../containers/NavigationContainer'
 import Footer from '../../components/Footer'
@@ -22,6 +23,9 @@ class YoapPage extends React.Component {
     render() {
         return (
             <NavigationContainer>
+                <Helmet>
+                    <title>yoap project — Nikita Trifan</title>
+                </Helmet>
                 <Intro index={1}/>
                 <Interface index={2}/>
                 <Cms index={3}/>

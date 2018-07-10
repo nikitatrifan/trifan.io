@@ -12,7 +12,8 @@ class TransformScroll extends React.Component {
         scrollerClassName: PropTypes.string,
         scrollRef: PropTypes.func,
         offset: PropTypes.number,
-        disabled: PropTypes.bool
+        disabled: PropTypes.bool,
+        noMobile: PropTypes.bool
     };
 
     constructor(props) {
@@ -56,25 +57,11 @@ class TransformScroll extends React.Component {
         if (!this.tl)
             return false;
 
-        this.log(percent);
-
         TweenMax.to(this.tl, 0, {
             progress: percent,
             ease: Power0.easeNone
         })
     };
-    log = (arg, arg1) => {
-        if (this.props.name === 'Todos') {
-            if (typeof arg === "function") {
-                return console.log(arg())
-            }
-            if (arg1)
-                return console.log(arg, arg1);
-
-            return console.log(arg);
-        }
-    };
-
     calcRatio = () => {
         const offsetTop = parseFloat(this.wrapper.offsetTop);
         const wrapperHeight = parseFloat(this.wrapper.clientHeight);
@@ -91,12 +78,6 @@ class TransformScroll extends React.Component {
         }
 
         const ratio = (100 - offset) / 100;
-
-        this.log(() => (
-            window.data = {
-                percent, ratio, windowHeight, wrapperHeight,
-            }
-        ));
 
         // if wrapper height looks similar
         // by height to window height
@@ -122,10 +103,6 @@ class TransformScroll extends React.Component {
         const windowHeight = parseFloat(window.innerHeight);
         const dur = 3;
         const entryPoint = dur * this.calcRatio();
-
-        this.log('ratio result:', this.calcRatio());
-        this.log('entryPoint is', entryPoint);
-        this.log(windowHeight / 2);
 
         tl.to(this.scroller, entryPoint,{
             y: 0, opacity: 1,
@@ -171,11 +148,11 @@ const styles = {
         position: 'relative',
         backgroundColor: '#000'
     }),
-    scroller: {
-        minHeight: '100vh',
+    scroller: props => ({
+        minHeight: props.noMinHeight ? 'auto' : '100vh',
         backgroundColor: '#fff',
         willChange: 'transform, opacity'
-    },
+    }),
 };
 
 export default injectStyles(styles)(TransformScroll);

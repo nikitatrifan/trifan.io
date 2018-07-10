@@ -8,6 +8,7 @@ import BlockName from '../../components/BlockName'
 import ComponentFadeIn from '../../components/ComponentFadeIn'
 import TransformScroll from '../../components/TransformScroll'
 import theme from '../../theme'
+import responsive from "../../helpers/responsive";
 
 class Contact extends React.Component {
     static defaultProps = {
@@ -38,7 +39,7 @@ class Contact extends React.Component {
                     </Box>
                     <div className={classes.bg}>
                         <ComponentFadeIn duration={.7} delay={.5}>
-                            <TransformScroll offset={.5}>
+                            <TransformScroll noMinHeight disabled={responsive().isMobile} offset={.5}>
                                 <img
                                     className={classes.bg_image}
                                     src="/trifan-nikita.jpg" alt="Nikita Trifan"

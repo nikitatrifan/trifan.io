@@ -1,4 +1,5 @@
 import React from 'react'
+import Helmet from 'react-helmet'
 import windowSize from 'react-window-size'
 import Footer from '../../components/Footer'
 import Intro from './Intro'
@@ -22,6 +23,11 @@ class BGAPage extends React.Component {
     render() {
         return (
             <NavigationContainer>
+                <Helmet>
+                    <title>
+                        Gym Assistant — Nikita Trifan
+                    </title>
+                </Helmet>
                 <Intro index={1}/>
                 <Todos index={2}/>
                 <AppInterface index={3}/>
