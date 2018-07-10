@@ -16,11 +16,11 @@ class USSLide extends React.Component {
         setTimeout(() => {
             this.tl = this.tween();
             this.scrollHandler();
-            window.addEventListener('scroll', this.scrollHandler);
+            window.onScroll(this.scrollHandler);
         }, 300);
     }
     componentWillUnmount() {
-        window.removeEventListener('scroll', this.scrollHandler);
+        window.offScroll(this.scrollHandler);
     }
 
     scrollHandler = () => {
@@ -41,6 +41,7 @@ class USSLide extends React.Component {
         const tl = new TimelineMax({ paused: true });
         const dur = 3;
 
+        // images in animation
         tl.staggerFromTo(this.images, dur / 4, {
             opacity: 0,
             display: 'none'
@@ -50,10 +51,11 @@ class USSLide extends React.Component {
             ease: Power0.easeNone
         }, 0.1);
 
-        tl.staggerFromTo(this.images, dur * 0.8, {
+        // images end animation
+        tl.staggerFromTo(this.images, dur * 0.9, {
             y: windowHeight,
         }, {
-            y: -windowHeight * .65,
+            y: -windowHeight * .4,
             ease: Power0.easeNone
         }, 0.1, '0');
 
@@ -69,9 +71,9 @@ class USSLide extends React.Component {
             ease: Power0.easeNone,
             opacity: 0
         }, dur);
-        tl.set(this.wrapper, {
-            overflow: 'hidden'
-        }, dur);
+        // tl.set(this.wrapper, {
+        //     overflow: 'hidden'
+        // }, dur);
 
         tl.to(this.content, dur, {
             y: -100,

@@ -17,16 +17,16 @@ class BGASlide extends React.Component {
         setTimeout(() => {
             this.tl = this.tween();
             this.scrollHandler();
-            window.addEventListener('scroll', this.scrollHandler);
+            window.onScroll(this.scrollHandler);
         }, 300);
     }
     componentWillUnmount() {
-        window.removeEventListener('scroll', this.scrollHandler);
+        window.offScroll(this.scrollHandler);
     }
 
     scrollHandler = () => {
         const percent =
-            getNodeRelativeViewportPercentPosition(this.wrapper);
+            getNodeRelativeViewportPercentPosition(this.wrapper, true);
 
         if (percent === undefined)
             return false;

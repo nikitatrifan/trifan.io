@@ -15,7 +15,10 @@ class VideoSlidesSection extends React.Component {
             this.scrollHandler();
         }, 300);
 
-        window.addEventListener('scroll', this.scrollHandler);
+        window.onScroll(this.scrollHandler);
+    }
+    componentWillUnmount() {
+        window.offScroll(this.scrollHandler);
     }
 
     scrollTween = () => {

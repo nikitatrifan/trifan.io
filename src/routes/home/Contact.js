@@ -23,13 +23,13 @@ class Contact extends React.Component {
                 <div className={classes.scroller}>
                     <Box justify="center" align="center" className={classes.content}>
                         <Container type="content">
-                            <ComponentFadeIn delay={0.34}>
+                            <ComponentFadeIn delay={0.14}>
                                 <Paragraph margin="medium" color={textColor}>
                                     If you’re interested in working <br/>
                                     or collaborating with me please contact me.
                                 </Paragraph>
                             </ComponentFadeIn>
-                            <ComponentFadeIn delay={0.38}>
+                            <ComponentFadeIn delay={0.18}>
                                 <Heading margin="medium" color={textColor}>
                                     hello@trifan.io
                                 </Heading>
@@ -37,8 +37,8 @@ class Contact extends React.Component {
                         </Container>
                     </Box>
                     <div className={classes.bg}>
-                        <ComponentFadeIn duration={.7} delay={1}>
-                            <TransformScroll>
+                        <ComponentFadeIn duration={.7} delay={.5}>
+                            <TransformScroll offset={.5}>
                                 <img
                                     className={classes.bg_image}
                                     src="/trifan-nikita.jpg" alt="Nikita Trifan"

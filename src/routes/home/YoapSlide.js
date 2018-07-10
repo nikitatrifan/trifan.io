@@ -16,11 +16,11 @@ class YoapSlide extends React.Component {
         setTimeout(() => {
             this.tl = this.tween();
             this.scrollHandler();
-            window.addEventListener('scroll', this.scrollHandler);
+            window.onScroll(this.scrollHandler);
         }, 300);
     }
     componentWillUnmount() {
-        window.removeEventListener('scroll', this.scrollHandler);
+        window.offScroll(this.scrollHandler);
     }
 
     scrollHandler = () => {

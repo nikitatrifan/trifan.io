@@ -63,7 +63,7 @@ class YoapCms extends React.Component {
     };
 
     componentWillUnmount() {
-        window.removeEventListener('scroll', this.scrollHandler);
+        window.offScroll(this.scrollHandler);
     }
 
     componentDidMount() {
@@ -72,7 +72,7 @@ class YoapCms extends React.Component {
             this.scrollHandler();
         }, 300);
 
-        window.addEventListener('scroll', this.scrollHandler);
+        window.onScroll(this.scrollHandler);
     }
     render() {
         const { classes } = this.props;

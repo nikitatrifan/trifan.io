@@ -88,11 +88,13 @@ class Waypoint extends React.Component {
     componentDidMount() {
         this.updateRef();
         setTimeout(this.scrollerHandler, 60);
-        setTimeout(this.scrollerHandler, 300);
-        window.addEventListener('scroll', this.scrollerHandler);
+        setTimeout(this.scrollerHandler, 160);
+        setTimeout(this.scrollerHandler, 260);
+        setTimeout(this.scrollerHandler, 360);
+        window.onScroll(this.scrollerHandler);
     }
     componentWillUnmount() {
-        window.removeEventListener('scroll', this.scrollerHandler);
+        window.offScroll(this.scrollerHandler);
     }
     componentDidUpdate() {
         this.updateRef();

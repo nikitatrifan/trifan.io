@@ -3,7 +3,7 @@ import windowSize from 'react-window-size'
 import ReactDOM from 'react-dom'
 import { TweenMax } from 'gsap'
 import Title from './Title'
-import IScroll from 'iscroll'
+import IScroll from 'iscroll/build/iscroll-probe'
 import classNames from 'classnames'
 import injectStyle from 'react-jss'
 

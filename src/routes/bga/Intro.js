@@ -27,7 +27,7 @@ class BGAIntro extends React.Component {
     };
 
     isAnimationInFocus = () => {
-        const { windowHeight } = this.props;
+        const windowHeight = parseInt(window.innerHeight, 10);
         const scrollY = getScrollY() - windowHeight;
 
         if (scrollY <= windowHeight) {

@@ -11,8 +11,9 @@ import Footer from '../../components/Footer'
 import NavigationContainer, { NavigationWaypoint } from "../../containers/NavigationContainer";
 import { TweenMax, Power0 } from 'gsap'
 import injectStyles from 'react-jss'
+import IScroll from 'iscroll/build/iscroll-probe.js'
 import responsive from "../../helpers/responsive";
-
+window.IScroll = IScroll;
 class Home extends React.Component{
     state = {
         isLogoFlashing: true
@@ -45,7 +46,7 @@ class Home extends React.Component{
         this.isUnMounted = true;
     }
 
-    static noAnimation = false;
+    static noAnimation = true;
 
     render() {
         const { classes } = this.props;

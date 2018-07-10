@@ -45,7 +45,7 @@ class USIntro extends React.Component {
             this.tl = this.tween();
             this.scrollHandler();
         }, 300);
-        window.addEventListener('scroll', this.scrollHandler);
+        window.onScroll(this.scrollHandler);
     }
     componentDidUpdate(prevProps) {
         if (prevProps.windowWidth !== this.props.windowWidth) {
@@ -53,7 +53,7 @@ class USIntro extends React.Component {
         }
     }
     componentWillUnmount() {
-        window.removeEventListener('scroll', this.scrollHandler);
+        window.offScroll(this.scrollHandler);
     }
     resizeHandler = () => {
         this.tl = this.tween();

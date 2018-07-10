@@ -7,6 +7,7 @@ import Box from './Box'
 import injectStyles from 'react-jss'
 import classNames from 'classnames'
 import getScrollY from '../helpers/getScrollY'
+import IScroll from 'iscroll/build/iscroll-probe'
 import { TweenMax } from 'gsap'
 import theme from '../theme'
 
@@ -51,17 +52,13 @@ class Navigation extends React.Component{
         }, 300)
     }
 
-    getValues = block => {
-        const node = document.querySelector(block);
-        const windowHeight = parseInt(window.innerHeight, 10);
-        const top = node.getBoundingClientRect().top + (getScrollY() - windowHeight);
-        const margin = windowHeight / 3;
-        let offset = top - margin;
+    __scrollTo = node => {
+        const dur = 500;
 
-        return {
-            top, windowHeight,
-            offset, rect: node.getBoundingClientRect()
-        }
+        window.scroll.scrollToElement(node, dur, 0, 0, IScroll.utils.ease.quadratic);
+        setTimeout(() => (
+            window.scroll.refresh()
+        ), dur * 1.2);
     };
 
     scrollTo = block => {
@@ -71,7 +68,6 @@ class Navigation extends React.Component{
         const top = nodeRect.top + (getScrollY() - windowHeight);
         const margin = windowHeight / 2.3;
         let offset = top - margin;
-        window.getValues = this.getValues;
 
         if (top < getScrollY()) {
             offset = top + margin
@@ -83,16 +79,13 @@ class Navigation extends React.Component{
                 nodeRect.top >= nodeRect.height
             ) && parseInt(nodeRect.top, 10) !== 0
         ) {
-            window.scrollTo(0, offset);
+            window.scroll.scrollTo(0, -offset, 0);
+            setTimeout(() => (
+                this.__scrollTo(node)
+            ), 500)
         }
 
-        TweenMax.to(window, .5, {
-            scrollTo: node,
-            onComplete: () =>
-                setTimeout(() => (
-                    window.dispatchEvent(new Event('scroll'))
-                ), 100)
-        })
+        return this.__scrollTo(node);
     };
 
     handleLinksClick = (e) => {

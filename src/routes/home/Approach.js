@@ -46,7 +46,7 @@ class Approach extends React.Component {
                     <BlockName index={0} name="Approach"/>
                     <Container index={1} type="bootstrap">
                         <Box className={classes.row} wrap align="center" justify="between">
-                            <ComponentFadeIn delay={0.54}>
+                            <ComponentFadeIn delay={0.14}>
                                 <div className={classes.col}>
                                     <Heading margin="medium" color={textColor} size={2}>
                                         Details — matters. <br/>
@@ -60,7 +60,7 @@ class Approach extends React.Component {
                                     </Paragraph>
                                 </div>
                             </ComponentFadeIn>
-                            <ComponentFadeIn delay={0.58}>
+                            <ComponentFadeIn delay={0.18}>
                                 <div className={classes.col}>
                                     <Card>
                                         <Title margin="medium" color={textColor}>
@@ -77,7 +77,7 @@ class Approach extends React.Component {
                                     </Card>
                                 </div>
                             </ComponentFadeIn>
-                            <ComponentFadeIn delay={0.62}>
+                            <ComponentFadeIn delay={0.22}>
                                 <div className={classes.col}>
                                     <Card>
                                         <Title margin="medium" color={textColor}>
@@ -98,7 +98,7 @@ class Approach extends React.Component {
                             </ComponentFadeIn>
                         </Box>
                         <Box className={classes.row} wrap align="center" justify="between">
-                            <ComponentFadeIn delay={0.62}>
+                            <ComponentFadeIn delay={0.22}>
                                 <div className={classes.col}>
                                     <Card
                                         onMouseLeave={this.spinnerBlockLeaveHandler}
@@ -118,7 +118,7 @@ class Approach extends React.Component {
                                     </Card>
                                 </div>
                             </ComponentFadeIn>
-                            <ComponentFadeIn delay={0.58}>
+                            <ComponentFadeIn delay={0.18}>
                                 <div className={classes.col}>
                                     <Card
                                         onMouseLeave={this.globeBlockLeaveHandler}
@@ -137,7 +137,7 @@ class Approach extends React.Component {
                                     </Card>
                                 </div>
                             </ComponentFadeIn>
-                            <ComponentFadeIn delay={0.54}>
+                            <ComponentFadeIn delay={0.14}>
                                 <div className={classes.col}>
                                     <Heading margin="medium" color={textColor} size={2}>
                                         Speed — high priority. <br/>

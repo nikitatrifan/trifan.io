@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
+import { Link as RouterLink } from 'react-router-dom'
 import Svg from './Svg'
 import theme from '../theme'
 import { TweenMax, Power2 } from 'gsap'
@@ -43,13 +44,16 @@ class ButtonText extends React.Component {
         const __className = classNames(
             classes.wrapper, icon && classes.wrapperWithIcon, className
         );
+
+        const Element = props.to ? RouterLink : 'button';
+
         return (
             <div ref={b => this.wrapper = b}
                  onMouseDown={this.mouseDownHandler}
                  onMouseUp={this.mouseUpHandler}
                  style={{color}}
                  className={__className}>
-                <button {...props} className={classes.button}>
+                <Element {...props} className={classes.button}>
                     {
                         icon ? (
                             <span className={classes.iconWrapper}>
@@ -62,7 +66,7 @@ class ButtonText extends React.Component {
                             </span>
                         ) : children
                     }
-                </button>
+                </Element>
                 <i
                     style={{backgroundColor: color}}
                     className={classes.shadow}

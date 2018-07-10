@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { createPortal } from 'react-dom'
 import { withRouter } from 'react-router-dom'
 import Navigation from '../components/Navigation'
 import Waypoint from '../components/Waypoint'
@@ -41,6 +42,13 @@ class NavigationContainer extends React.Component{
         theme: 'dark', navOffset: 45
     };
 
+    constructor(props) {
+        super(props);
+
+        this.el = document.createElement('div');
+        this.rootNode = document.querySelector('#nav-root');
+    }
+
     changeTheme = theme => {
         if (!this.isUnMounted)
             this.setState({theme});
@@ -59,6 +67,8 @@ class NavigationContainer extends React.Component{
     };
 
     componentDidMount() {
+        this.rootNode.appendChild(this.el);
+
         try {
             window.scrollTo(0, 10);
             window.dispatchEvent(new Event('scroll'));
@@ -71,18 +81,19 @@ class NavigationContainer extends React.Component{
         setTimeout(this.resizeHandler, 300);
     }
 
-    componentDidUpdate(prevProps, prevState) {
-        if (prevState.theme !== this.state.theme) {
-            console.log(
-                'Navigation theme was changed from',
-                prevState.theme, 'to', this.state.theme
-            )
-        }
-    }
+    // componentDidUpdate(prevProps, prevState) {
+    //     if (prevState.theme !== this.state.theme) {
+    //         console.log(
+    //             'Navigation theme was changed from',
+    //             prevState.theme, 'to', this.state.theme
+    //         )
+    //     }
+    // }
 
     componentWillUnmount() {
         this.isUnMounted = true;
-        window.removeEventListener('resize', this.resizeHandler)
+        window.removeEventListener('resize', this.resizeHandler);
+        this.rootNode.removeChild(this.el);
     }
 
     render() {
@@ -98,10 +109,13 @@ class NavigationContainer extends React.Component{
 
         return (
             <NavigationContext.Provider value={data}>
-                <Navigation {...props}
-                            back={isNavBack}
-                            theme={this.state.theme}
-                />
+                {createPortal(
+                    <Navigation {...props}
+                                back={isNavBack}
+                                theme={this.state.theme}
+                    />,
+                    this.el
+                )}
                 {this.props.children}
             </NavigationContext.Provider>
         )

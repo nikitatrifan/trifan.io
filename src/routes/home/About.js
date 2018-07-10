@@ -29,11 +29,11 @@ class About extends React.Component {
             upd(); setTimeout(upd, 300);
         }, 300);
         window.addEventListener('resize', this.resizeHandler);
-        window.addEventListener('scroll', this.scrollHandler);
+        window.onScroll(this.scrollHandler);
     }
     componentWillUnmount() {
         window.addEventListener('resize', this.resizeHandler);
-        window.removeEventListener('scroll', this.scrollHandler);
+        window.offScroll(this.scrollHandler);
     }
     resizeHandler = () => {
         clearTimeout(this.timeOut);

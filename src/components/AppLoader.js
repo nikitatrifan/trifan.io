@@ -9,7 +9,15 @@ import preloadImages from '../helpers/preloadImages'
 import responsive from "../helpers/responsive";
 
 class AppLoader extends React.Component {
-    state = { isLoaded: false, isHidden: false };
+    constructor(props) {
+        super(props);
+
+        const value = process.env.NODE_ENV !== 'production';
+        this.state = {
+            isLoaded: value, isHidden: value
+        };
+    }
+
 
     fadeIn = (onComplete) => {
         TweenMax.fromTo(this.logo_text, .4, {
@@ -52,6 +60,8 @@ class AppLoader extends React.Component {
     };
 
     componentDidMount() {
+        if (process.env.NODE_ENV !== 'production')
+            return false;
         setTimeout(() => {
             this.preloadContent();
             this.fadeIn(this.animatePlaceholder);

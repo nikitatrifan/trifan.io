@@ -41,7 +41,7 @@ class Footer extends React.Component {
             this.tl = this.tween();
             this.scrollHandler();
         }, 300);
-        window.addEventListener('scroll', this.scrollHandler);
+        window.onScroll(this.scrollHandler);
     }
     componentDidUpdate(prevProps) {
         if (prevProps.windowWidth !== this.props.windowWidth) {
@@ -49,7 +49,7 @@ class Footer extends React.Component {
         }
     }
     componentWillUnmount() {
-        window.removeEventListener('scroll', this.scrollHandler);
+        window.offScroll(this.scrollHandler);
     }
 
     scrollHandler = () => {
