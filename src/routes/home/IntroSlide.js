@@ -9,6 +9,7 @@ import MatrixRainingCode from '../../components/MatrixRainingCode'
 import { TweenMax, TimelineMax, Power0 } from 'gsap'
 import injectStyles from 'react-jss'
 import getNodeRelativeViewportPercentPosition from '../../helpers/getNodeRelativeViewportPercentPosition'
+import theme from '../../theme'
 
 class IntroSlide extends React.Component{
     static propTypes = {
@@ -148,7 +149,7 @@ const styles = {
         width: '100%',
         height: '100%',
         zIndex: 10,
-        backgroundColor: '#151b23',
+        backgroundColor: theme.introBackground,
         opacity: .66
     }
 };

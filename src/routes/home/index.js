@@ -12,9 +12,7 @@ import Footer from '../../components/Footer'
 import NavigationContainer, { NavigationWaypoint } from "../../containers/NavigationContainer";
 import { TweenMax, Power0 } from 'gsap'
 import injectStyles from 'react-jss'
-import IScroll from 'iscroll/build/iscroll-probe.js'
-import responsive from "../../helpers/responsive";
-window.IScroll = IScroll;
+
 class Home extends React.Component{
     state = {
         isLogoFlashing: true
@@ -47,7 +45,7 @@ class Home extends React.Component{
         this.isUnMounted = true;
     }
 
-    static noAnimation = false;
+    static noAnimation = process.env.NODE_ENV !== 'production';
 
     render() {
         const { classes } = this.props;
@@ -101,11 +99,6 @@ const styles = {
     loading: {
         willChange: 'opacity'
     },
-    slidesScroller: {
-        [responsive('mobile')]: {
-            paddingBottom: '100px'
-        }
-    }
 };
 
 export default injectStyles(styles)(Home);

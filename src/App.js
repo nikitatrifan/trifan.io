@@ -6,7 +6,7 @@ import BGAPage from './routes/bga'
 import YoapPage from './routes/yoap'
 import USPage from './routes/ultrastore'
 import AppLoader from './components/AppLoader'
-//import normalizeScroll from './helpers/normalizeScroll'
+import metrika from './metrika'
 import { TweenMax } from 'gsap'
 
 class App extends Component {
@@ -47,6 +47,11 @@ class App extends Component {
                         </Switch>
                     </Scroller>
                 </AppLoader>
+                {process.env.NODE_ENV === 'production' && (
+                    <div id="analytics" dangerouslySetInnerHTML={{
+                        __html: metrika
+                    }} />
+                )}
             </div>
         );
     }

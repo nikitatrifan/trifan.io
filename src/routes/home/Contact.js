@@ -39,7 +39,8 @@ class Contact extends React.Component {
                     </Box>
                     <div className={classes.bg}>
                         <ComponentFadeIn duration={.7} delay={.5}>
-                            <TransformScroll noMinHeight disabled={responsive().isMobile} offset={.5}>
+                            <TransformScroll noMinHeight disabled={responsive().isMobile
+                            } offset={.5}>
                                 <img
                                     className={classes.bg_image}
                                     src="/trifan-nikita.jpg" alt="Nikita Trifan"
@@ -56,7 +57,7 @@ class Contact extends React.Component {
 
 const styles = {
     wrapper: props => ({
-        backgroundColor: '#000000',
+        backgroundColor: theme.introBackground,
         position: 'relative',
         zIndex: props.index || 0,
         overflow: 'hidden'

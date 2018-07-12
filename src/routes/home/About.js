@@ -141,7 +141,7 @@ class About extends React.Component {
 
 const styles = {
     wrapper: props => ({
-        backgroundColor: '#000000',
+        backgroundColor: theme.introBackground,
         position: 'relative',
         zIndex: props.index || 0
     }),

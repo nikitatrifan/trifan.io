@@ -9,6 +9,8 @@ import Paragraph from './Paragraph'
 import ButtonText from './ButtonText'
 import Box from './Box'
 import theme from '../theme.js'
+import getOffsetElement from "../helpers/getOffsetElement";
+import getScrollY from "../helpers/getScrollY";
 
 class Footer extends React.Component {
     static propTypes = {
@@ -54,14 +56,20 @@ class Footer extends React.Component {
 
     scrollHandler = () => {
         const rect = this.wrapper.getBoundingClientRect();
-        const { height, top } = rect;
-        const scrollY = (top - parseInt(window.innerHeight, 10)) + height;
+        const { height } = rect;
+
+        const elementTop = getOffsetElement(this.wrapper).top;
+        const windowHeight = parseInt(window.innerHeight, 10);
+        const scrollPos = getScrollY();
+        const top = (elementTop - scrollPos) + windowHeight;
+
+        const scrollY = (top - windowHeight) + height;
         const percent = 1 - (scrollY / height);
         if (scrollY > height || percent < 0 || percent > 1) {
             return false;
         }
 
-        if (percent > 0.5) {
+        if (percent > 0.9) {
             this.enterHandler();
         }
 

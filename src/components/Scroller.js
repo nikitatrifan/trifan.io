@@ -99,6 +99,7 @@ class Scroller extends React.Component {
 
         scroll.refresh();
         scroll.scrollTo(0, 0, 0, IScroll.utils.ease.quadratic);
+        window.iScrollY = 0;
 
         refreshScrollWithTime(60)
             .then(() => (

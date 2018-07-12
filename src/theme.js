@@ -5,6 +5,7 @@ export default {
     whiteColor: '#ffffff',
     lightGrayColor: '#FAFAFA',
     darkBackground: '#27292A',
+    introBackground: '#151b23',
 
     smallMargin: '12px 0 8px 0',
     mediumMargin: '32px 0 14px 0',

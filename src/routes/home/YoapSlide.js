@@ -97,14 +97,15 @@ class YoapSlide extends React.Component {
                             buttonGradientLink="/yoap"
                             buttonGradient={['#ff899b', '#ff4d66']}
                             className={classes.about}
+                            textButtonLink="https://github.com/nikitatrifan/yoap"
                             labels={['front-end', 'back-end']}
                             title={(
                                 'Yoap Real Estate\n' +
                                 'Web-Application'
                             )}
                             description={(
-                                'The app is designed to make user’s trainings at a gym\n' +
-                                'easier and help to improve his body by the right way.'
+                                'This SPA Web App is created to help locals to find a new\n' +
+                                'apartment for a long-term rent.'
                             )}
                         />
                     </div>
@@ -141,7 +142,8 @@ const styles = {
         padding: '60px 0 20px',
         zIndex: 0,
         [responsive('mobile')]: {
-            height: 'auto', flexDirection: 'column-reverse'
+            height: 'auto', flexDirection: 'column-reverse',
+            padding: '40px 0 50px',
         }
     },
 

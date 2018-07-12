@@ -45,7 +45,7 @@ class ButtonText extends React.Component {
             classes.wrapper, icon && classes.wrapperWithIcon, className
         );
 
-        const Element = props.to ? RouterLink : 'button';
+        const Element = props.to ? RouterLink : props.href ? 'a' : 'button';
 
         return (
             <div ref={b => this.wrapper = b}
@@ -125,6 +125,7 @@ const styles = {
         border: 'none',
         transition: 'transform .25s ease-in-out',
         whiteSpace: 'pre', backgroundColor: 'transparent',
+        textDecoration: 'none',
         [mobileMedia]: {
             fontSize: '18px',
             lineHeight: '18px',

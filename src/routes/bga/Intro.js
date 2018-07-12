@@ -36,7 +36,7 @@ class BGAIntro extends React.Component {
     };
 
     componentDidMount() {
-        setTimeout(this.isAnimationInFocus, 300);
+        setTimeout(this.isAnimationInFocus, 500);
     }
     setAboutRef = b => {
         this.about = findDOMNode(b);

@@ -122,7 +122,7 @@ const styles = {
         width: `${props.windowWidth}px`,
         height: `${props.windowHeight}px`,
         zIndex: 999,
-        backgroundColor: theme.darkBackground,
+        backgroundColor: theme.introBackground,
         willChange: 'opacity'
     }),
     container: {
@@ -154,10 +154,10 @@ const styles = {
         opacity: 0,
         transform: 'translate(-100%)',
         background: 'linear-gradient(to right, ' + [
-            HexToRGBA(theme.darkBackground, 0),
-            HexToRGBA(theme.darkBackground, 0.7),
-            HexToRGBA(theme.darkBackground, 0.9),
-            HexToRGBA(theme.darkBackground, 0.7), HexToRGBA(theme.darkBackground, 0),
+            HexToRGBA(theme.introBackground, 0),
+            HexToRGBA(theme.introBackground, 0.7),
+            HexToRGBA(theme.introBackground, 0.9),
+            HexToRGBA(theme.introBackground, 0.7), HexToRGBA(theme.introBackground, 0),
         ].join(', ') + ')'
     }
 };

@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import windowSize from 'react-window-size'
 import injectStyles from 'react-jss'
 import Svg from '../../components/Svg'
+import responsive from '../../helpers/responsive'
 import { TimelineMax, Back } from 'gsap'
 
 class LogoAnimation extends React.Component {
@@ -95,6 +96,9 @@ const styles = {
         backgroundColor: '#6059F1',
         overflow: 'hidden',
         zIndex: props.index || 0,
+        [responsive('mobile')]: {
+            top: '25%'
+        },
         //willChange: 'width, height, right, top, border-radius'
     }),
     icon: {

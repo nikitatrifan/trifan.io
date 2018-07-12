@@ -8,11 +8,13 @@ import ButtonShadow from './ButtonShadow'
 import classNames from 'classnames'
 import injectStyles from 'react-jss'
 import theme from "../theme";
+import responsive from "../helpers/responsive";
 
 const SlideAbout = props => {
     const {
         classes, className, onButtonClick, buttonGradient,
-        buttonGradientLink, labels, title, description
+        buttonGradientLink, labels, title, description,
+        textButtonLink
     } = props;
     return (
         <div className={classNames(classes.content, className)}>
@@ -36,9 +38,11 @@ const SlideAbout = props => {
                 <ButtonShadow to={buttonGradientLink} onClick={onButtonClick} gradient={buttonGradient}>
                     Explore more
                 </ButtonShadow>
-                <ButtonText className={classes.textButton}>
-                    Show demo
-                </ButtonText>
+                {!responsive().isMobile && (
+                    <ButtonText href={textButtonLink} target="__blank" className={classes.textButton}>
+                        See Sources
+                    </ButtonText>
+                )}
             </Box>
         </div>
     )
@@ -79,6 +83,7 @@ SlideAbout.propTypes = {
     onButtonClick: PropTypes.func,
     buttonGradient: PropTypes.array,
     buttonGradientLink: PropTypes.string,
+    textButtonLink: PropTypes.string,
     labels: PropTypes.arrayOf(PropTypes.string),
     title: PropTypes.string,
     description: PropTypes.string

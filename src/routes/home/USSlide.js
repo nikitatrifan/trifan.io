@@ -7,7 +7,7 @@ import {Power0, TimelineMax, TweenMax} from "gsap";
 import getNodeRelativeViewportPercentPosition from "../../helpers/getNodeRelativeViewportPercentPosition";
 import responsive from "../../helpers/responsive";
 
-class USSLide extends React.Component {
+class USSlide extends React.Component {
     images = [];
     componentDidMount() {
         if (responsive().isMobile)
@@ -93,14 +93,14 @@ class USSLide extends React.Component {
                         <SlideAbout
                             buttonGradientLink="/ultrastore"
                             buttonGradient={['#525252', '#121212']}
+                            textButtonLink="https://github.com/nikitatrifan/ultrastore"
                             labels={['front-end', 'back-end']}
                             title={(
                                 'Ultrastore\n' +
                                 'High-end Ecommerce Web App'
                             )}
                             description={(
-                                'The app is designed to make user’s trainings at a gym\n' +
-                                'easier and help to improve his body by the right way.'
+                                'Unique ecommerce web app developed on React.js.'
                             )}
                         />
                     </div>
@@ -141,7 +141,8 @@ const styles = {
         zIndex: 0,
         padding: '60px 0 20px',
         [responsive('mobile')]: {
-            height: 'auto', flexDirection: 'column-reverse'
+            height: 'auto', flexDirection: 'column-reverse',
+            padding: '25px 0 120px'
         }
     },
     images: {
@@ -165,4 +166,4 @@ const styles = {
     }
 };
 
-export default windowSize(injectStyles(styles)(USSLide));
+export default windowSize(injectStyles(styles)(USSlide));
