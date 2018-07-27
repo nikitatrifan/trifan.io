@@ -5,6 +5,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom'
 import App from './App';
+import metrika from './metrika'
 import registerServiceWorker from './registerServiceWorker';
 
 const Application = (
@@ -15,3 +16,4 @@ const Application = (
 
 ReactDOM.render(Application, document.getElementById('root'));
 registerServiceWorker();
+metrika();

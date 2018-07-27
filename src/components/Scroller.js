@@ -2,6 +2,7 @@ import React from 'react'
 import injectStyle from 'react-jss'
 import windowSize from 'react-window-size'
 import IScroll from 'iscroll/build/iscroll-probe'
+import classNames from 'classnames'
 import {withRouter} from "react-router-dom";
 
 class Scroller extends React.Component {
@@ -36,7 +37,7 @@ class Scroller extends React.Component {
             scrollX: false, scrollY: true,
             scrollbars: 'custom', probeType: 3,
             interactiveScrollbars: true,
-            deceleration: 0.004,
+            deceleration: 0.0015,
             //bounceTime: 350,
             bounce: false,
             shrinkScrollbars: true
@@ -46,7 +47,10 @@ class Scroller extends React.Component {
         this.scroll = window.scroll = scroll;
 
         this.scroll.on('scroll', this.scrollHandler);
+        this.scroll.on('scrollStart', this.scrollStartHandler);
+        this.scroll.on('scrollEnd', this.scrollEndHandler);
         document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
+        this.updateScrollTimer();
 
         setTimeout(() => {
             if (this.initScrollFns.length) {
@@ -57,9 +61,31 @@ class Scroller extends React.Component {
         }, 60)
     };
 
+    scrollStartHandler = () => {
+        this.isScrolling = true;
+
+        const { classes } = this.props;
+        this.scroller.className = classNames(classes.scroller, classes.scrolling);
+    };
+    scrollEndHandler = () => {
+        this.isScrolling = false;
+
+        this.scroller.className = this.props.classes.scroller;
+    };
+
     scrollHandler() {
         window.iScrollY = this.y;
     }
+
+    updateScrollTimer = () => {
+        this.updateScrollInterval = setInterval(() => {
+            if (this.isScrolling || this.isUnMounted) {
+                return;
+            }
+
+            this.scroll.refresh();
+        }, 1500);
+    };
 
     componentDidMount() {
         this.initScroll();
@@ -81,8 +107,10 @@ class Scroller extends React.Component {
     }
 
     componentWillUnmount() {
+        this.isUnMounted = true;
         this.scroll.destroy();
         this.scroll = window.scroll = null;
+        clearInterval(this.updateScrollInterval);
     }
 
     refreshScrollWithTime = delay => {
@@ -135,6 +163,9 @@ const styles = {
     }),
     scroller: {
         position: 'relative',
+    },
+    scrolling: {
+        willChange: 'transform'
     }
 };
 

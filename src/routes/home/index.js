@@ -58,7 +58,7 @@ class Home extends React.Component{
                 </span>
             )}>
                 <Helmet>
-                    <title>Developer — Nikita Trifan</title>
+                    <title>Developer & Designer — Nikita Trifan</title>
                 </Helmet>
                 <div className={classes.wrapper}>
                     <NavigationWaypoint theme="light">

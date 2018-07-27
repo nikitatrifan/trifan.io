@@ -1,9 +1,12 @@
-export default `
-<script type="text/javascript" >
+export default () => {
+    if (process.env.NODE_ENV !== 'production') {
+        return;
+    }
+
     (function (d, w, c) {
         (w[c] = w[c] || []).push(function() {
             try {
-                w.yaCounter49580788 = new Ya.Metrika2({
+                w.yaCounter49580788 = new window.Ya.Metrika2({
                     id:49580788,
                     clickmap:true,
                     trackLinks:true,
@@ -13,15 +16,16 @@ export default `
             } catch(e) { }
         });
 
-        var n = d.getElementsByTagName("script")[0],
+        const
+            n = d.getElementsByTagName("script")[0],
             s = d.createElement("script"),
             f = function () { n.parentNode.insertBefore(s, n); };
         s.type = "text/javascript";
         s.async = true;
         s.src = "https://mc.yandex.ru/metrika/tag.js";
 
-        if (w.opera == "[object Opera]") {
+        if (w.opera == "[object Opera]") { // eslint-disable-line
             d.addEventListener("DOMContentLoaded", f, false);
         } else { f(); }
-    })(document, window, "yandex_metrika_callbacks2");
-</script>`
+    })(document, window, "yandex_metrika_callbacks2")
+};
