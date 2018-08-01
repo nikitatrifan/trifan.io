@@ -1,6 +1,8 @@
 export default {
-    mainFont: 'Cerebri Sans',
-    secondaryFont: 'Radnika',
+    mainFont: 'Cerebri Sans, sans-serif',
+    secondaryFont: 'Radnika, sans-serif',
+    monoFont: 'Fira Code, monospace',
+
     textColor: '#121212',
     whiteColor: '#ffffff',
     lightGrayColor: '#FAFAFA',

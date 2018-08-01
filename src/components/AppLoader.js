@@ -1,7 +1,10 @@
 import React from 'react'
 import windowSize from 'react-window-size'
 import injectStyle from 'react-jss'
+import { withRouter } from 'react-router-dom'
 import Container from './Container'
+import classNames from 'classnames'
+import Box from './Box'
 import theme from "../theme";
 import { TweenMax } from 'gsap'
 import HexToRGBA from 'hex-to-rgba'
@@ -43,7 +46,7 @@ class AppLoader extends React.Component {
 
     hide = () => {
         this.isPlaceHolderHidden = true;
-        TweenMax.to(this.logo_text, .35, {
+        TweenMax.to([this.logo_text, this.terminal], .35, {
             opacity: 0,
             onComplete: () => {
                 this.setState({ isLoaded: true }, () => {
@@ -51,7 +54,10 @@ class AppLoader extends React.Component {
                         delay: .3,
                         opacity: 0, display: 'none',
                         onComplete: () => {
-                            this.setState({ isHidden: true })
+                            this.setState(
+                                { isHidden: true },
+                                this.bindTerminalShortcut
+                            );
                         }
                     })
                 })
@@ -59,20 +65,38 @@ class AppLoader extends React.Component {
         })
     };
 
+    bindTerminalShortcut = () => {
+        window.Mousetrap.bind('ctrl+`', () => {
+            this.props.history.push("/terminal");
+        });
+    };
+
     componentDidMount() {
         if (process.env.NODE_ENV !== 'production')
-            return false;
+            return this.bindTerminalShortcut();
+
         setTimeout(() => {
             this.preloadContent();
-            this.fadeIn(this.animatePlaceholder);
+            this.fadeIn(() => {
+                this.animatePlaceholder();
+                this.fadeInTerminalInfo();
+            });
         }, 100)
     }
+
+    fadeInTerminalInfo = () => {
+        TweenMax.fromTo(this.terminal, .35, {
+            opacity: 0, y: 2
+        }, {
+            opacity: 1, y: 0
+        })
+    };
 
     preloadContent = () => {
         Promise.all([
             ...preloadImages(['/trifan-touched.jpg']),
             document.fonts.ready
-        ]).then(res => {
+        ]).then(() => {
             this.hide();
         })
     };
@@ -110,6 +134,24 @@ class AppLoader extends React.Component {
                         />
                     </div>
                 </Container>
+                <div ref={b => this.terminal = b} className={classes.terminal_wrapper}>
+                    {!responsive().isMobile && !responsive().isTablet && (
+                        <Container>
+                            <div className={classNames(classes.logo, classes.terminal)}>
+                                Press
+                                <Box align="center">
+                                    <div className={classes.key}>Ctrl</div>
+                                    +
+                                    <div className={classes.key}>`</div>
+                                </Box>
+                                to enter to{' '}
+                                <span className={classes.link}>
+                                Terminal Mode.
+                            </span>
+                            </div>
+                        </Container>
+                    )}
+                </div>
             </div>
         )
     }
@@ -130,6 +172,28 @@ const styles = {
         [responsive('mobile')]: {
             padding: '15px 0'
         }
+    },
+    terminal_wrapper: {
+        position: 'absolute',
+        bottom: '10%',
+        left: 0, width: '100%',
+        opacity: 0
+    },
+    terminal: {
+        lineHeight: '24px',
+        display: 'block',
+        opacity: .95
+    },
+    key: {
+        padding: '6px 13px',
+        backgroundColor: '#fff',
+        color: '#121212',
+        borderRadius: '4px',
+    },
+    link: {
+        fontSize: 'inherit',
+        lineHeight: 'inherit',
+        color: theme.primaryColor
     },
     logo: {
         fontSize: '18px',
@@ -159,9 +223,9 @@ const styles = {
             HexToRGBA(theme.introBackground, 0.9),
             HexToRGBA(theme.introBackground, 0.7), HexToRGBA(theme.introBackground, 0),
         ].join(', ') + ')'
-    }
+    },
 };
 
-export default windowSize(
+export default withRouter(windowSize(
     injectStyle(styles)(AppLoader)
-)
+))

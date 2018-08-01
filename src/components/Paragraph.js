@@ -7,8 +7,8 @@ import theme from '../theme'
 function Paragraph(__props) {
     const {
         size = 2, classes, color, style = {},
-        weight = '300', margin, upperCase,
-        className, children, opacity, ...props
+        weight = '300', margin, upperCase, font,
+        tag, className, children, opacity, ...props
     } = __props;
     const __className = classNames(
         classes.wrapper,
@@ -20,19 +20,21 @@ function Paragraph(__props) {
     const __margin = margin ? {
         margin: theme[`${margin}Margin`]
     } : {};
+    const Wrapper = tag ? tag : 'p';
 
     return (
-        <p {...props}
+        <Wrapper {...props}
            className={__className}
            style={{
                ...style,
                ...(color ? {color} : {}),
-               ...(weight ? {weight} : {}),
+               ...(weight ? {fontWeight: weight} : {}),
+               ...(font ? {fontFamily: font} : {}),
                ...__margin
            }}
         >
             {children}
-        </p>
+        </Wrapper>
 
     )
 }
@@ -104,7 +106,8 @@ Paragraph.propTypes = {
     style: PropTypes.object,
     color: PropTypes.string,
     upperCase: PropTypes.bool,
-    opacity: PropTypes.bool
+    opacity: PropTypes.bool,
+    font: PropTypes.string
 };
 
 export default injectStyles(styles)(Paragraph);

@@ -5,6 +5,7 @@ import Home from './routes/home'
 import BGAPage from './routes/bga'
 import YoapPage from './routes/yoap'
 import USPage from './routes/ultrastore'
+import TerminalPage from './routes/terminal'
 import AppLoader from './components/AppLoader'
 import { TweenMax } from 'gsap'
 
@@ -43,6 +44,8 @@ class App extends Component {
                             <Route path="/yoap" exact component={YoapPage}/>
                             <Route path="/ultrastore" exact component={USPage}/>
                             <Route path="/gym-assistant" exact component={BGAPage}/>
+                            <Route path="/terminal" exact component={TerminalPage}/>
+                            <Route component={TerminalPage}/>
                         </Switch>
                     </Scroller>
                 </AppLoader>

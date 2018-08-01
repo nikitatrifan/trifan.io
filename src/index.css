@@ -76,6 +76,16 @@
   font-weight: 400;
   font-style: normal;
 }
+@font-face {
+  font-family: 'Fira Code';
+  src: url('/fonts/Fira-Code/FiraCode-Bold.eot');
+  src: url('/fonts/Fira-Code/FiraCode-Bold.eot?#iefix') format('embedded-opentype'),
+  url('/fonts/Fira-Code/FiraCode-Bold.woff2') format('woff2'),
+  url('/fonts/Fira-Code/FiraCode-Bold.woff') format('woff'),
+  url('/fonts/Fira-Code/FiraCode-Bold.ttf')  format('truetype');
+  font-weight: 600;
+  font-style: normal;
+}
 
 
 

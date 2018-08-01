@@ -44,6 +44,8 @@ class Scroller extends React.Component {
             //useTransition: false,
         });
 
+        scroll.scrollToBottom = this.scrollToBottom;
+
         this.scroll = window.scroll = scroll;
 
         this.scroll.on('scroll', this.scrollHandler);
@@ -59,6 +61,15 @@ class Scroller extends React.Component {
                 ))
             }
         }, 60)
+    };
+
+    scrollToBottom = () => {
+        const y = this.scroller.clientHeight - window.innerHeight;
+
+        if (y <= 0)
+            return;
+
+        this.scroll.scrollTo(0, -y, 350, IScroll.utils.ease.quadratic);
     };
 
     scrollStartHandler = () => {

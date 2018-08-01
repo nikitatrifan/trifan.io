@@ -12,6 +12,7 @@ export default class ComponentFadeIn extends React.Component {
         delay: PropTypes.number,
         duration: PropTypes.number,
         noReset: PropTypes.bool,
+        onlyFadeIn: PropTypes.bool,
         noAnimation: PropTypes.bool,
     };
 
@@ -30,16 +31,20 @@ export default class ComponentFadeIn extends React.Component {
     }
 
     componentDidMount() {
+        if (this.props.onlyFadeIn) {
+            return this.resetBlock(this.enterHandler)
+        }
         this.resetBlock()
     }
 
-    resetBlock = () => {
+    resetBlock = (onComplete) => {
         if (this.props.noAnimation)
             return;
 
         TweenMax.set(this.block, {
             opacity: this.props.minOpacity,
             y: -this.props.gap,
+            onComplete
         });
     };
 
@@ -65,6 +70,10 @@ export default class ComponentFadeIn extends React.Component {
     };
 
     render() {
+        if (this.props.onlyFadeIn) {
+            return this.props.children
+        }
+
         return (
             <Waypoint onEnter={this.enterHandler} onLeave={this.leaveHandler}>
                 {this.props.children}

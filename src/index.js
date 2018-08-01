@@ -1,8 +1,10 @@
 import 'normalize.css';
 import './index.css';
 import 'gsap/ScrollToPlugin'
+import 'gsap/TextPlugin'
+import 'mousetrap'
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { render } from 'react-dom';
 import { BrowserRouter } from 'react-router-dom'
 import App from './App';
 import metrika from './metrika'
@@ -14,6 +16,22 @@ const Application = (
     </BrowserRouter>
 );
 
-ReactDOM.render(Application, document.getElementById('root'));
+render(Application, document.getElementById('root'));
+
+// did you know create-react-app supports HRM?
+if (module.hot) {
+    module.hot.accept(() => {
+        const App = require('./App.js').default;
+
+        render(
+            <BrowserRouter>
+                <App />
+            </BrowserRouter>,
+
+            document.getElementById('root')
+        );
+    });
+}
+
 registerServiceWorker();
 metrika();
