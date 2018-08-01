@@ -63,10 +63,13 @@ class TerminalOutput extends React.Component {
     updateScroll = () => {
         window.scroll.refresh();
         window.dispatchEvent(new Event('resize'));
-        const about = document.querySelector('#about');
+        const lastElementInHistory = this.state.history[this.state.history.length - 2];
 
-        if (about) {
-            return window.scroll.scrollToElement(about, 350)
+        if (lastElementInHistory && lastElementInHistory.type === ABOUT) {
+            const about = [...document.querySelectorAll('.about')];
+            if (!isEmpty(about)) {
+                return window.scroll.scrollToElement(about[about.length - 1], 350)
+            }
         }
 
         window.scroll.scrollToBottom();

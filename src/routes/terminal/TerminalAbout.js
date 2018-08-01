@@ -15,7 +15,7 @@ class TerminalAbout extends React.Component {
         const { classes, className } = this.props;
         return (
             <ComponentFadeIn delay={0.05} gap={-5}>
-                <div id="about" className={classNames(classes.wrapper, className)}>
+                <div className={classNames(classes.wrapper, className, 'about')}>
                     <Paragraph
                         className={classes.subtitle}
                         color={theme.whiteColor}
