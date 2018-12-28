@@ -1,5 +1,5 @@
 import React from 'react'
-import windowSize from 'react-window-size'
+import windowSize from '../../containers/windowSize';
 import VideoSlide from './VideoSlide'
 import injectStyle from 'react-jss'
 import Waypoint from '../../components/Waypoint'

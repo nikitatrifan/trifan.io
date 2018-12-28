@@ -147,8 +147,23 @@ class TerminalInput extends React.Component {
         const { autoComplete } = this.state;
 
         if (!isEmpty(autoComplete) && e.key === 'Enter') {
-            this.props.onValueSet(autoComplete)
+            this.props.onValueSet(autoComplete);
+            setTimeout(this.updateScroll, 600);
         }
+    };
+
+    updateScroll = () => {
+        const resizeFn = () => {
+            window.dispatchEvent(new Event('resize'));
+            setTimeout(window.scroll.update, 100);
+        };
+
+        resizeFn();
+        setTimeout(resizeFn, 300);
+    };
+
+    blurHandler = () => {
+        this.updateScroll();
     };
 
     render() {
@@ -202,6 +217,7 @@ class TerminalInput extends React.Component {
                         <input
                             onKeyPress={this.keySubmitHandler}
                             onChange={this.changeHandler}
+                            onBlur={this.blurHandler}
                             ref={this.setInputRef}
                             className={classes.input + ' mousetrap'}
                             type="text" defaultValue={defaultValue}
@@ -287,7 +303,7 @@ const styles = {
         fontFamily: 'inherit',
         lineHeight: 'inherit',
         fontSize: 'inherit',
-        opacity: .1,
+        opacity: .4,
         position: 'absolute',
         left: 0, top: 0,
         zIndex: 0,

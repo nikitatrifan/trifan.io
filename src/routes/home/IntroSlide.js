@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import windowSize from 'react-window-size'
+import windowSize from '../../containers/windowSize';
 import Container from '../../components/Container'
 import Heading from '../../components/Heading'
 import Paragraph from '../../components/Paragraph'
@@ -61,17 +61,34 @@ class IntroSlide extends React.Component{
         return tl;
     };
 
+    dur = .7; ease = 'Cubic.easeOut';
+
     showContent = () => {
-        TweenMax.fromTo(this.content, .7, {
+        TweenMax.fromTo(this.content, this.dur, {
             opacity: 0
         }, {
             opacity: 1,
+            ease: this.ease,
             delay: .5
         })
     };
 
+    // hideContent = () => {
+    //     TweenMax.to([this.content[0], this.overlay], this.dur, {
+    //         opacity: 0, display: 'none',
+    //         ease: this.ease,
+    //     })
+    // };
+
+    onMatrixRainingCodeComplete = () => {
+        //this.hideContent();
+        if (this.props.onMatrixRainingCodeComplete) {
+            this.props.onMatrixRainingCodeComplete()
+        }
+    };
+
     render() {
-        const { classes, onMatrixRainingCodeComplete } = this.props;
+        const { classes, } = this.props;
         return (
             <div id="intro" ref={b => this.wrapper = b} className={classes.wrapper}>
                 <div ref={b => this.content[0] = b} className={classes.content}>
@@ -97,10 +114,10 @@ class IntroSlide extends React.Component{
                     <div ref={b => this.bg = b} className={classes.backgroundContent}>
                         <MatrixRainingCode
                             noAnimation={this.props.noAnimation}
-                            onComplete={onMatrixRainingCodeComplete}
+                            onComplete={this.onMatrixRainingCodeComplete}
                         />
                     </div>
-                    <div className={classes.overlay}/>
+                    <div ref={b => this.overlay = b} className={classes.overlay}/>
                 </div>
             </div>
         )

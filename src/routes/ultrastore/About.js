@@ -1,5 +1,5 @@
 import React from 'react'
-import windowSize from 'react-window-size'
+import windowSize from '../../containers/windowSize';
 import injectStyles from 'react-jss'
 import Container from '../../components/Container'
 import ComponentFadeIn from '../../components/ComponentFadeIn'

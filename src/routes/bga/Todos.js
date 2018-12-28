@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from "prop-types";
-import windowSize from 'react-window-size'
+import windowSize from '../../containers/windowSize';
 import injectStyles from 'react-jss'
 import Container from '../../components/Container'
 import Heading from '../../components/Heading'

@@ -131,8 +131,8 @@ class Approach extends React.Component {
                                             <GlobeIcon isAnimating={isGlobeAnimated} />
                                         </Box>
                                         <Paragraph margin="medium" color={textColor} size={3}>
-                                            In 2018 each app has to be an asynchronous.
-                                            I'm sure any app has no function that freeze a whole app.
+                                            In 2018 each app must be an asynchronous.
+                                            I'm sure any web app has no function that can freeze a whole user experience.
                                         </Paragraph>
                                     </Card>
                                 </div>
@@ -145,7 +145,7 @@ class Approach extends React.Component {
                                     </Heading>
                                     <Paragraph margin="medium" color={textColor}>
                                         No one wants to use pretty laggy iPhone, laptop or computer.
-                                        Apps too. And websites definitely too.
+                                        Apps and websites definitely too.
                                         So, I have some tricks in my holster to develop extremely fast web and mobile apps.
                                     </Paragraph>
                                 </div>

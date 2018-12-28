@@ -1,80 +1,81 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import classNames from 'classnames'
-import injectStyle from 'react-jss'
-import Paragraph from '../../components/Paragraph'
-import ComponentFadeIn from '../../components/ComponentFadeIn'
+import React from "react";
+import PropTypes from "prop-types";
+import classNames from "classnames";
+import injectStyle from "react-jss";
+import Paragraph from "../../components/Paragraph";
+import ComponentFadeIn from "../../components/ComponentFadeIn";
 import theme from "../../theme";
 
 class TerminalAbout extends React.Component {
-    static propTypes = {
-        className: PropTypes.string
-    };
-    
-    render() {
-        const { classes, className } = this.props;
-        return (
-            <ComponentFadeIn delay={0.05} gap={-5}>
-                <div className={classNames(classes.wrapper, className, 'about')}>
-                    <Paragraph
-                        className={classes.subtitle}
-                        color={theme.whiteColor}
-                        font={theme.secondaryFont}
-                        size={5}
-                    >
-                        Nikita Trifan <br/>
-                        Designer & Developer
-                    </Paragraph>
+  static propTypes = {
+    className: PropTypes.string
+  };
 
-                    <img className={classes.image} src="/trifan-large.jpg" alt="Nikita Trifan"/>
-                    <Paragraph
-                        className={classes.subtitle}
-                        color={theme.whiteColor}
-                        font={theme.secondaryFont}
-                        size={5}
-                    >
-                        Developing experience
-                    </Paragraph>
+  render() {
+    const { classes, className } = this.props;
+    return (
+      <ComponentFadeIn delay={0.05} gap={-5}>
+        <div className={classNames(classes.wrapper, className, "about")}>
+          <Paragraph
+            className={classes.subtitle}
+            color={theme.whiteColor}
+            font={theme.secondaryFont}
+            size={5}
+          >
+            Nikita Trifan <br />
+            Designer & Developer
+          </Paragraph>
 
-                    <Paragraph
-                        color={theme.whiteColor}
-                        font={theme.monoFont}
-                        size={2} tag="div"
-                    >
-                        At 16 years old I’ve built a custom ROM and kernel for an android device. <br/>
-                        At 18 years old I started to learn web technologies such as HTML and CSS. <br/>
-                        After a month of self education I designed & developed my first commercial website. <br/>
-                        In next year I started to work on a full-time job as a front-end developer and designer.
-                        At that company I made more than 10 websites with much javascript animations. <br/><br/>
+          <img
+            className={classes.image}
+            src="/trifan-large.jpg"
+            alt="Nikita Trifan"
+          />
+          <Paragraph
+            className={classes.subtitle}
+            color={theme.whiteColor}
+            font={theme.secondaryFont}
+            size={5}
+          >
+            Experience
+          </Paragraph>
 
-                        At 2015 I relocated to Dubai to work on a full-time position as a Lead-developer
-                        in Exponential Digital studio. I was developing unique website solutions for company clients.
-                        Most of my websites was built on my own javascript framework on a client-side and wordpress or
-                        proccesswire on a back-end and they’re still working perfect (for example fourpointstravels.com). <br/><br/>
-
-                        At 2016 I got a job offer from Conceptor company in Russia, Saint-Petersburg.
-                        I was working with famous Russian designer on our design products and websites.
-                        At that years I met React.js and Node.js. <br/><br/>
-
-                        I've launched a medium e-coomerce shop in Russia (0.5M unique visitors per month).
-                        I built everything from front-end on React.js to backend on Node.js. <br/>
-                        I've made a website for real-estate startup in Russia and also built everything on React.js and Node.js.
-                        <br/><br/>
-                        See my cases at home page of the trifan.io.
-                    </Paragraph>
-                </div>
-            </ComponentFadeIn>
-        )
-    }
+          <Paragraph
+            color={theme.whiteColor}
+            font={theme.monoFont}
+            size={2}
+            tag="div"
+          >
+            I started my career almost 5 years ago. It was a long and
+            interesting journey along with the web technologies progress.
+            <br />
+            <br />
+            In my first two years of experience, I made almost 20 websites using
+            Wordpress and ProcessWire on a server-side and Backbone and jQuery
+            on a client-side with a lot of animations using iScroll and
+            Velocity.JS.
+            <br />
+            <br />3 years ago I met a declarative programming paradigm in
+            Javascript which is a fundamental idea of React.js, Vue.js etc.
+            <br />
+            <br />
+            Since then I took a part in huge projects, you can check the cases on trifan.io/showreel
+            <br />
+            <br />
+          </Paragraph>
+        </div>
+      </ComponentFadeIn>
+    );
+  }
 }
 
 const styles = {
-    wrapper: {
-        padding: '50px 0'
-    },
-    subtitle: {
-        margin: '10px 0'
-    }
+  wrapper: {
+    padding: "50px 0"
+  },
+  subtitle: {
+    margin: "10px 0"
+  }
 };
 
-export default injectStyle(styles)(TerminalAbout)
+export default injectStyle(styles)(TerminalAbout);

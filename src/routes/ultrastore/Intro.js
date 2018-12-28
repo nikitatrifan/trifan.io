@@ -1,5 +1,5 @@
 import React from 'react'
-import windowSize from 'react-window-size'
+import windowSize from '../../containers/windowSize';
 import Paragraph from '../../components/Paragraph'
 import Svg from '../../components/Svg'
 import injectStyles from 'react-jss'

@@ -8,7 +8,7 @@ const Box = __props => {
         children, classes,
         align = "start", direction = "row",
         justify = "start", wrap,
-        className,
+        className, setRef,
         ...props
     } = __props;
     const __className = classNames(
@@ -29,7 +29,7 @@ const Box = __props => {
     );
 
     return (
-        <div className={__className} {...props}>
+        <div ref={setRef} className={__className} {...props}>
             {children}
         </div>
     )

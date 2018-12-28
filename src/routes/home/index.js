@@ -14,91 +14,93 @@ import { TweenMax, Power0 } from 'gsap'
 import injectStyles from 'react-jss'
 
 class Home extends React.Component{
-    state = {
-        isLogoFlashing: true
-    };
+  state = {
+    isLogoFlashing: true
+  };
 
-    logoFlashingAnimation = () => {
-        if (!this.state.isLogoFlashing || this.isUnMounted || !this.logo)
-            return false;
+  logoFlashingAnimation = () => {
+    if (!this.state.isLogoFlashing || this.isUnMounted || !this.logo)
+      return false;
 
-        const opacityPropVal = parseFloat(this.logo.style.opacity);
-        const minOpacity = .3;
-        const maxOpacity = .9;
-        const opacity = isNaN(opacityPropVal) ? minOpacity :
-            opacityPropVal === minOpacity ? maxOpacity : minOpacity;
-        TweenMax.to(this.logo, .5, {
-            opacity, onComplete: this.logoFlashingAnimation,
-            ease: Power0.easeNone
-        })
-    };
-    completeRainingCodeHandler = () => {
-        this.setState({ isLogoFlashing: false })
-    };
-    componentDidMount() {
-        if (Home.noAnimation)
-            return this.completeRainingCodeHandler();
+    const opacityPropVal = parseFloat(this.logo.style.opacity);
+    const minOpacity = .3;
+    const maxOpacity = .9;
+    const opacity = isNaN(opacityPropVal) ? minOpacity :
+      opacityPropVal === minOpacity ? maxOpacity : minOpacity;
+    TweenMax.to(this.logo, .5, {
+      opacity, onComplete: this.logoFlashingAnimation,
+      ease: Power0.easeNone
+    })
+  };
+  completeRainingCodeHandler = () => {
+    this.setState({ isLogoFlashing: false })
+  };
+  componentDidMount() {
+    window.isPageLoaded = true;
 
-        this.logoFlashingAnimation();
-    }
-    componentWillUnmount() {
-        this.isUnMounted = true;
-    }
+    if (Home.noAnimation)
+      return this.completeRainingCodeHandler();
 
-    static noAnimation = process.env.NODE_ENV !== 'production';
+    this.logoFlashingAnimation();
+  }
+  componentWillUnmount() {
+    this.isUnMounted = true;
+  }
 
-    render() {
-        const { classes } = this.props;
-        const { isLogoFlashing } = this.state;
-        return (
-            <NavigationContainer
-                className={classes.nav} logo={isLogoFlashing && (
-                <span className={classes.loading} ref={b => this.logo = b}>
+  static noAnimation = process.env.NODE_ENV !== 'production';
+
+  render() {
+    const { classes } = this.props;
+    const { isLogoFlashing } = this.state;
+    return (
+      <NavigationContainer
+        className={classes.nav} logo={isLogoFlashing && (
+        <span className={classes.loading} ref={b => this.logo = b}>
                     reading image...
                 </span>
-            )}>
-                <Helmet>
-                    <title>Developer & Designer — Nikita Trifan</title>
-                </Helmet>
-                <div className={classes.wrapper}>
-                    <NavigationWaypoint theme="light">
-                        <IntroSlide index={0}
-                            noAnimation={Home.noAnimation}
-                            onMatrixRainingCodeComplete={
-                                this.completeRainingCodeHandler
-                            }
-                        />
-                    </NavigationWaypoint>
-                    <NavigationWaypoint theme="dark">
-                        <TransformScroll
-                            scrollerClassName={classes.slidesScroller}
-                            offset={.8} index={1} id={"work"}
-                        >
-                            <BGASlide />
-                            <YoapSlide />
-                            <USSlide />
-                        </TransformScroll>
-                    </NavigationWaypoint>
-                    <NavigationWaypoint theme="light">
-                        <About index={2} />
-                        <Approach index={3} />
-                        <Contact index={4} />
-                    </NavigationWaypoint>
-                    <Footer />
-                </div>
-            </NavigationContainer>
-        )
-    }
+      )}>
+        <Helmet>
+          <title>Developer & Designer — Nikita Trifan</title>
+        </Helmet>
+        <div className={classes.wrapper}>
+          <NavigationWaypoint theme="light">
+            <IntroSlide index={0}
+                        noAnimation={Home.noAnimation}
+                        onMatrixRainingCodeComplete={
+                          this.completeRainingCodeHandler
+                        }
+            />
+          </NavigationWaypoint>
+          <NavigationWaypoint theme="dark">
+            <TransformScroll
+              scrollerClassName={classes.slidesScroller}
+              offset={.8} index={1} id={"work"}
+            >
+              <BGASlide />
+              <YoapSlide />
+              <USSlide />
+            </TransformScroll>
+          </NavigationWaypoint>
+          <NavigationWaypoint theme="light">
+            <About index={2} />
+            <Approach index={3} />
+            <Contact index={4} />
+          </NavigationWaypoint>
+          <Footer />
+        </div>
+      </NavigationContainer>
+    )
+  }
 }
 
 const styles = {
-    wrapper: {
-        width: '100%', minHeight: '100vh',
-    },
-    nav: {zIndex:10},
-    loading: {
-        willChange: 'opacity'
-    },
+  wrapper: {
+    width: '100%', minHeight: '100vh',
+  },
+  nav: {zIndex:10},
+  loading: {
+    willChange: 'opacity'
+  },
 };
 
 export default injectStyles(styles)(Home);

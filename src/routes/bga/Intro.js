@@ -2,7 +2,7 @@ import React from 'react'
 import { findDOMNode } from 'react-dom'
 import Waypoint from '../../components/Waypoint'
 import PropTypes from "prop-types";
-import windowSize from 'react-window-size'
+import windowSize from '../../containers/windowSize';
 import classNames from 'classnames'
 import injectStyles from 'react-jss'
 import SlideAbout from '../../components/SlideAbout'

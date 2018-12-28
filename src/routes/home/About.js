@@ -113,7 +113,7 @@ class About extends React.Component {
                                 </div>
                                 <div ref={b => this.blocks[1] = b}>
                                     <Heading margin="medium" color={textColor} size={2}>
-                                        I beilive that in a future all websites
+                                        I believe that in a future all websites
                                         will works like my web apps —
                                         asynchronous and interactive.
                                     </Heading>

@@ -1,5 +1,5 @@
 import React from 'react'
-import windowSize from 'react-window-size'
+import windowSize from '../../containers/windowSize';
 import injectStyles from 'react-jss'
 import { TweenMax } from 'gsap'
 import BrowserScreen from '../../components/BrowserScreen'
