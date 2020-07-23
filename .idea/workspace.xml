@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="1efaff53-29b7-4c97-94d9-0f08ec45c338" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.prettierrc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/ScrollSections.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hooks/useWindowSize.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/types.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/BlockName.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/BlockName.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ComponentFadeIn.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ComponentFadeIn.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Footer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Footer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/TransformScroll.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/TransformScroll.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Waypoint.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Waypoint.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/containers/NavigationContainer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/NavigationContainer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/home/About.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/home/About.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/home/Approach.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/home/Approach.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/home/BGASlide.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/home/BGASlide.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/home/Contact.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/home/Contact.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/home/IntroSlide.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/home/IntroSlide.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/home/USSlide.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/home/USSlide.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/home/YoapSlide.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/home/YoapSlide.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/home/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/home/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FavoritesManager">
+    <favorites_list name="trifan.io" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="JsFlowSettings">
+    <service-enabled>true</service-enabled>
+    <exe-path />
+    <other-services-enabled>true</other-services-enabled>
+    <auto-save>true</auto-save>
+  </component>
+  <component name="ProjectConfigurationFiles">
+    <option name="files">
+      <list>
+        <option value="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" />
+        <option value="$PROJECT_DIR$/.idea/trifan.io.iml" />
+        <option value="$PROJECT_DIR$/.idea/vcs.xml" />
+        <option value="$PROJECT_DIR$/.idea/misc.xml" />
+        <option value="$PROJECT_DIR$/.idea/modules.xml" />
+        <option value="$PROJECT_DIR$/.idea/codeStyles/Project.xml" />
+        <option value="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectId" id="1U4Qmltw2iWyi01hDXCJMkWna58" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/components" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="nodejs_package_manager_path" value="yarn" />
+    <property name="prettierjs.PrettierConfiguration.Package" value="$PROJECT_DIR$/node_modules/prettier" />
+    <property name="ts.external.directory.path" value="$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/components" />
+    </key>
+  </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="1efaff53-29b7-4c97-94d9-0f08ec45c338" name="Default Changelist" comment="" />
+      <created>1564886478193</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1564886478193</updated>
+      <workItem from="1564886479359" duration="1188000" />
+      <workItem from="1574613549803" duration="1601000" />
+      <workItem from="1576024459323" duration="11248000" />
+      <workItem from="1576076903016" duration="2000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="625" y="288" width="670" height="676" key="search.everywhere.popup" timestamp="1576026622700">
+      <screen x="0" y="23" width="1920" height="1177" />
+    </state>
+    <state x="625" y="288" width="670" height="676" key="search.everywhere.popup/0.23.1920.1177@0.23.1920.1177" timestamp="1576026622700" />
+  </component>
+</project>
