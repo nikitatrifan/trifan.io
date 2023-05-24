@@ -11,6 +11,7 @@ import {
   Column,
   Divider,
   IconWrapper,
+  Inline,
   Spinner,
   styled,
   Text,
@@ -21,6 +22,10 @@ import { useAssemblePrefetchList } from "@/sections/ShowcasePreloadStrategies/us
 import { ShowcaseRequestsSequence } from "@/components/ShowcaseRequestsSequence";
 import { AnimatePresence, motion } from "framer-motion";
 import { useSimulateListInteractions } from "@/sections/ShowcasePreloadStrategies/useSimulateListInteractions";
+import {
+  ShowcasePrefetchList,
+  useBindShowcasePrefetchList,
+} from "@/components/ShowcasePrefetchList";
 
 export const ShowcasePreloadStrategies = () => {
   const wrapperRef = useRef<HTMLDivElement>(null);
@@ -31,6 +36,15 @@ export const ShowcasePreloadStrategies = () => {
   useSetNavigationPanelTheme({
     elementId: "show-case",
     themeKind: "inverted",
+  });
+
+  const [requestStrategy, setRequestStrategy] = useState<
+    "cancel-irrelevant" | "debounce"
+  >("debounce");
+
+  const { bind, requests, requestStats } = useBindShowcasePrefetchList({
+    enabled: !focused && visible,
+    strategy: requestStrategy,
   });
 
   return (
@@ -44,24 +58,152 @@ export const ShowcasePreloadStrategies = () => {
           subtitle="Predict to preload"
           title={
             <>
-              Learn to predict users <br /> to allow for zero load
+              Predict users intent <br /> to allow for zero load
             </>
           }
           body="Interfaces that feel truly world class are brutally instant. Even if it might be hard to see the difference off the bat, interations like these will pile up and create a best in class interface feel."
         />
         <ShowcaseGrid>
           <div>
-            <RequestPrefetchList
-              enabled={!focused && visible}
+            <Inline gap={2}>
+              <Button
+                size="large"
+                variant="ghost"
+                onClick={() => {
+                  setRequestStrategy("cancel-irrelevant");
+                }}
+                selected={requestStrategy === "cancel-irrelevant"}
+                style={{
+                  borderBottomLeftRadius: "0px",
+                  borderBottomRightRadius: "0px",
+                }}
+              >
+                Cancel irrelevant
+              </Button>
+              <Button
+                size="large"
+                variant="ghost"
+                onClick={() => {
+                  setRequestStrategy("debounce");
+                }}
+                selected={requestStrategy === "debounce"}
+                style={{
+                  borderBottomLeftRadius: "0px",
+                  borderBottomRightRadius: "0px",
+                }}
+              >
+                Debounce input
+              </Button>
+            </Inline>
+            <ShowcasePrefetchList
+              {...bind}
               onFocusChange={setFocused}
-              strategy="cancel-irrelevant"
+              strategy={requestStrategy}
             />
           </div>
           <div>
-            <RequestPrefetchList
-              enabled={!focused && visible}
-              onFocusChange={setFocused}
-              strategy="debounce"
+            <Inline gap={32} css={{ paddingBottom: "$10" }}>
+              <Column gap={8}>
+                <Text variant="title">click to data</Text>
+                <Inline gap={24}>
+                  <Column gap={2}>
+                    <Text
+                      variant="title"
+                      kind="symbol"
+                      color={
+                        requestStrategy === "debounce" ? "primary" : "tertiary"
+                      }
+                    >
+                      {requestStats["debounce"]?.navigateToDataMs ?? 0}ms
+                    </Text>
+                    <Text
+                      variant="body"
+                      color={
+                        requestStrategy === "debounce" ? "primary" : "tertiary"
+                      }
+                    >
+                      debounce
+                    </Text>
+                  </Column>
+
+                  <Column gap={2}>
+                    <Text
+                      variant="title"
+                      kind="symbol"
+                      color={
+                        requestStrategy === "cancel-irrelevant"
+                          ? "primary"
+                          : "tertiary"
+                      }
+                    >
+                      {requestStats["cancel-irrelevant"]?.navigateToDataMs ?? 0}
+                      ms
+                    </Text>
+                    <Text
+                      variant="body"
+                      color={
+                        requestStrategy === "cancel-irrelevant"
+                          ? "primary"
+                          : "tertiary"
+                      }
+                    >
+                      cancellation
+                    </Text>
+                  </Column>
+                </Inline>
+              </Column>
+              <Column gap={8}>
+                <Text variant="title"># of requests made</Text>
+                <Inline gap={24}>
+                  <Column gap={2}>
+                    <Text
+                      variant="title"
+                      kind="symbol"
+                      color={
+                        requestStrategy === "debounce" ? "primary" : "tertiary"
+                      }
+                    >
+                      {requestStats["debounce"]?.numberOfRequests ?? 0}
+                    </Text>
+                    <Text
+                      variant="body"
+                      color={
+                        requestStrategy === "debounce" ? "primary" : "tertiary"
+                      }
+                    >
+                      debounce
+                    </Text>
+                  </Column>
+
+                  <Column gap={2}>
+                    <Text
+                      variant="title"
+                      kind="symbol"
+                      color={
+                        requestStrategy === "cancel-irrelevant"
+                          ? "primary"
+                          : "tertiary"
+                      }
+                    >
+                      {requestStats["cancel-irrelevant"]?.numberOfRequests ?? 0}
+                    </Text>
+                    <Text
+                      variant="body"
+                      color={
+                        requestStrategy === "cancel-irrelevant"
+                          ? "primary"
+                          : "tertiary"
+                      }
+                    >
+                      cancellation
+                    </Text>
+                  </Column>
+                </Inline>
+              </Column>
+            </Inline>
+            <ShowcaseRequestsSequence
+              requests={requests}
+              numberOfRequestsCaptured={4}
             />
           </div>
         </ShowcaseGrid>
@@ -98,8 +240,8 @@ const RequestPrefetchList = ({
       loading,
       currentGenre,
       requests,
+      requestStats,
       results,
-      numberOfRequestsCaptured,
       route,
     },
     actions: { selectGenre, prefetch, navigateToGenres, clearGenreSelection },

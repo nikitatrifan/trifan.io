@@ -266,53 +266,6 @@ export const ShowcaseSearchRequestStrategies = () => {
   );
 };
 
-const BindIrrelevantRequestsSearchShowcase = ({ showcasing, children }) => {
-  const bind = useAssembleSearch("cancel-irrelevant", showcasing);
-  return children(bind);
-};
-
-const IrrelevantRequestsSearchShowcase = ({
-  showcasing,
-}: {
-  showcasing: boolean;
-}) => {
-  const { bindInput, wrapperRef, results, bindRequestsSequence, loading } =
-    useAssembleSearch("cancel-irrelevant", showcasing);
-
-  return (
-    <Column gap={6} ref={wrapperRef}>
-      <ShowCaseSearchInput
-        {...bindInput}
-        placeholder="Request search"
-        results={results}
-        loading={loading}
-      />
-      <ShowcaseRequestsSequence {...bindRequestsSequence} />
-    </Column>
-  );
-};
-
-const DebouncedRequestsSearchShowcase = ({
-  showcasing,
-}: {
-  showcasing: boolean;
-}) => {
-  const { bindInput, wrapperRef, results, bindRequestsSequence, loading } =
-    useAssembleSearch("debounce", showcasing);
-
-  return (
-    <Column gap={6} ref={wrapperRef}>
-      <ShowCaseSearchInput
-        {...bindInput}
-        placeholder="Request search"
-        results={results}
-        loading={loading}
-      />
-      <ShowcaseRequestsSequence {...bindRequestsSequence} />
-    </Column>
-  );
-};
-
 const phrases = [
   "the u",
   "the unseen path",
@@ -358,11 +311,6 @@ const useSearchRequestStats = ({
   requests: RequestsSequenceArray;
   value: string;
 }) => {
-  const [stats, setStats] = useState<{
-    timeToDataMs: number;
-    numberOfRequests: number;
-  }>(undefined);
-
   // figure out when the user started typing; needed to figure out the end phrase
   const phraseBeginning = useRef<string>("");
   const [phrase, setPhrase] = useState<[string, string]>(["", ""]);
@@ -433,15 +381,6 @@ const useSearchRequestStats = ({
     const numberOfRequests = requestsInTheRange.reduce(
       (number, [, req]) => (req.status !== "created" ? number + 1 : number),
       0
-    );
-
-    console.log(
-      "phrase:",
-      phrase,
-      "requestsInTheRange:",
-      requestsInTheRange,
-      "numberOfRequests:",
-      numberOfRequests
     );
 
     return { totalTimeToDataMs, requestToDataMs, numberOfRequests };

@@ -88,11 +88,11 @@ export const useSimulateListInteractions = ({
   backButtonRef,
   enabled,
   resetRouteState,
-  indexesToInteractWith,
+  itemIndexesRange,
 }: {
   listParentRef: RefObject<HTMLElement>;
   backButtonRef: RefObject<HTMLElement>;
-  indexesToInteractWith: Array<number>;
+  itemIndexesRange: Array<number>;
   resetRouteState: () => void;
   enabled: boolean;
 }) => {
@@ -106,8 +106,18 @@ export const useSimulateListInteractions = ({
     let active = true;
     let resetTimeout: NodeJS.Timeout;
 
+    const getIndexesToInteractWith = () => {
+      const direction = Math.random() > 0.5 ? 1 : -1;
+      const length = Math.ceil(Math.random() * itemIndexesRange.length);
+      const indexes = itemIndexesRange.slice(0);
+      if (direction < 0) indexes.reverse();
+      return indexes.slice(0, length);
+    };
+
     function requestSimulation() {
       resetRouteState();
+
+      const indexesToInteractWith = getIndexesToInteractWith();
 
       const interactionPromise = indexesToInteractWith.reduce(
         (promise, index) =>
@@ -168,7 +178,7 @@ export const useSimulateListInteractions = ({
   }, [
     backButtonRef,
     enabled,
-    indexesToInteractWith,
+    itemIndexesRange,
     listParentRef,
     indexToRestartTheScript,
     resetRouteState,

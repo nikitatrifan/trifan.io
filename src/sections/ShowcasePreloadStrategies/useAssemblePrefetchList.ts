@@ -1,9 +1,13 @@
 import { useMedia } from "junoblocks";
-import { useRegisterRequests } from "@/utils/useRegisterRequests";
+import {
+  RequestsSequenceArray,
+  useRegisterRequests,
+} from "@/utils/useRegisterRequests";
 import { useQuery } from "react-query";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useDebounce } from "use-debounce";
 import { debounce } from "throttle-debounce";
+import dayjs from "dayjs";
 
 export type BookApiResponse = {
   result?: Array<string>;
@@ -15,16 +19,31 @@ export type BookApiResponse = {
 export const useAssemblePrefetchList = (
   strategy: "debounce" | "cancel-irrelevant"
 ) => {
-  const numberOfRequestsCaptured = useMedia("sm") ? 3 : 3;
-
   const [
     requests,
-    { createRequest, registerRequestFulfilment, registerRequestCancellation },
-  ] = useRegisterRequests(numberOfRequestsCaptured);
+    {
+      createRequest,
+      createdRequestKickedOff,
+      registerRequestFulfilment,
+      registerRequestCancellation,
+    },
+  ] = useRegisterRequests();
 
   const [route, setRoute] = useState<"genres" | "titles">("genres");
-  const navigateToGenres = () => setRoute("genres");
-  const navigateToTitles = () => setRoute("titles");
+  const navigationTimestamps = useRef<{
+    genres?: ReturnType<typeof dayjs>;
+    titles?: ReturnType<typeof dayjs>;
+  }>({});
+  const selectedGenreTimestamp = useRef<ReturnType<typeof dayjs>>();
+  const navigateToGenres = () => {
+    navigationTimestamps.current.genres = dayjs();
+    setRoute("genres");
+  };
+
+  const navigateToTitles = () => {
+    navigationTimestamps.current.titles = dayjs();
+    setRoute("titles");
+  };
   /*
    *
    * fetch categories
@@ -41,11 +60,11 @@ export const useAssemblePrefetchList = (
   const [currentGenre, setCurrentGenre] = useState<string>("");
 
   async function fetchBooksByGenre(genre: string, signal?: AbortSignal) {
-    const requestIndex = createRequest(genre);
+    createdRequestKickedOff(genre);
 
     if (strategy === "cancel-irrelevant") {
       signal?.addEventListener("abort", () =>
-        registerRequestCancellation(requestIndex)
+        registerRequestCancellation(genre)
       );
     }
 
@@ -55,7 +74,7 @@ export const useAssemblePrefetchList = (
       signal,
     }).then((res) => res.json());
 
-    registerRequestFulfilment(requestIndex);
+    registerRequestFulfilment(genre);
 
     return response;
   }
@@ -71,7 +90,7 @@ export const useAssemblePrefetchList = (
     },
     {
       enabled: Boolean(selectedGenreToQuery),
-      cacheTime: 2000,
+      cacheTime: 0,
       onSuccess() {
         if (currentGenre) {
           navigateToTitles();
@@ -79,6 +98,14 @@ export const useAssemblePrefetchList = (
       },
     }
   );
+
+  const requestStats = usePrefetchListStats({
+    strategy,
+    requests,
+    selectedGenre: selectedGenreToQuery,
+    selectedGenreTimestamp: selectedGenreTimestamp.current,
+    navigationTimestamps: navigationTimestamps.current,
+  });
 
   const [debouncedLoading] = useDebounce(isLoading, 195);
   const loading = debouncedLoading || isLoading;
@@ -89,16 +116,31 @@ export const useAssemblePrefetchList = (
     }
   }
 
+  function wrapPrefetchWithCreateRequest<T extends Function>(prefetch: T) {
+    return (value: string) => {
+      createRequest(value);
+      prefetch(value);
+    };
+  }
+
+  const prefetch = wrapPrefetchWithCreateRequest(
+    strategy === "debounce"
+      ? debounce(150, prefetchBooksByGenre)
+      : prefetchBooksByGenre
+  );
+
   /*
    * reset the selection to allow for prefetch
    * when the content is no longer needed to be rendered
    * typically after the page is animated out */
   function clearGenreSelection() {
+    selectedGenreTimestamp.current = undefined;
     setCurrentGenre("");
     setGenreToPreload("");
   }
 
   function selectGenre(genre: string) {
+    selectedGenreTimestamp.current = dayjs();
     setCurrentGenre(genre);
     setGenreToPreload("");
   }
@@ -110,11 +152,6 @@ export const useAssemblePrefetchList = (
     }
   }, [data, currentGenre]);
 
-  const prefetch =
-    strategy === "debounce"
-      ? debounce(150, prefetchBooksByGenre)
-      : prefetchBooksByGenre;
-
   return {
     state: {
       genres: genresQuery.data?.result,
@@ -122,8 +159,8 @@ export const useAssemblePrefetchList = (
       loadingGenres: genresQuery.isLoading,
       loading,
       results: currentGenre === data?.[0] ? data?.[1].result : undefined,
-      numberOfRequestsCaptured,
       requests,
+      requestStats,
       route,
     },
     actions: {
@@ -134,4 +171,144 @@ export const useAssemblePrefetchList = (
       navigateToTitles,
     },
   };
+};
+
+const useInteracting = (data: unknown) => {
+  const [interacting, setInteracting] = useState(data);
+  useEffect(() => {
+    setInteracting(true);
+    const timeout = setTimeout(() => {
+      setInteracting(false);
+    }, 600);
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, [data]);
+  return interacting;
+};
+
+const usePrefetchListStats = ({
+  strategy,
+  requests,
+  selectedGenreTimestamp,
+  selectedGenre,
+  navigationTimestamps,
+}: {
+  strategy: Parameters<typeof useAssemblePrefetchList>[0];
+  requests: RequestsSequenceArray;
+  selectedGenre: string;
+  selectedGenreTimestamp?: ReturnType<typeof dayjs>;
+  navigationTimestamps: {
+    genres?: ReturnType<typeof dayjs>;
+    titles?: ReturnType<typeof dayjs>;
+  };
+}) => {
+  const lastMeasuredTime = useRef<
+    Record<
+      typeof strategy,
+      {
+        totalTimeToDataMs?: number;
+        navigateToDataMs?: number;
+      }
+    >
+  >({
+    "cancel-irrelevant": {},
+    debounce: {},
+  });
+
+  const requestCount = useRef<Record<typeof strategy, number>>({
+    "cancel-irrelevant": 0,
+    debounce: 0,
+  });
+
+  const interacting = useInteracting(requests);
+  const lastTimestamp = useRef<ReturnType<typeof dayjs>>();
+  const timestampWhenBeganInteracting = useMemo(() => {
+    return interacting
+      ? (lastTimestamp.current = dayjs())
+      : lastTimestamp.current;
+  }, [interacting]);
+
+  function getRequestsInRange(
+    from: ReturnType<typeof dayjs>,
+    to: ReturnType<typeof dayjs>
+  ) {
+    const range: typeof requests = [];
+
+    try {
+      requests
+        .slice(0)
+        .reverse()
+        .forEach((request, index) => {
+          const [, { createdAt, finishedAt }] = request;
+          if (
+            (createdAt.isAfter(from) && createdAt.isBefore(to)) ||
+            (finishedAt?.isAfter(from) && finishedAt?.isBefore(to))
+          ) {
+            range.push(request);
+          }
+        });
+    } catch (e) {}
+
+    return range;
+  }
+
+  const stats = useMemo(() => {
+    const { genres: navigatedToGenresAt, titles: navigatedToTitlesAt } =
+      navigationTimestamps;
+
+    const firstTimeNavigatedToTitles =
+      !navigatedToGenresAt && navigatedToTitlesAt;
+
+    const navigatedToTitles =
+      navigatedToGenresAt &&
+      navigatedToTitlesAt &&
+      navigatedToTitlesAt.isAfter(navigatedToGenresAt);
+
+    const shouldMeasureTime = firstTimeNavigatedToTitles || navigatedToTitles;
+
+    let requestsInTheRange: RequestsSequenceArray | undefined;
+    if (timestampWhenBeganInteracting) {
+      requestsInTheRange = shouldMeasureTime
+        ? getRequestsInRange(timestampWhenBeganInteracting, navigatedToTitlesAt)
+        : getRequestsInRange(timestampWhenBeganInteracting, dayjs());
+    }
+
+    if (shouldMeasureTime && requestsInTheRange?.length) {
+      const request = requests.find(([query]) => query === selectedGenre);
+
+      if (request) {
+        const [, { finishedAt, createdAt }] = request;
+        lastMeasuredTime.current[strategy].totalTimeToDataMs = Math.max(
+          finishedAt?.diff(createdAt, "ms") ?? 0,
+          0
+        );
+
+        lastMeasuredTime.current[strategy].navigateToDataMs = Math.max(
+          finishedAt?.diff(selectedGenreTimestamp, "ms") ?? 0,
+          0
+        );
+      }
+    }
+
+    if (requestsInTheRange?.length) {
+      requestCount.current[strategy] = requestsInTheRange.reduce(
+        (number, [, req]) => (req.status !== "created" ? number + 1 : number),
+        0
+      );
+    }
+
+    return {
+      debounce: {
+        ...lastMeasuredTime.current.debounce,
+        numberOfRequests: requestCount.current.debounce,
+      },
+      "cancel-irrelevant": {
+        ...lastMeasuredTime.current["cancel-irrelevant"],
+        numberOfRequests: requestCount.current["cancel-irrelevant"],
+      },
+    };
+  }, [requests, selectedGenre, timestampWhenBeganInteracting, strategy]);
+
+  return stats;
 };
