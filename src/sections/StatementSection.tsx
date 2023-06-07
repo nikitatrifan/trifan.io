@@ -8,30 +8,28 @@ import {
   useMedia,
 } from "junoblocks";
 import { ThemeModelAtom } from "@/components/ThemeModel/ThemeModelInterface";
-import { useCallback, useRef } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import { gsap } from "gsap";
-import { useAppBackgroundRef } from "@/components/AppBackground";
 import { getViewportHeightCssValue } from "@/components/FixMobileViewportHeightBounce";
 import { useRecoilValue } from "recoil";
-import { useInitiateScrollBind } from "@/utils/useInitiateScrollBind";
+import { IntroTimelineAtom } from "@/sections/IntroSection";
 
 export const StatementSection = () => {
-  const wrapperRef = useRef<HTMLDivElement>(null);
   const themeModel = useRecoilValue(ThemeModelAtom);
+  const introSectionTimeline = useRecoilValue(IntroTimelineAtom);
   const contentContainerRef = useRef<HTMLDivElement>(null);
-  const appBackgroundRef = useAppBackgroundRef();
 
   const mobile = useMedia("sm");
 
   /* bonkers; this timeline ruins the initial state of the theme modal on the first load */
   /* will set it up when the user is either nearing the section or scrolled passed it */
-  const onAnimationSetUp = useCallback(() => {
+  const bindScrollTrigger = useCallback(() => {
     const ctx = gsap.context(() => {
       const { interfaceRef, rendererRef: modelRendererRef } = themeModel;
       const timeline = gsap.timeline({
         scrollTrigger: {
           scroller: "#scroller",
-          trigger: wrapperRef.current,
+          trigger: "#statement-section",
           start: "top+=10% bottom",
           end: "center 50%",
           scrub: 0.35,
@@ -69,22 +67,6 @@ export const StatementSection = () => {
         0.65
       );
 
-      // timeline.set(
-      //   appBackgroundRef.current,
-      //   {
-      //     background: colors.white,
-      //   },
-      //   0
-      // );
-      //
-      // timeline.to(
-      //   appBackgroundRef.current,
-      //   {
-      //     background: colors.dark,
-      //   },
-      //   0.35
-      // );
-
       if (
         modelRendererRef.current &&
         interfaceRef.current?.model &&
@@ -93,13 +75,16 @@ export const StatementSection = () => {
         const modelTimeline = gsap.timeline({
           scrollTrigger: {
             scroller: "#scroller",
-            trigger: wrapperRef.current,
+            trigger: "#statement-section",
             start: "top+=10% bottom",
             end: "bottom-=35% 50%",
             scrub: 0.35,
-            preventOverlaps: true,
-            invalidateOnRefresh: true,
-            // markers: true,
+            preventOverlaps: false,
+            invalidateOnRefresh: false,
+            immediateRender: false,
+            onUpdate(ppp) {
+              console.log(ppp.progress);
+            },
           },
           defaults: {
             ease: "none",
@@ -107,18 +92,47 @@ export const StatementSection = () => {
           },
         });
 
-        const startingPoint = 0;
+        window.modelTimeline = modelTimeline;
 
-        modelTimeline.call(
-          () => {
-            gsap.set(modelRendererRef.current, {
-              display: "block",
-              visibility: "visible",
+        const cleanUpModel = () => {
+          if (interfaceRef.current) {
+            interfaceRef.current.rendering = false;
+          }
+          gsap.set(modelRendererRef.current, {
+            display: "none",
+            visibility: "hidden",
+          });
+          if (interfaceRef.current?.model && interfaceRef.current?.camera) {
+            gsap.set(interfaceRef.current.model.position, {
+              x: 0,
+              y: -2.45,
+              z: 0,
             });
-          },
-          undefined,
-          0.05
-        );
+            gsap.set(interfaceRef.current.camera.position, {
+              x: 0,
+              y: 1.75,
+              z: 1.45,
+            });
+          }
+        };
+
+        const prepareModel = () => {
+          if (interfaceRef.current) {
+            interfaceRef.current.rendering = true;
+          }
+          gsap.set(modelRendererRef.current, {
+            display: "block",
+            visibility: "visible",
+          });
+        };
+
+        cleanUpModel();
+
+        modelTimeline.call(cleanUpModel, undefined, 0);
+        modelTimeline.call(cleanUpModel, undefined, 0.035);
+        modelTimeline.call(prepareModel, undefined, "+=0.05");
+
+        const startingPoint = 0.035;
 
         modelTimeline.fromTo(
           interfaceRef.current.model.position,
@@ -163,40 +177,22 @@ export const StatementSection = () => {
     };
   }, [themeModel, mobile]);
 
-  const prepareThemeModel = useCallback(() => {
-    const { interfaceRef, rendererRef } = themeModel;
-    if (interfaceRef.current) {
-      interfaceRef.current.rendering = true;
-    }
-  }, [themeModel]);
-
-  const disableThemeModel = useCallback(
-    (direction: "up" | "down") => {
-      const { interfaceRef, rendererRef } = themeModel;
-
-      if (interfaceRef.current && direction !== "down") {
-        interfaceRef.current.rendering = false;
-        gsap.set(rendererRef.current, {
-          display: "none",
-        });
+  useEffect(() => {
+    let cleanup: undefined | (() => void);
+    const instantiate = () => {
+      if (!cleanup) {
+        cleanup = bindScrollTrigger();
       }
-    },
-    [themeModel]
-  );
+    };
 
-  /* fade in */
-  useInitiateScrollBind({
-    wrapperRef,
-    enablePassedScrollPointInitiate: true,
-    observeNodeSelection: "previous",
-    onEnter: prepareThemeModel,
-    onInitiate: onAnimationSetUp,
-    onExit: disableThemeModel,
-    observerOptions: {
-      threshold: 0,
-      rootMargin: "0px",
-    },
-  });
+    if (introSectionTimeline && introSectionTimeline.progress() > 0.9) {
+      instantiate();
+    } else {
+      introSectionTimeline?.eventCallback("onComplete", instantiate);
+    }
+
+    return cleanup;
+  }, [bindScrollTrigger, introSectionTimeline]);
 
   const invertedThemeClassName = useInvertedThemeClassName();
 
@@ -218,11 +214,7 @@ export const StatementSection = () => {
   );
 
   return (
-    <Wrapper
-      id="why-this-way"
-      className={invertedThemeClassName}
-      ref={wrapperRef}
-    >
+    <Wrapper id="statement-section" className={invertedThemeClassName}>
       <ContentContainer
         size="medium"
         ref={contentContainerRef}

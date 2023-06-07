@@ -1,10 +1,8 @@
 import { ShowcaseSearchRequestStrategies } from "@/sections/ShowcaseSearchRequestStrategies";
 import { ShowcasePreloadStrategies } from "@/sections/ShowcasePreloadStrategies";
-import { media, styled, Text, useMedia } from "junoblocks";
+import { media, styled, Text } from "junoblocks";
 
 export const NetworkSection = () => {
-  const mobile = useMedia("sm");
-
   return (
     <section>
       <ShowcaseSearchRequestStrategies />

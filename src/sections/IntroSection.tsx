@@ -18,6 +18,13 @@ import { getViewportHeightCssValue } from "@/components/FixMobileViewportHeightB
 import { useAppBackgroundRef } from "@/components/AppBackground";
 import dayjs from "dayjs";
 import useFontFaceObserver from "use-font-face-observer";
+import { atom, useSetRecoilState } from "recoil";
+
+export const IntroTimelineAtom = atom<ReturnType<typeof gsap.timeline> | null>({
+  key: "IntroTimelineAtom",
+  default: null,
+  dangerouslyAllowMutability: true,
+});
 
 function runAnimationWhenReady(callback: () => void) {
   let startTime = dayjs();
@@ -66,6 +73,8 @@ export const IntroSection = () => {
   const mobile = useMedia("sm");
   const height = useWindowHeight();
   const colors = useColors();
+
+  const setTimeline = useSetRecoilState(IntroTimelineAtom);
 
   useEffectWhenReadyToAnimate(() => {
     const darkColor = colors.dark;
@@ -289,10 +298,13 @@ export const IntroSection = () => {
           display: "none",
         });
       });
+
+      setTimeline(tl);
     });
 
     return () => {
       ctx.revert();
+      setTimeline(null);
       ScrollTrigger.refresh();
     };
   }, [

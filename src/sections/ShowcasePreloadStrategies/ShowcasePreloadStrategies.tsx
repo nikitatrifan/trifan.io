@@ -80,15 +80,16 @@ export const ShowcasePreloadStrategies = () => {
             <>
               {requestStrategy === "debounce" && (
                 <>
-                  Read hover intent - once you hover on a link we wait for 150ms
-                  and if the cursor stayed on the link within the timeframe we
-                  kick off the request for data
+                  By the way of debouncing: read hover intent - once you hover
+                  on a link we wait for 150ms and if the cursor stayed on the
+                  link within the timeframe we kick off the request for data
                 </>
               )}
               {requestStrategy === "cancel-irrelevant" && (
                 <>
-                  Kick off requests as soon as you hover on a link, but cancel
-                  them once you hovered out
+                  By the way of request cancellation: kick off requests as soon
+                  as you hover on a link, but cancel them once you‘ve hovered
+                  out
                 </>
               )}
             </>

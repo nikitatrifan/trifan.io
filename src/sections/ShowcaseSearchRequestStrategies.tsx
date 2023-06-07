@@ -95,6 +95,24 @@ export const ShowcaseSearchRequestStrategies = () => {
             results={results}
             loading={loading}
           />
+          <Text css={{ maxWidth: "512px", padding: "$8" }} color="tertiary">
+            <>
+              {requestStrategy === "debounce" && (
+                <>
+                  By the way of debouncing: once the user stops typing, wait for
+                  300ms. If they didn‘t keep typing, kick off the request. If
+                  kept typing - wait for a stop again.
+                </>
+              )}
+              {requestStrategy === "cancel" && (
+                <>
+                  By the way of request cancellation: kick off requests as soon
+                  as the user types in, but cancel them if the user kept typing
+                  and the response isn‘t here yet.
+                </>
+              )}
+            </>
+          </Text>
         </div>
         <div>
           <Inline
@@ -254,9 +272,11 @@ function match(value: string, startValue: string, endValue: string) {
 const useSearchRequestStats = ({
   requests,
   value,
+  key,
 }: {
   requests: RequestsSequenceArray;
   value: string;
+  key: string;
 }) => {
   // figure out when the user started typing; needed to figure out the end phrase
   const phraseBeginning = useRef<string>("");
@@ -277,6 +297,17 @@ const useSearchRequestStats = ({
       clearTimeout(timeout);
     };
   }, [value]);
+
+  const lastMeasuredTime = useRef<
+    Record<
+      string,
+      {
+        totalTimeToDataMs: number;
+        requestToDataMs: number;
+        numberOfRequests: number;
+      }
+    >
+  >({});
 
   const requestsReference = useRef(requests);
   requestsReference.current = requests;
@@ -331,7 +362,16 @@ const useSearchRequestStats = ({
       0
     );
 
-    return { totalTimeToDataMs, requestToDataMs, numberOfRequests };
+    if (!lastMeasuredTime.current[key])
+      lastMeasuredTime.current[key] = {} as any;
+
+    Object.assign(lastMeasuredTime.current[key], {
+      totalTimeToDataMs,
+      requestToDataMs,
+      numberOfRequests,
+    });
+
+    return lastMeasuredTime.current;
   }, [phrase]);
 };
 
@@ -353,17 +393,11 @@ const useAssembleSearch = (
     phrases,
   });
 
-  const requestStats = useSearchRequestStats({ requests, value });
-  const requestStatsReference = useRef<
-    Record<
-      "debounce" | "cancel-irrelevant",
-      ReturnType<typeof useSearchRequestStats>
-    >
-  >({} as any);
-
-  useMemo(() => {
-    requestStatsReference.current[strategy] = requestStats;
-  }, [requestStats, strategy]);
+  const requestStats = useSearchRequestStats({
+    requests,
+    value,
+    key: strategy,
+  });
 
   useEffect(() => {
     if (process.env.NODE_ENV === "production" && focused) {
@@ -378,7 +412,7 @@ const useAssembleSearch = (
     results,
     loading,
     wrapperRef,
-    requestStats: requestStatsReference.current,
+    requestStats,
     bindRequestsSequence: {
       numberOfRequestsCaptured: 4,
       requests,
