@@ -82,17 +82,12 @@ export const StatementSection = () => {
             preventOverlaps: false,
             invalidateOnRefresh: false,
             immediateRender: false,
-            onUpdate(ppp) {
-              console.log(ppp.progress);
-            },
           },
           defaults: {
             ease: "none",
             duration: 1,
           },
         });
-
-        window.modelTimeline = modelTimeline;
 
         const cleanUpModel = () => {
           if (interfaceRef.current) {
