@@ -71,16 +71,16 @@ const StyledDiv = styled("div", {
 export const BackgroundNoise = ({ css, id }: { css?: CSS; id?: string }) => {
   const noiseImageSrc = "/images/noise-light.png";
   const mobile = useMedia("sm");
-  return (
-    !mobile && (
-      <StyledDiv
-        data-image-src={noiseImageSrc}
-        data-image-type="bg"
-        data-image-load="instant"
-        style={{ backgroundImage: `url("${noiseImageSrc}")` }}
-        css={css}
-        id={id}
-      />
-    )
+  return mobile ? (
+    <></>
+  ) : (
+    <StyledDiv
+      data-image-src={noiseImageSrc}
+      data-image-type="bg"
+      data-image-load="instant"
+      style={{ backgroundImage: `url("${noiseImageSrc}")` }}
+      css={css}
+      id={id}
+    />
   );
 };
