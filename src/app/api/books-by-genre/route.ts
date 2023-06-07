@@ -1,8 +1,8 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from "next";
-import defaultTitles from "../../assets/book-titles.json";
-import { returnAwaitedResults } from "@/pages/api/search-books";
+import defaultTitles from "@/assets/book-titles.json";
+import { returnAwaitedResults } from "../search-books/route";
 import { shuffle } from "fast-shuffle";
+import { NextResponse } from "next/server";
 
 const bookTitles = shuffle(defaultTitles);
 
@@ -90,24 +90,21 @@ function prepareDataResponse(data: Array<string> | undefined, limit?: number) {
   return { success: true, result, totalCount } as const;
 }
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse<Data>
-) {
+export async function POST(req: Request, res: Response) {
   try {
-    const requestBody = req.body && JSON.parse(req.body);
+    const requestBody = await req.clone().json();
     const category = requestBody?.category?.toLowerCase();
     const limit = Number(requestBody?.limit ?? 0);
 
     if (!category) {
       const categories = await fetchCategories();
-      res.status(200).json(prepareDataResponse(categories, limit));
+      return NextResponse.json(prepareDataResponse(categories, limit));
     }
 
     const books = await fetchBooksByCategory(category);
-    res.status(200).json(prepareDataResponse(books, limit));
+    return NextResponse.json(prepareDataResponse(books, limit));
   } catch (e: any) {
-    res.status(500).json({
+    return NextResponse.json({
       success: false,
       message: e?.message || "Oops, we've messed up.",
     });

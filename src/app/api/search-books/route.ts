@@ -1,6 +1,7 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from "next";
-import bookTitles from "../../assets/book-titles.json";
+import bookTitles from "@/assets/book-titles.json";
+import { NextResponse } from "next/server";
 
 export function returnAwaitedResults<T = any>(
   data: T,
@@ -29,12 +30,9 @@ type Data =
       message: string;
     };
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse<Data>
-) {
+export async function POST(req: Request, res: Response) {
   try {
-    const requestBody = JSON.parse(req.body);
+    const requestBody = await req.clone().json();
     const query = requestBody?.query?.toLowerCase();
     const limit = Number(requestBody?.limit ?? 0);
 
@@ -70,9 +68,9 @@ export default async function handler(
       titles = titles.slice(0, limit);
     }
 
-    res.status(200).json({ success: true, titles, totalCount });
+    return NextResponse.json({ success: true, titles, totalCount });
   } catch (e: any) {
-    res.status(500).json({
+    return NextResponse.json({
       success: false,
       message: e?.message || "Oops, we've messed up.",
     });
