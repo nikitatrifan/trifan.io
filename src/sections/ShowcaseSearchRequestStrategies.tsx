@@ -299,8 +299,7 @@ const useSearchRequestStats = ({
     let latestRequestInitiation: ReturnType<typeof dayjs> | undefined;
     let latestRequestCompletion: ReturnType<typeof dayjs> | undefined;
 
-    for (let i = 0, l = requestsInTheRange.length; i < l; l++) {
-      const [, { createdAt, initiatedAt, finishedAt }] = requestsInTheRange[i];
+    requestsInTheRange.forEach(([, { createdAt, initiatedAt, finishedAt }]) => {
       if (earliestRequestCreation.isAfter(createdAt)) {
         earliestRequestCreation = createdAt;
       }
@@ -317,7 +316,7 @@ const useSearchRequestStats = ({
         latestRequestInitiation = initiatedAt;
         latestRequestCompletion = finishedAt;
       }
-    }
+    });
 
     const totalTimeToDataMs =
       latestRequestCompletion &&
@@ -345,12 +344,7 @@ const useAssembleSearch = (
   const hovering = useHover(wrapperRef);
 
   const [value, setValue] = useState("");
-  const numberOfRequestsCaptured = useMedia("sm") ? 3 : 4;
-  const { results, loading, requests } = useRequestBookTitles(
-    value,
-    strategy,
-    numberOfRequestsCaptured
-  );
+  const { results, loading, requests } = useRequestBookTitles(value, strategy);
 
   useFakeTyping({
     value,
@@ -369,12 +363,12 @@ const useAssembleSearch = (
 
   useMemo(() => {
     requestStatsReference.current[strategy] = requestStats;
-  }, [requestStats]);
+  }, [requestStats, strategy]);
 
   useEffect(() => {
     if (process.env.NODE_ENV === "production" && focused) {
       // @ts-ignore
-      window.gtag("event", `interacted_w_search-${strategy}`);
+      window.gtag?.("event", `interacted_w_search-${strategy}`);
       // @ts-ignore
       window.hj?.("event", `interacted_w_search-${strategy}`);
     }
@@ -386,7 +380,7 @@ const useAssembleSearch = (
     wrapperRef,
     requestStats: requestStatsReference.current,
     bindRequestsSequence: {
-      numberOfRequestsCaptured,
+      numberOfRequestsCaptured: 4,
       requests,
     },
     bindInput: {

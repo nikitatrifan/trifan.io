@@ -96,13 +96,20 @@ export async function POST(req: Request, res: Response) {
     const category = requestBody?.category?.toLowerCase();
     const limit = Number(requestBody?.limit ?? 0);
 
-    if (!category) {
-      const categories = await fetchCategories();
-      return NextResponse.json(prepareDataResponse(categories, limit));
-    }
-
     const books = await fetchBooksByCategory(category);
     return NextResponse.json(prepareDataResponse(books, limit));
+  } catch (e: any) {
+    return NextResponse.json({
+      success: false,
+      message: e?.message || "Oops, we've messed up.",
+    });
+  }
+}
+
+export async function GET() {
+  try {
+    const categories = await fetchCategories();
+    return NextResponse.json(prepareDataResponse(categories));
   } catch (e: any) {
     return NextResponse.json({
       success: false,

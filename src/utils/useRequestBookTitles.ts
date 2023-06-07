@@ -15,12 +15,9 @@ type BookTitlesResponse = {
 
 type RequestStrategy = "cancel-irrelevant" | "debounce";
 
-const MAX_NUMBER_OF_REQUESTS_CAPTURED = 4;
-
 export const useRequestBookTitles = (
   value: string,
-  strategy: RequestStrategy,
-  numberOfRequestsCaptured = MAX_NUMBER_OF_REQUESTS_CAPTURED
+  strategy: RequestStrategy
 ) => {
   const {
     latestFulfilledResponse,
