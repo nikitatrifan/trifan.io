@@ -3,19 +3,15 @@ import {
   Column,
   Inline,
   media,
-  styled,
   Text,
-  useColors,
   useInvertedThemeClassName,
   useMedia,
 } from "junoblocks";
-import { ContentContainer } from "@/components/ContentContainer";
 import {
   ShowCaseSearchInput,
   useFocusedState,
 } from "@/components/ShowCaseSearchInput";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { useSetNavigationPanelTheme } from "@/components/NavigationPanel";
 import { useRequestBookTitles } from "@/utils/useRequestBookTitles";
 import { useVisibleInViewport } from "@/utils/useVisibleInViewportRef";
 import useHover from "@react-hook/hover";
@@ -23,73 +19,14 @@ import { ShowcaseRequestsSequence } from "@/components/ShowcaseRequestsSequence"
 import * as process from "process";
 import { ShowcaseHeader } from "@/components/ShowcaseHeader";
 import { ShowcaseGrid } from "@/components/ShowcaseGrid";
-import { gsap } from "gsap";
-import { useAppBackgroundRef } from "@/components/AppBackground";
 import { RequestsSequenceArray } from "@/utils/useRegisterRequests";
 import dayjs from "dayjs";
+import { ShowcaseSectionWrapper } from "@/components/ShowcaseSectionWrapper";
 
 export const ShowcaseSearchRequestStrategies = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const invertedThemeClassName = useInvertedThemeClassName();
   const visible = useVisibleInViewport(containerRef);
-
-  const mobile = useMedia("sm");
-  const backgroundRef = useAppBackgroundRef();
-  const colors = useColors();
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      const timeline = gsap.timeline({
-        defaults: {
-          duration: 1,
-          ease: "none",
-        },
-        scrollTrigger: {
-          scroller: "#scroller",
-          trigger: "#show-case-search",
-          start: mobile ? "top bottom" : "top+=10% bottom",
-          end: mobile ? "top+=10% 50%" : "top+=15% 50%",
-          scrub: 0.35,
-          preventOverlaps: true,
-          invalidateOnRefresh: true,
-          // markers: true,
-        },
-      });
-
-      timeline.fromTo(
-        backgroundRef.current,
-        {
-          background: colors.white,
-        },
-        {
-          background: colors.dark,
-        },
-        0
-      );
-
-      timeline.fromTo(
-        wrapperRef.current,
-        {
-          y: 100,
-          opacity: 0.6,
-        },
-        {
-          y: 0,
-          opacity: 1,
-        },
-        0
-      );
-    });
-
-    return () => {
-      ctx.revert();
-    };
-  }, [backgroundRef, colors.dark, colors.white, mobile]);
-
-  useSetNavigationPanelTheme({
-    elementId: "show-case-search",
-    themeKind: "inverted",
-  });
 
   const [requestStrategy, setRequestStrategy] = useState<"debounce" | "cancel">(
     "debounce"
@@ -108,161 +45,171 @@ export const ShowcaseSearchRequestStrategies = () => {
   );
 
   return (
-    <Wrapper id="show-case-search" className={invertedThemeClassName}>
-      <ContentContainer size="small" css={{ paddingBottom: "$16" }}>
-        <ShowcaseHeader
-          subtitle="Uncompromisingly fast interfaces"
-          title="Nature never waits"
-          body="A word class interface matches the feel of natural world.
-          Everything in our world react almost instantaneously and we have to
+    <ShowcaseSectionWrapper
+      id="show-case-search"
+      className={invertedThemeClassName}
+    >
+      <ShowcaseHeader
+        subtitle="Uncompromisingly fast interfaces"
+        title="Nature never waits"
+        body="A word class interface matches the feel of natural world.
+          Everything in our world reacts almost instantaneously and we have to
           match to that even if it feels subtle."
-        />
+      />
 
-        <ShowcaseGrid ref={containerRef}>
-          <div>
-            <Inline gap={2}>
-              <Button
-                size="large"
-                variant="ghost"
-                onClick={() => {
-                  setRequestStrategy("cancel");
-                }}
-                selected={requestStrategy === "cancel"}
-                style={{
-                  borderBottomLeftRadius: "0px",
-                  borderBottomRightRadius: "0px",
-                }}
-              >
-                Cancel irrelevant
-              </Button>
-              <Button
-                size="large"
-                variant="ghost"
-                onClick={() => {
-                  setRequestStrategy("debounce");
-                }}
-                selected={requestStrategy === "debounce"}
-                style={{
-                  borderBottomLeftRadius: "0px",
-                  borderBottomRightRadius: "0px",
-                }}
-              >
-                Debounce input
-              </Button>
-            </Inline>
-            <ShowCaseSearchInput
-              {...bindInput}
-              placeholder="Request search"
-              results={results}
-              loading={loading}
-            />
-          </div>
-          <div>
-            <Inline gap={32} css={{ paddingBottom: "$10" }}>
-              <Column gap={8}>
-                <Text variant="title">time to data</Text>
-                <Inline gap={24}>
-                  <Column gap={2}>
-                    <Text
-                      variant="title"
-                      kind="symbol"
-                      color={
-                        requestStrategy === "debounce" ? "primary" : "tertiary"
-                      }
-                    >
-                      {requestStats["debounce"]?.totalTimeToDataMs ?? 0}ms
-                    </Text>
-                    <Text
-                      variant="body"
-                      color={
-                        requestStrategy === "debounce" ? "primary" : "tertiary"
-                      }
-                    >
-                      debounce
-                    </Text>
-                  </Column>
+      <ShowcaseGrid ref={containerRef}>
+        <div>
+          <Inline gap={2}>
+            <Button
+              size="large"
+              variant="ghost"
+              onClick={() => {
+                setRequestStrategy("cancel");
+              }}
+              selected={requestStrategy === "cancel"}
+              style={{
+                borderBottomLeftRadius: "0px",
+                borderBottomRightRadius: "0px",
+              }}
+            >
+              Cancel irrelevant
+            </Button>
+            <Button
+              size="large"
+              variant="ghost"
+              onClick={() => {
+                setRequestStrategy("debounce");
+              }}
+              selected={requestStrategy === "debounce"}
+              style={{
+                borderBottomLeftRadius: "0px",
+                borderBottomRightRadius: "0px",
+              }}
+            >
+              Debounce input
+            </Button>
+          </Inline>
+          <ShowCaseSearchInput
+            {...bindInput}
+            placeholder="Request search"
+            results={results}
+            loading={loading}
+          />
+        </div>
+        <div>
+          <Inline
+            gap={32}
+            css={{
+              paddingBottom: "$10",
+              [media.sm]: {
+                flexWrap: "wrap",
+                rowGap: "$8",
+              },
+            }}
+          >
+            <Column gap={8}>
+              <Text variant="title">input to data</Text>
+              <Inline gap={24}>
+                <Column gap={2}>
+                  <Text
+                    variant="title"
+                    kind="symbol"
+                    color={
+                      requestStrategy === "debounce" ? "primary" : "tertiary"
+                    }
+                  >
+                    {requestStats["debounce"]?.totalTimeToDataMs ?? 0}ms
+                  </Text>
+                  <Text
+                    variant="body"
+                    color={
+                      requestStrategy === "debounce" ? "primary" : "tertiary"
+                    }
+                  >
+                    debounce
+                  </Text>
+                </Column>
 
-                  <Column gap={2}>
-                    <Text
-                      variant="title"
-                      kind="symbol"
-                      color={
-                        requestStrategy === "cancel" ? "primary" : "tertiary"
-                      }
-                    >
-                      {requestStats["cancel-irrelevant"]?.totalTimeToDataMs ??
-                        0}
-                      ms
-                    </Text>
-                    <Text
-                      variant="body"
-                      color={
-                        requestStrategy === "cancel" ? "primary" : "tertiary"
-                      }
-                    >
-                      cancellation
-                    </Text>
-                  </Column>
-                </Inline>
-              </Column>
-              <Column gap={8}>
-                <Text variant="title"># of requests made</Text>
-                <Inline gap={24}>
-                  <Column gap={2}>
-                    <Text
-                      variant="title"
-                      kind="symbol"
-                      color={
-                        requestStrategy === "debounce" ? "primary" : "tertiary"
-                      }
-                    >
-                      {requestStats["debounce"]?.numberOfRequests ?? 0}
-                    </Text>
-                    <Text
-                      variant="body"
-                      color={
-                        requestStrategy === "debounce" ? "primary" : "tertiary"
-                      }
-                    >
-                      debounce
-                    </Text>
-                  </Column>
+                <Column gap={2}>
+                  <Text
+                    variant="title"
+                    kind="symbol"
+                    color={
+                      requestStrategy === "cancel" ? "primary" : "tertiary"
+                    }
+                  >
+                    {requestStats["cancel-irrelevant"]?.totalTimeToDataMs ?? 0}
+                    ms
+                  </Text>
+                  <Text
+                    variant="body"
+                    color={
+                      requestStrategy === "cancel" ? "primary" : "tertiary"
+                    }
+                  >
+                    cancellation
+                  </Text>
+                </Column>
+              </Inline>
+            </Column>
 
-                  <Column gap={2}>
-                    <Text
-                      variant="title"
-                      kind="symbol"
-                      color={
-                        requestStrategy === "cancel" ? "primary" : "tertiary"
-                      }
-                    >
-                      {requestStats["cancel-irrelevant"]?.numberOfRequests ?? 0}
-                    </Text>
-                    <Text
-                      variant="body"
-                      color={
-                        requestStrategy === "cancel" ? "primary" : "tertiary"
-                      }
-                    >
-                      cancellation
-                    </Text>
-                  </Column>
-                </Inline>
-              </Column>
-            </Inline>
-            <ShowcaseRequestsSequence {...bindRequestsSequence} />
-          </div>
-        </ShowcaseGrid>
-        {/*<Text*/}
-        {/*  css={{ maxWidth: "512px", margin: "0 auto", padding: "$8" }}*/}
-        {/*  align="center"*/}
-        {/*  color="tertiary"*/}
-        {/*>*/}
-        {/*  Compare the two search implementations by typing the same query and*/}
-        {/*  observe how you feel about their performance and user experience*/}
-        {/*</Text>*/}
-      </ContentContainer>
-    </Wrapper>
+            <Column gap={8}>
+              <Text variant="title"># of requests made</Text>
+              <Inline gap={24}>
+                <Column gap={2}>
+                  <Text
+                    variant="title"
+                    kind="symbol"
+                    color={
+                      requestStrategy === "debounce" ? "primary" : "tertiary"
+                    }
+                  >
+                    {requestStats["debounce"]?.numberOfRequests ?? 0}
+                  </Text>
+                  <Text
+                    variant="body"
+                    color={
+                      requestStrategy === "debounce" ? "primary" : "tertiary"
+                    }
+                  >
+                    debounce
+                  </Text>
+                </Column>
+
+                <Column gap={2}>
+                  <Text
+                    variant="title"
+                    kind="symbol"
+                    color={
+                      requestStrategy === "cancel" ? "primary" : "tertiary"
+                    }
+                  >
+                    {requestStats["cancel-irrelevant"]?.numberOfRequests ?? 0}
+                  </Text>
+                  <Text
+                    variant="body"
+                    color={
+                      requestStrategy === "cancel" ? "primary" : "tertiary"
+                    }
+                  >
+                    cancellation
+                  </Text>
+                </Column>
+              </Inline>
+            </Column>
+          </Inline>
+          <ShowcaseRequestsSequence {...bindRequestsSequence} />
+        </div>
+      </ShowcaseGrid>
+      {/*<Text*/}
+      {/*  css={{ maxWidth: "512px", margin: "0 auto", padding: "$8" }}*/}
+      {/*  align="center"*/}
+      {/*  color="tertiary"*/}
+      {/*>*/}
+      {/*  Compare the two search implementations by typing the same query and*/}
+      {/*  observe how you feel about their performance and user experience*/}
+      {/*</Text>*/}
+    </ShowcaseSectionWrapper>
   );
 };
 
@@ -348,10 +295,12 @@ const useSearchRequestStats = ({
 
     let earliestRequestCreation = dayjs();
     let earliestRequestInitiation = dayjs();
-    let latestRequestCreation: ReturnType<typeof dayjs>;
-    let latestRequestInitiation: ReturnType<typeof dayjs>;
-    let latestRequestCompletion: ReturnType<typeof dayjs>;
-    requestsInTheRange.forEach(([, { createdAt, initiatedAt, finishedAt }]) => {
+    let latestRequestCreation: ReturnType<typeof dayjs> | undefined;
+    let latestRequestInitiation: ReturnType<typeof dayjs> | undefined;
+    let latestRequestCompletion: ReturnType<typeof dayjs> | undefined;
+
+    for (let i = 0, l = requestsInTheRange.length; i < l; l++) {
+      const [, { createdAt, initiatedAt, finishedAt }] = requestsInTheRange[i];
       if (earliestRequestCreation.isAfter(createdAt)) {
         earliestRequestCreation = createdAt;
       }
@@ -368,7 +317,7 @@ const useSearchRequestStats = ({
         latestRequestInitiation = initiatedAt;
         latestRequestCompletion = finishedAt;
       }
-    });
+    }
 
     const totalTimeToDataMs =
       latestRequestCompletion &&
@@ -495,12 +444,3 @@ const useFakeTyping = ({
     }
   }, [enabled, value, currentPhrase, setValue, onCompletePhrase]);
 };
-
-const Wrapper = styled("div", {
-  padding: "$32 0",
-  [media.sm]: {
-    padding: "$8 0",
-  },
-  zIndex: "$2",
-  position: "relative",
-});

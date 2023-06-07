@@ -5,7 +5,6 @@ import {
   useInvertedThemeClassName,
   useMedia,
 } from "junoblocks";
-import { useSetNavigationPanelTheme } from "@/components/NavigationPanel";
 import { useEffect } from "react";
 import { useAppBackgroundRef } from "@/components/AppBackground";
 import { gsap } from "gsap";
@@ -14,11 +13,6 @@ export const StoryBehind = () => {
   const invertedThemeClassName = useInvertedThemeClassName();
 
   const mobile = useMedia("sm");
-
-  useSetNavigationPanelTheme({
-    elementId: "story-behind",
-    themeKind: "inverted",
-  });
 
   const colors = useColors();
 
@@ -59,17 +53,42 @@ export const StoryBehind = () => {
         color="secondary"
         css={{ paddingBottom: "$12" }}
       >
-        Story behind
+        A key to fluidity
       </Text>
       <Text
-        variant={mobile ? "primary" : "header"}
+        variant="hero"
         align={mobile ? "center" : "left"}
-        kind="symbol"
+        css={Object.assign(
+          { fontWeight: "400" },
+          mobile
+            ? { fontSize: "2rem", lineHeight: "2.5rem" }
+            : {
+                fontSize: "3.5rem",
+                lineHeight: "4.5rem",
+              }
+        )}
       >
-        {new Array(666)
-          .fill(null)
-          .map(() => "*story behind here*")
-          .join(" ")}
+        A natural consequence of a fluid interface —
+        <br />
+        <br />
+        Playfulness. <br />
+        <br />
+        Only happens when you nail everything.
+        <br />
+        <br />
+        When the interface is responding instantly and satisfyingly.
+        <br />
+        <br />
+        When it’s redirectable and forgiving.
+        <br />
+        <br />
+        When the motions and gestures are smooth.
+        <br />
+        <br />
+        The interface starts to feel in sync with you.
+        <br />
+        <br />
+        Something magical happens.
       </Text>
     </ContentContainer>
   );

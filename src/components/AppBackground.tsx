@@ -5,19 +5,19 @@ import { getViewportHeightCssValue } from "@/components/FixMobileViewportHeightB
 const backgroundRef = createRef<HTMLDivElement>();
 
 export const useAppBackgroundRef = () => {
-  // useLayoutEffect(() => {
-  //   let active = true;
-  //   function instantiate() {
-  //     if (active) {
-  //       requestAnimationFrame(instantiate);
-  //     }
-  //     console.log(backgroundRef.current?.style.background);
-  //   }
-  //   instantiate();
-  //   return () => {
-  //     active = false;
-  //   };
-  // }, []);
+  useLayoutEffect(() => {
+    let active = true;
+    function instantiate() {
+      if (active) {
+        requestAnimationFrame(instantiate);
+      }
+      console.log(backgroundRef.current?.style.background);
+    }
+    instantiate();
+    return () => {
+      active = false;
+    };
+  }, []);
   return backgroundRef;
 };
 
@@ -34,6 +34,6 @@ const BackgroundElement = styled("div", {
   height: getViewportHeightCssValue(100),
   left: 0,
   top: 0,
-  background: "$dark",
+  background: "$white",
   willChange: "background",
 });

@@ -1,4 +1,3 @@
-import { useMedia } from "junoblocks";
 import {
   RequestsSequenceArray,
   useRegisterRequests,
@@ -8,6 +7,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { useDebounce } from "use-debounce";
 import { debounce } from "throttle-debounce";
 import dayjs from "dayjs";
+import { PrefetchStrategyType } from "@/components/ShowcasePrefetchList";
 
 export type BookApiResponse = {
   result?: Array<string>;
@@ -17,8 +17,35 @@ export type BookApiResponse = {
 };
 
 export const useAssemblePrefetchList = (
-  strategy: "debounce" | "cancel-irrelevant"
-) => {
+  strategy: PrefetchStrategyType
+): {
+  readonly state: {
+    route: "genres" | "titles";
+    requestStats: {
+      readonly debounce: { numberOfRequests: number } & {
+        totalTimeToDataMs?: number;
+        navigateToDataMs?: number;
+      };
+      readonly "cancel-irrelevant": { numberOfRequests: number } & {
+        totalTimeToDataMs?: number;
+        navigateToDataMs?: number;
+      };
+    };
+    genres: any;
+    loadingGenres: boolean;
+    requests: RequestsSequenceArray;
+    loading: boolean;
+    results: any;
+    currentGenre: string;
+  };
+  readonly actions: {
+    clearGenreSelection: () => void;
+    prefetch: (value: string) => void;
+    selectGenre: (genre: string) => void;
+    navigateToTitles: () => void;
+    navigateToGenres: () => void;
+  };
+} => {
   const [
     requests,
     {
@@ -170,7 +197,7 @@ export const useAssemblePrefetchList = (
       navigateToGenres,
       navigateToTitles,
     },
-  };
+  } as const;
 };
 
 const useInteracting = (data: unknown) => {
@@ -186,6 +213,31 @@ const useInteracting = (data: unknown) => {
   }, [data]);
   return interacting;
 };
+
+function getRequestsInRange(
+  requests: RequestsSequenceArray,
+  from: ReturnType<typeof dayjs>,
+  to: ReturnType<typeof dayjs>
+) {
+  const range: typeof requests = [];
+
+  try {
+    requests
+      .slice(0)
+      .reverse()
+      .forEach((request, index) => {
+        const [, { createdAt, finishedAt }] = request;
+        if (
+          (createdAt.isAfter(from) && createdAt.isBefore(to)) ||
+          (finishedAt?.isAfter(from) && finishedAt?.isBefore(to))
+        ) {
+          range.push(request);
+        }
+      });
+  } catch (e) {}
+
+  return range;
+}
 
 const usePrefetchListStats = ({
   strategy,
@@ -229,31 +281,7 @@ const usePrefetchListStats = ({
       : lastTimestamp.current;
   }, [interacting]);
 
-  function getRequestsInRange(
-    from: ReturnType<typeof dayjs>,
-    to: ReturnType<typeof dayjs>
-  ) {
-    const range: typeof requests = [];
-
-    try {
-      requests
-        .slice(0)
-        .reverse()
-        .forEach((request, index) => {
-          const [, { createdAt, finishedAt }] = request;
-          if (
-            (createdAt.isAfter(from) && createdAt.isBefore(to)) ||
-            (finishedAt?.isAfter(from) && finishedAt?.isBefore(to))
-          ) {
-            range.push(request);
-          }
-        });
-    } catch (e) {}
-
-    return range;
-  }
-
-  const stats = useMemo(() => {
+  return useMemo(() => {
     const { genres: navigatedToGenresAt, titles: navigatedToTitlesAt } =
       navigationTimestamps;
 
@@ -270,8 +298,12 @@ const usePrefetchListStats = ({
     let requestsInTheRange: RequestsSequenceArray | undefined;
     if (timestampWhenBeganInteracting) {
       requestsInTheRange = shouldMeasureTime
-        ? getRequestsInRange(timestampWhenBeganInteracting, navigatedToTitlesAt)
-        : getRequestsInRange(timestampWhenBeganInteracting, dayjs());
+        ? getRequestsInRange(
+            requests,
+            timestampWhenBeganInteracting,
+            navigatedToTitlesAt
+          )
+        : getRequestsInRange(requests, timestampWhenBeganInteracting, dayjs());
     }
 
     if (shouldMeasureTime && requestsInTheRange?.length) {
@@ -299,16 +331,23 @@ const usePrefetchListStats = ({
     }
 
     return {
-      debounce: {
-        ...lastMeasuredTime.current.debounce,
-        numberOfRequests: requestCount.current.debounce,
-      },
-      "cancel-irrelevant": {
-        ...lastMeasuredTime.current["cancel-irrelevant"],
-        numberOfRequests: requestCount.current["cancel-irrelevant"],
-      },
-    };
-  }, [requests, selectedGenre, timestampWhenBeganInteracting, strategy]);
-
-  return stats;
+      debounce: Object.assign(
+        {
+          numberOfRequests: requestCount.current.debounce,
+        },
+        lastMeasuredTime.current.debounce
+      ),
+      "cancel-irrelevant": Object.assign(
+        { numberOfRequests: requestCount.current["cancel-irrelevant"] },
+        lastMeasuredTime.current["cancel-irrelevant"]
+      ),
+    } as const;
+  }, [
+    navigationTimestamps,
+    timestampWhenBeganInteracting,
+    requests,
+    selectedGenre,
+    strategy,
+    selectedGenreTimestamp,
+  ]);
 };

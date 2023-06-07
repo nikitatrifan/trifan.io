@@ -40,9 +40,9 @@ export const useRegisterRequests = () => {
     checkForRequestsLimit();
 
     if (query) {
-      const requestIndex = requestsMap.findLastIndex(
-        ([queryInRequest]) => queryInRequest === query
-      );
+      const requestIndex = (
+        (requestsMap as any).findLastIndex as typeof requests.findIndex
+      )(([queryInRequest]) => queryInRequest === query);
 
       const request = requestsMap[requestIndex];
       request[1] = Object.assign(

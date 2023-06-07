@@ -4,7 +4,6 @@ import {
   media,
   styled,
   Text,
-  useColors,
   useInvertedThemeClassName,
   useMedia,
 } from "junoblocks";
@@ -12,19 +11,17 @@ import { ThemeModelAtom } from "@/components/ThemeModel/ThemeModelInterface";
 import { useCallback, useRef } from "react";
 import { gsap } from "gsap";
 import { useAppBackgroundRef } from "@/components/AppBackground";
-import { useSetNavigationPanelTheme } from "@/components/NavigationPanel";
 import { getViewportHeightCssValue } from "@/components/FixMobileViewportHeightBounce";
 import { useRecoilValue } from "recoil";
 import { useInitiateScrollBind } from "@/utils/useInitiateScrollBind";
 
-export const WhyNotPrerecorded = () => {
+export const StatementSection = () => {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const themeModel = useRecoilValue(ThemeModelAtom);
   const contentContainerRef = useRef<HTMLDivElement>(null);
   const appBackgroundRef = useAppBackgroundRef();
 
   const mobile = useMedia("sm");
-  const colors = useColors();
 
   /* bonkers; this timeline ruins the initial state of the theme modal on the first load */
   /* will set it up when the user is either nearing the section or scrolled passed it */
@@ -72,21 +69,21 @@ export const WhyNotPrerecorded = () => {
         0.65
       );
 
-      timeline.set(
-        appBackgroundRef.current,
-        {
-          background: colors.white,
-        },
-        0
-      );
-
-      timeline.to(
-        appBackgroundRef.current,
-        {
-          background: colors.dark,
-        },
-        0.35
-      );
+      // timeline.set(
+      //   appBackgroundRef.current,
+      //   {
+      //     background: colors.white,
+      //   },
+      //   0
+      // );
+      //
+      // timeline.to(
+      //   appBackgroundRef.current,
+      //   {
+      //     background: colors.dark,
+      //   },
+      //   0.35
+      // );
 
       if (
         modelRendererRef.current &&
@@ -153,7 +150,7 @@ export const WhyNotPrerecorded = () => {
     return () => {
       ctx.revert();
     };
-  }, [themeModel, mobile, appBackgroundRef, colors.white, colors.dark]);
+  }, [themeModel, mobile]);
 
   const prepareThemeModel = useCallback(() => {
     const { interfaceRef, rendererRef } = themeModel;
@@ -193,11 +190,6 @@ export const WhyNotPrerecorded = () => {
     },
   });
 
-  useSetNavigationPanelTheme({
-    elementId: "why-this-way",
-    themeKind: "inverted",
-  });
-
   const invertedThemeClassName = useInvertedThemeClassName();
 
   const contents = (
@@ -206,13 +198,14 @@ export const WhyNotPrerecorded = () => {
       are just like our minds and bodies that are constantly in a state of
       dynamic change.
       <br /> <br />
-      Playfulness is a key and is a natural consequence of a fluid interface.
-      Only happens when you nail everything. When the interface is responding
-      instantly and satisfyingly.
+      Allowing for constant redirection and interruption makes an interface
+      connected to you.
       <br /> <br />
-      When it’s redirectable and forgiving. When the motions and gestures are
-      smooth. The interface starts to feel in sync with you. Something magical
-      happens.
+      Everything is the state of change in the world and so our minds expect
+      that everywhere.
+      <br /> <br />
+      Accommodating for this kind of interfaces in the browser is the real
+      challenge.
     </Text>
   );
 
@@ -234,7 +227,7 @@ export const WhyNotPrerecorded = () => {
               color="tertiary"
               css={{ paddingBottom: "$10" }}
             >
-              Essence of what makes an interface truly great
+              Best in class work
             </Text>
             <Text kind="symbol" variant="title">
               Truly great interfaces feel like an extension of natural world. An

@@ -41,7 +41,7 @@ export const ShowcaseRequestsSequence = ({
       }
 
       /* the earliest take off time */
-      if (earliestTakeOff.isAfter(request.initiatedAt)) {
+      if (earliestTakeOff?.isAfter(request.initiatedAt)) {
         earliestTakeOff = request.initiatedAt;
       }
     });
@@ -157,7 +157,7 @@ const TimelineRenderer = ({
   longestRequestDurationMs,
   status,
 }: {
-  initiatedAt: dayjs.Dayjs;
+  initiatedAt?: dayjs.Dayjs;
   finishedAt?: dayjs.Dayjs;
   earliestTakeOff: dayjs.Dayjs | undefined;
   lastTimestamp: dayjs.Dayjs;
@@ -165,7 +165,7 @@ const TimelineRenderer = ({
   status: RequestItemStatus;
 }) => {
   const takeOffOffsetMs = earliestTakeOff
-    ? initiatedAt.diff(earliestTakeOff, "ms") ?? 0
+    ? initiatedAt?.diff(earliestTakeOff, "ms") ?? 0
     : 0;
   const offsetLeftPercent = (takeOffOffsetMs / longestRequestDurationMs) * 100;
 
@@ -209,15 +209,16 @@ const TimelineBar = styled("div", {
   borderRadius: "4px",
   variants: {
     status: {
-      fulfilled: {
-        backgroundColor: "$colors$valid90",
+      requested: {
+        backgroundColor: "$colors$dark30",
       },
       cancelled: {
         backgroundColor: "$colors$error90",
       },
-      requested: {
-        backgroundColor: "$colors$dark30",
+      fulfilled: {
+        backgroundColor: "$colors$valid90",
       },
+      created: {},
     },
   },
 });

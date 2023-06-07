@@ -108,7 +108,10 @@ export const useSimulateListInteractions = ({
 
     const getIndexesToInteractWith = () => {
       const direction = Math.random() > 0.5 ? 1 : -1;
-      const length = Math.ceil(Math.random() * itemIndexesRange.length);
+      const length = Math.max(
+        Math.ceil(Math.random() * itemIndexesRange.length),
+        3
+      );
       const indexes = itemIndexesRange.slice(0);
       if (direction < 0) indexes.reverse();
       return indexes.slice(0, length);

@@ -17,9 +17,16 @@ import {
   useMedia,
 } from "junoblocks";
 import { AnimatePresence, motion } from "framer-motion";
-import { ShowcaseRequestsSequence } from "@/components/ShowcaseRequestsSequence";
 
-export const useBindShowcasePrefetchList = ({ enabled, strategy }) => {
+export type PrefetchStrategyType = "debounce" | "cancel-irrelevant";
+
+export const useBindShowcasePrefetchList = ({
+  enabled,
+  strategy,
+}: {
+  enabled: boolean;
+  strategy: PrefetchStrategyType;
+}) => {
   const {
     state: {
       genres,
@@ -72,13 +79,13 @@ export const useBindShowcasePrefetchList = ({ enabled, strategy }) => {
     },
     requests,
     requestStats,
-  };
+  } as const;
 };
 
 type ShowcasePrefetchListProps = {
   onFocusChange: (val: boolean) => void;
-  backButtonRef: MutableRefObject<HTMLDivElement>;
-  listParentRef: MutableRefObject<HTMLDivElement>;
+  backButtonRef: MutableRefObject<HTMLButtonElement | null>;
+  listParentRef: MutableRefObject<HTMLDivElement | null>;
   route: "genres" | "titles";
   genres: BookApiResponse["result"];
   results: BookApiResponse["result"];

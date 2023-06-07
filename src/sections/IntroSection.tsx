@@ -1,19 +1,31 @@
 import { ContentContainer } from "@/components/ContentContainer";
-import { Button, Inline, styled, Text, useMedia } from "junoblocks";
+import {
+  ArrowUpIcon,
+  Button,
+  Inline,
+  media,
+  styled,
+  Text,
+  useColors,
+  useMedia,
+} from "junoblocks";
 import { useEffect, useRef } from "react";
 import ScrollTrigger from "gsap/dist/ScrollTrigger";
 import { gsap } from "gsap";
 import { useWindowHeight } from "@react-hook/window-size/throttled";
-import { useSetNavigationPanelTheme } from "@/components/NavigationPanel";
 import { scrollToElement } from "@/utils/scrollToElement";
 import { getViewportHeightCssValue } from "@/components/FixMobileViewportHeightBounce";
+import { useAppBackgroundRef } from "@/components/AppBackground";
 
-export const ApproachDifference = () => {
+export const IntroSection = () => {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
 
+  const appBackgroundRef = useAppBackgroundRef();
+
   const mobile = useMedia("sm");
   const height = useWindowHeight();
+  const colors = useColors();
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -25,10 +37,7 @@ export const ApproachDifference = () => {
           trigger: wrapperNode,
           start: "top top",
           end: "+=50%",
-          scrub: 0.35,
-          pin: true,
-          preventOverlaps: true,
-          refreshPriority: 1,
+          scrub: true,
           // pinType: "transform",
           invalidateOnRefresh: true,
         },
@@ -36,8 +45,40 @@ export const ApproachDifference = () => {
           ease: "none",
           duration: 1,
         },
-        onStart: ScrollTrigger.refresh,
-        onComplete: ScrollTrigger.refresh,
+      });
+
+      const textNodes = Array.from(
+        contentRef.current?.querySelectorAll(`${TextPiece}`) ?? []
+      ).reverse();
+      textNodes.forEach((node, index) => {
+        tl.fromTo(
+          node,
+          {
+            y: "0vh",
+            scale: 1,
+            rotateX: "0deg",
+            color: colors.dark90,
+          },
+          {
+            y: `${7 + 2.5 * (index / 2)}vh`,
+            scale: 1 - 0.1 * (index / 2),
+            rotateX: `-${4 + (1.5 * index) / 2}deg`,
+            color: colors.white,
+          },
+          0
+        );
+        if (index > 0) {
+          tl.fromTo(
+            node,
+            {
+              opacity: 1,
+            },
+            {
+              opacity: 0,
+            },
+            0
+          );
+        }
       });
 
       const random = (number: number, offset: number) =>
@@ -60,6 +101,7 @@ export const ApproachDifference = () => {
               x: `${xPercent}vw`,
               y: "100%",
               display: "none",
+              color: colors.dark90,
             },
             {
               scale: mobile ? 10 : 20,
@@ -68,6 +110,7 @@ export const ApproachDifference = () => {
               y: -height * 0.4,
               rotation,
               display: "block",
+              color: colors.white,
             },
             0.05 * idx
           );
@@ -76,18 +119,47 @@ export const ApproachDifference = () => {
           });
         }
       );
+
+      tl.fromTo(
+        document.querySelector("#intro-section-scroll"),
+        {
+          color: colors.dark90,
+          fill: colors.dark90,
+          opacity: 1,
+        },
+        {
+          color: colors.white,
+          fill: colors.white,
+          opacity: 0,
+        },
+        0
+      );
+
+      tl.fromTo(
+        appBackgroundRef.current,
+        {
+          backgroundColor: colors.white,
+        },
+        {
+          backgroundColor: colors.dark,
+        },
+        0
+      );
     });
 
     return () => {
       ctx.revert();
       ScrollTrigger.refresh();
     };
-  }, [height, mobile]);
-
-  useSetNavigationPanelTheme({
-    elementId: "intro",
-    themeKind: "default",
-  });
+  }, [
+    appBackgroundRef,
+    colors.dark,
+    colors.dark80,
+    colors.dark90,
+    colors.white,
+    height,
+    mobile,
+  ]);
 
   return (
     <>
@@ -97,6 +169,7 @@ export const ApproachDifference = () => {
           size="medium"
           css={{
             padding: "$30 0",
+            [media.sm]: { padding: "$12 0" },
             display: "flex",
             alignItems: "center",
             flexDirection: "column",
@@ -106,34 +179,52 @@ export const ApproachDifference = () => {
           }}
         >
           <Text
-            kind="symbol"
-            variant={mobile ? "primary" : "header"}
-            align="center"
+            kind="product"
+            variant="hero"
+            css={Object.assign(
+              { fontWeight: "400" },
+              mobile
+                ? { fontSize: "2rem", lineHeight: "2.5rem" }
+                : {
+                    fontSize: "3.5rem",
+                    lineHeight: "4.5rem",
+                  }
+            )}
           >
-            Truly excellent UIs take only 10% more time to build if you have the
-            understanding how.
+            <TextPiece>
+              Hi, my name’s{" "}
+              <span style={{ fontWeight: 600 }}>Nikita Trifan.</span>
+            </TextPiece>
             <br /> <br />
-          </Text>
-
-          <Text
-            kind="symbol"
-            variant={mobile ? "primary" : "header"}
-            align="center"
-          >
-            And yet it creates the most non linear outcomes. Makes users come
-            back for more. Makes companies buzz your phone.
+            <TextPiece>
+              I’m passionate about user interfaces. I code, prototype, design
+              and lead engineering teams.
+            </TextPiece>
+            <br /> <br />
+            <TextPiece>
+              I’m mostly excited about world class work. Instant and smooth
+              interfaces that feel like an extension of human mind.
+            </TextPiece>
+            <br /> <br />
           </Text>
           <Inline
             align="center"
             justifyContent="center"
-            css={{ padding: "$34 0 $28" }}
+            css={{
+              padding: "$34 0 $28",
+              [media.sm]: {
+                padding: "$34 0 $12",
+              },
+            }}
           >
             <Button
+              id="intro-section-scroll"
               variant="ghost"
               size="large"
               onClick={() => scrollToElement("show-case-search")}
+              iconRight={<ArrowUpIcon rotation="180deg" />}
             >
-              Learn more
+              Let me break it down
             </Button>
           </Inline>
         </ContentContainer>
@@ -166,9 +257,17 @@ export const ApproachDifference = () => {
 
 const Wrapper = styled("div", {
   minHeight: getViewportHeightCssValue(100),
+  paddingTop: getViewportHeightCssValue(10),
+  [media.sm]: {
+    minHeight: "unset",
+  },
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
   position: "relative",
   zIndex: "$2",
+});
+
+const TextPiece = styled("span", {
+  display: "inline-block",
 });

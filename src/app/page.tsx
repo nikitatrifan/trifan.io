@@ -1,45 +1,20 @@
 "use client";
 
-import { NavigationPanel } from "@/components/NavigationPanel";
 import { useEffect } from "react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Footer } from "@/sections/Footer";
 import dynamic from "next/dynamic";
 import { SectionLoader } from "@/components/SectionLoader";
 
-const DynamicApproachDifference = dynamic(
-  () =>
-    import("@/sections/ApproachDifference").then(
-      (mod) => mod.ApproachDifference
-    ),
+const DynamicIntroSection = dynamic(
+  () => import("@/sections/IntroSection").then((mod) => mod.IntroSection),
   {
     loading: () => <SectionLoader />,
   }
 );
 
-const DynamicSmoothFrameRate = dynamic(
-  () =>
-    import("@/sections/SmoothFrameSpeed").then((mod) => mod.SmoothFrameSpeed),
-  {
-    loading: () => <SectionLoader />,
-  }
-);
-
-const DynamicShowcaseSearchRequestStrategies = dynamic(
-  () =>
-    import("@/sections/ShowcaseSearchRequestStrategies").then(
-      (mod) => mod.ShowcaseSearchRequestStrategies
-    ),
-  {
-    loading: () => <SectionLoader />,
-  }
-);
-
-const DynamicShowcasePreloadStrategies = dynamic(
-  () =>
-    import(
-      "@/sections/ShowcasePreloadStrategies/ShowcasePreloadStrategies"
-    ).then((mod) => mod.ShowcasePreloadStrategies),
+const DynamicNetworkSection = dynamic(
+  () => import("@/sections/NetworkSection").then((mod) => mod.NetworkSection),
   {
     loading: () => <SectionLoader />,
   }
@@ -52,14 +27,7 @@ const DynamicStoryBehind = dynamic(
   }
 );
 
-const DynamicOutro = dynamic(
-  () => import("@/sections/Outro").then((mod) => mod.Outro),
-  {
-    loading: () => <SectionLoader />,
-  }
-);
-
-const DynamicTongueModel = dynamic(
+const DynamicThemeModel = dynamic(
   () =>
     import("@/components/ThemeModel/ThemeModel").then((mod) => mod.ThemeModel),
   {
@@ -67,9 +35,9 @@ const DynamicTongueModel = dynamic(
   }
 );
 
-const DynamicWhyNotPrerecorded = dynamic(
+const DynamicStatementSection = dynamic(
   () =>
-    import("@/sections/WhyNotPrerecorded").then((mod) => mod.WhyNotPrerecorded),
+    import("@/sections/StatementSection").then((mod) => mod.StatementSection),
   {
     loading: () => <SectionLoader />,
   }
@@ -91,17 +59,13 @@ function SortScrollTrigger() {
 export default function Home() {
   return (
     <>
-      <NavigationPanel />
-      <DynamicApproachDifference />
-      <DynamicShowcaseSearchRequestStrategies />
-      <DynamicShowcasePreloadStrategies />
-      <DynamicSmoothFrameRate />
-      <DynamicWhyNotPrerecorded />
+      <DynamicIntroSection />
+      <DynamicNetworkSection />
+      <DynamicStatementSection />
       <DynamicStoryBehind />
-      <DynamicOutro />
       <Footer />
       <SortScrollTrigger />
-      <DynamicTongueModel />
+      <DynamicThemeModel />
     </>
   );
 }
