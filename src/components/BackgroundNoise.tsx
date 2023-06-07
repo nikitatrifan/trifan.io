@@ -1,4 +1,4 @@
-import { styled, keyframes } from "junoblocks";
+import { styled, keyframes, useMedia, media } from "junoblocks";
 import { CSS } from "@stitches/react";
 import { getViewportHeightCssValue } from "@/components/FixMobileViewportHeightBounce";
 
@@ -63,18 +63,24 @@ const StyledDiv = styled("div", {
   animation: `${noiseAnimation} .2s steps(2) infinite`,
   transition: "opacity 1s",
   willChange: "transform",
+  [media.sm]: {
+    display: "none",
+  },
 });
 
 export const BackgroundNoise = ({ css, id }: { css?: CSS; id?: string }) => {
   const noiseImageSrc = "/images/noise-light.png";
+  const mobile = useMedia("sm");
   return (
-    <StyledDiv
-      data-image-src={noiseImageSrc}
-      data-image-type="bg"
-      data-image-load="instant"
-      style={{ backgroundImage: `url("${noiseImageSrc}")` }}
-      css={css}
-      id={id}
-    />
+    !mobile && (
+      <StyledDiv
+        data-image-src={noiseImageSrc}
+        data-image-type="bg"
+        data-image-load="instant"
+        style={{ backgroundImage: `url("${noiseImageSrc}")` }}
+        css={css}
+        id={id}
+      />
+    )
   );
 };

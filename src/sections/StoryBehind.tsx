@@ -53,7 +53,7 @@ export const StoryBehind = () => {
         color="secondary"
         css={{ paddingBottom: "$12" }}
       >
-        A key to fluidity
+        Key to fluidity
       </Text>
       <Text
         variant="hero"

@@ -1,62 +1,38 @@
 import { ShowcaseSearchRequestStrategies } from "@/sections/ShowcaseSearchRequestStrategies";
 import { ShowcasePreloadStrategies } from "@/sections/ShowcasePreloadStrategies";
-import { useEffect, useRef } from "react";
-import { gsap } from "gsap";
-import { useAppBackgroundRef } from "@/components/AppBackground";
-import { styled, useColors } from "junoblocks";
-import { getViewportHeightCssValue } from "@/components/FixMobileViewportHeightBounce";
+import { media, styled, Text, useMedia } from "junoblocks";
 
 export const NetworkSection = () => {
-  const backgroundRef = useAppBackgroundRef();
-  const colors = useColors();
-  const wrapperRef = useRef<HTMLElement>(null);
-
-  // useEffect(() => {
-  //   const context = gsap.context(() => {
-  //     const bgTimeline = gsap.timeline({
-  //       scrollTrigger: {
-  //         scroller: "#scroller",
-  //         trigger: wrapperRef.current,
-  //         start: "top-=10% top+=50%",
-  //         // markers: true,
-  //         end: "+=10%",
-  //         scrub: true,
-  //         // preventOverlaps: true,
-  //         refreshPriority: 1,
-  //         // invalidateOnRefresh: true,
-  //       },
-  //       defaults: {
-  //         ease: "none",
-  //         duration: 1,
-  //       },
-  //     });
-  //
-  //     // bgTimeline.fromTo(
-  //     //   backgroundRef.current,
-  //     //   {
-  //     //     background: colors.white,
-  //     //   },
-  //     //   {
-  //     //     background: colors.dark,
-  //     //   },
-  //     //   0
-  //     // );
-  //   });
-  //
-  //   return () => {
-  //     context.revert();
-  //   };
-  // });
+  const mobile = useMedia("sm");
 
   return (
-    <section ref={wrapperRef}>
+    <section>
       <ShowcaseSearchRequestStrategies />
       <ShowcasePreloadStrategies />
+      <LabelWrapper>
+        <Text
+          kind="symbol"
+          variant="hero"
+          align="center"
+          css={{ [media.sm]: { fontSize: "3.5rem", lineHeight: "4rem" } }}
+        >
+          World Class
+        </Text>
+      </LabelWrapper>
     </section>
   );
 };
 
-const Wrapper = styled("div", {
+const LabelWrapper = styled("div", {
   position: "relative",
-  minHeight: getViewportHeightCssValue(100),
+  margin: "0 auto 0",
+  paddingTop: "$16",
+  width: "95%",
+  height: 0,
+  zIndex: "$2",
+  bottom: 0,
+  mixBlendMode: "exclusion",
+  "*": {
+    transform: "translateY(-50%)",
+  },
 });

@@ -12,7 +12,7 @@ export const Footer = () => {
       >
         <Inline justifyContent="center" align="center">
           <Text variant="header" align="center">
-            If this is resonating with you, feel free to reach out
+            If this is resonating with you in any way, reach out at
             nikita@trifan.io
           </Text>
         </Inline>

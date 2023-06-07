@@ -109,6 +109,17 @@ export const StatementSection = () => {
 
         const startingPoint = 0;
 
+        modelTimeline.call(
+          () => {
+            gsap.set(modelRendererRef.current, {
+              display: "block",
+              visibility: "visible",
+            });
+          },
+          undefined,
+          0.05
+        );
+
         modelTimeline.fromTo(
           interfaceRef.current.model.position,
           { x: 0, y: -2.45, z: 0 },
@@ -156,9 +167,6 @@ export const StatementSection = () => {
     const { interfaceRef, rendererRef } = themeModel;
     if (interfaceRef.current) {
       interfaceRef.current.rendering = true;
-      gsap.set(rendererRef.current, {
-        display: "block",
-      });
     }
   }, [themeModel]);
 
@@ -204,7 +212,7 @@ export const StatementSection = () => {
       Everything is the state of change in the world and so our minds expect
       that everywhere.
       <br /> <br />
-      Accommodating for this kind of interfaces in the browser is the real
+      Accommodating for this kind of interface in the browser is the real
       challenge.
     </Text>
   );

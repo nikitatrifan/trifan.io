@@ -21,6 +21,7 @@ import { useWindowSize } from "@react-hook/window-size/throttled";
 const Renderer = styled("div", {
   width: "100%",
   display: "none",
+  visibility: "hidden",
   height: getViewportHeightCssValue(100),
   position: "fixed",
   left: 0,
@@ -253,14 +254,5 @@ export const ThemeModel = (
   //   };
   // }, []);
 
-  return (
-    <>
-      <Renderer id="theme-model-renderer" ref={rendererRef} {...props} />
-      {loadingModel && (
-        <Renderer variant="spinner">
-          <Spinner color="primary" />
-        </Renderer>
-      )}
-    </>
-  );
+  return <Renderer id="theme-model-renderer" ref={rendererRef} {...props} />;
 };
