@@ -19,11 +19,11 @@ function App() {
       <h2>Work</h2>
       <ul>
         <li>Unfazed, spiritual awakening through the power of AI <i>(Coming soon)</i></li>
-        <li>Hashout, the future of remote work, decentralized <i>(Coming soon)</i></li>
-        <li>Junoswap, a hackathon turned into a top-tier product in space <i>(Coming soon)</i></li>
-        <li>Frame.io, a world-class video collaboration platform <i>(Coming soon)</i></li>
-        <li>US Mobile, the best carrier product in the nation <i>(Coming soon)</i></li>
-        <li>EXP digital, an international product studio <i>(Coming soon)</i></li>
+        <li>Hashout, the future of remote work, decentralized <i>(Soon)</i></li>
+        <li>Junoswap, an interchain decentralized exchange focused on CW-20 asset adoption <i>(Soon)</i></li>
+        <li>Frame.io, a world-class video collaboration platform <i>(Soon)</i></li>
+        <li>US Mobile, the best carrier product in the nation <i>(Soon)</i></li>
+        <li>EXP digital, an international product studio <i>(Soon)</i></li>
       </ul>
 
       <h2>Magazine</h2>
@@ -39,7 +39,7 @@ function App() {
 
       <h2>Open source</h2>
       <ul>
-        <li><i>(Coming soon)</i> Fastest yet smallest animation library in React</li>
+        <li><a href="https://github.com/trifanio/react-hinge">React Hinge</a> - The fastest way to animate components in React</li>
         <li><i>(Coming soon)</i> A tiny router solution for layout animations in React</li>
       </ul>
 
