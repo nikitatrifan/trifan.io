@@ -18,7 +18,7 @@ function App() {
 
       <h2>Work</h2>
       <p>I've done a variety of projects, from AI powered mobile apps and Blockchain interfaces to world-class
-        collaboration tools and DevTools. <i>(Reach out for a walkthrough)</i>
+        collaboration tools and DevTools. <i>(if you'd like, reach out for a walkthrough)</i>
       </p>
 
       <h2>Magazine</h2>
