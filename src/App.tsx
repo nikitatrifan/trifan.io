@@ -28,7 +28,7 @@ function App() {
         <li>Perceived performance is all that matters <i>(Coming soon)</i></li>
         <li>I got you the fastest animation library for React <i>(Coming soon)</i></li>
         <li>A tiny routing solution to abstract layout animations in React <i>(Coming soon)</i></li>
-        <li>Who ate my App Store lunch? <i>(Coming soon)</i></li>
+        <li><a href="https://medium.com/@nikitatrifan/who-ate-my-app-store-lunch-ecce550573e6">Who ate my App Store lunch?</a></li>
         <li>Brave & bold request making for interface performance <i>(Coming soon)</i></li>
         <li><a href="https://medium.com/@nikitatrifan/is-my-state-in-react-going-to-cost-me-714fdd192ba7">Is my state in
           React going to cost me?</a></li>
