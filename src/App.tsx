@@ -79,7 +79,7 @@ function App() {
 
       <a href="javascript:;">nikita(at)trifan.io</a>
 
-      <p>Austin Texas, {currentYear}</p>
+      <p>San Francisco CA, {currentYear}</p>
     </>
   );
 }
