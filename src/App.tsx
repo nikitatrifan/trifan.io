@@ -35,7 +35,10 @@ function App() {
           </a>
         </li>
         <li>
-          Perceived performance is all that matters <i>(Coming soon)</i>
+          <a href="https://medium.com/@nikitatrifan/perceived-performance-is-all-that-matters-9d2d2d2d2d2d">
+            Perceived performance is all that matters
+          </a>
+          <i> (Unlisted writing #reactnative #swift #webapplications)</i>
         </li>
         <li>
           I got you the fastest animation library for React <i>(Coming soon)</i>
