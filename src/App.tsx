@@ -77,7 +77,7 @@ function App() {
 
       <h2>Connect</h2>
 
-      <a href="javascript:;">nikita(at)trifan.io</a>
+      <a href="javascript:;">first and last names (at) gmail.com</a>
 
       <p>San Francisco CA, {currentYear}</p>
     </>
